@@ -1,0 +1,6 @@
+rootProject.name = 'POS_Clothes'
+
+include ':Models'
+include ':Views'
+include ':Controllers'
+
