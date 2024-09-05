@@ -1,1 +1,13 @@
-description = 'Controllers'
+plugins {
+    id 'java'
+}
+
+description = 'POS Clothes - Controllers'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':Models') 
+}

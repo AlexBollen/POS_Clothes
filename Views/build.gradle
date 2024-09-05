@@ -1,1 +1,9 @@
-description = 'Views'
+description = 'POS Clothes - Views'
+
+application {
+    mainClass = 'org.wass.views.App'
+}
+
+dependencies {
+    implementation project(':Controllers')
+}

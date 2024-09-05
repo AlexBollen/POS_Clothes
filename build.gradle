@@ -1,12 +1,36 @@
 allprojects {
 
+    group = 'org.wass'
+    version = '1.0.0'
+
+    project.ext {
+        // global dependencies
+        
+    }
 
     repositories {
         mavenCentral()
+        mavenLocal()
     }
 }
 
 subprojects {
+    apply plugin: 'application'
     apply plugin: 'java'
+    apply plugin: 'idea'
 
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile).tap {
+            configureEach {
+                options.compilerArgs << "-Xlint:unchecked"
+                options.compilerArgs << "-Xlint:deprecation"
+            }
+        }
+    }
+
+    dependencies {
+        // You can read more about how to add dependencies here:
+        //   https://docs.gradle.org/current/userguide/dependency_management.html#sec:how_to_declare_your_dependencies
+        
+    }
 }
