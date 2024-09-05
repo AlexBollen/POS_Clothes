@@ -1,1 +1,9 @@
-description = 'Controllers'
+description = 'POS Clothes - Controllers'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':Models') 
+}
