@@ -15,9 +15,7 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'application'
     apply plugin: 'java'
-    apply plugin: 'idea'
 
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile).tap {
