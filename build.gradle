@@ -5,7 +5,9 @@ allprojects {
 
     project.ext {
         // global dependencies
-        
+        hikariCPVersion = '5.1.0'
+        jdbcMysqlVersion = '9.0.0'
+        log4jApiVersion = '2.0.16'
     }
 
     repositories {
@@ -29,6 +31,8 @@ subprojects {
     dependencies {
         // You can read more about how to add dependencies here:
         //   https://docs.gradle.org/current/userguide/dependency_management.html#sec:how_to_declare_your_dependencies
-        
+     
+        implementation "org.slf4j:slf4j-api:${log4jApiVersion}"
+        implementation "org.slf4j:slf4j-simple:${log4jApiVersion}"
     }
 }
