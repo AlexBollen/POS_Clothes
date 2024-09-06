@@ -19,7 +19,7 @@ public final class App {
      * El método principal; utiliza cero argumentos en el arreglo args.
      * @param args argumentos de la línea de comando
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) {        
         System.out.println("Hola MVC!");
     }
 }
