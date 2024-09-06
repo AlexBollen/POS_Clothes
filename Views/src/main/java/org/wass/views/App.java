@@ -21,5 +21,7 @@ public final class App {
      */
     public static void main(String[] args) {        
         System.out.println("Hola MVC!");
+        FormLogin frmLogin = new FormLogin();
+        frmLogin.setVisible(true);
     }
 }
