@@ -23,7 +23,7 @@ public final class App {
      */
     public static void main(String[] args) {     
         // Cargar y registrar fuentes
-        CustomFont.cargarFuentes("/fonts/roboto/");
+        CustomFont.cargarFuentes("/fonts/roboto/", "roboto-fonts.properties");
         
         FormLogin frmLogin = new FormLogin();
         frmLogin.setVisible(true);

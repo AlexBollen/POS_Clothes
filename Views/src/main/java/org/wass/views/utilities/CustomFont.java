@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.wass.views.utilities;
 
 import java.awt.Font;
@@ -15,20 +11,20 @@ import java.util.Properties;
  * fuentes en el sistema
  * 
  * @author Alex
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 public class CustomFont {
     // Método para cargar y registrar un listado de fuentes
-    public static void cargarFuentes(String fontsPath) {
+    public static void cargarFuentes(String fontsPath, String propsFile) {
         Properties props = new Properties();
-        try (InputStream is = CustomFont.class.getResourceAsStream(fontsPath + "roboto-fonts.properties")) {
+        try (InputStream is = CustomFont.class.getResourceAsStream(fontsPath + propsFile)) {
             props.load(is);
             for (String fontName : props.stringPropertyNames()) {
                 registrarFuente(fontsPath + fontName);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
     
@@ -45,7 +41,7 @@ public class CustomFont {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(fuente);
         } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }
