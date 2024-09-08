@@ -4,6 +4,8 @@
  */
 package org.wass.views;
 
+import org.wass.views.utilities.CustomFont;
+
 /**
  * Clase principal encargada de gestionar la entrada y salida de aplicación 
  * <b>POS Clothes</b>, este es el punto de montaje del software en donde solo se
@@ -19,8 +21,10 @@ public final class App {
      * El método principal; utiliza cero argumentos en el arreglo args.
      * @param args argumentos de la línea de comando
      */
-    public static void main(String[] args) {        
-        System.out.println("Hola MVC!");
+    public static void main(String[] args) {     
+        // Cargar y registrar fuentes
+        CustomFont.cargarFuentes("/fonts/roboto/");
+        
         FormLogin frmLogin = new FormLogin();
         frmLogin.setVisible(true);
     }
