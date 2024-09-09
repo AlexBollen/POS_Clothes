@@ -42,13 +42,13 @@ public final class CipherUtilities {
      * Tamaño máximo que soporta el algoritmo de cifrado Blowfish, dicho tamaño 
      * es utilizado por <b>BCrypt</b> para generar hashes.
      */
-    public static final int MAX_BLOWFISH   = 72;
+    public static final int MAX_BLOWFISH  = 72;
     
     /**
      * El costo del algoritmo a utilizar, entre más grande sea el costo más 
      * complicado será el cifrado lo que implica más tiempo de romperlo.
      */
-    public static final int COST_BLOWFISH = 12;
+    public static final int COST_BLOWFISH = 10;
     
     /**
      * Método encargado de generar un hash aleatorio mediante texto plano, dicho 
