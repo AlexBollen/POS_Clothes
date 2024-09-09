@@ -48,7 +48,7 @@ public final class CipherUtilities {
      * El costo del algoritmo a utilizar, entre más grande sea el costo más 
      * complicado será el cifrado lo que implica más tiempo de romperlo.
      */
-    public static final int CONST_BLOWFISH = 6;
+    public static final int COST_BLOWFISH = 6;
     
     /**
      * Método encargado de generar un hash aleatorio mediante texto plano, dicho 
@@ -75,9 +75,9 @@ public final class CipherUtilities {
             throw new IllegalArgumentException("Valor no válido: null");
         }        
         if (bits.length > MAX_BLOWFISH) {
-            return BCrypt.with(BCrypt.Version.VERSION_2Y, LongPasswordStrategies.hashSha512(BCrypt.Version.VERSION_2Y)).hash(CONST_BLOWFISH, bits);
+            return BCrypt.with(BCrypt.Version.VERSION_2Y, LongPasswordStrategies.hashSha512(BCrypt.Version.VERSION_2Y)).hash(COST_BLOWFISH, bits);
         } else {
-            return BCrypt.with(BCrypt.Version.VERSION_2Y).hash(CONST_BLOWFISH, bits);
+            return BCrypt.with(BCrypt.Version.VERSION_2Y).hash(COST_BLOWFISH, bits);
         }
     }
     
