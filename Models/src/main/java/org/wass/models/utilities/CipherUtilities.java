@@ -48,7 +48,7 @@ public final class CipherUtilities {
      * El costo del algoritmo a utilizar, entre más grande sea el costo más 
      * complicado será el cifrado lo que implica más tiempo de romperlo.
      */
-    public static final int COST_BLOWFISH = 6;
+    public static final int COST_BLOWFISH = 12;
     
     /**
      * Método encargado de generar un hash aleatorio mediante texto plano, dicho 
