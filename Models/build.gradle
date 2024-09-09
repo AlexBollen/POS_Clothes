@@ -7,4 +7,5 @@ repositories {
 dependencies {
     implementation "com.zaxxer:HikariCP:${hikariCPVersion}"
     implementation "com.mysql:mysql-connector-j:${jdbcMysqlVersion}"
+    implementation "at.favre.lib:bcrypt:${bcryptVersion}"
 }

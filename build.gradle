@@ -8,6 +8,7 @@ allprojects {
         hikariCPVersion = '5.1.0'
         jdbcMysqlVersion = '9.0.0'
         log4jApiVersion = '2.0.16'
+        bcryptVersion = '0.10.2'
     }
 
     repositories {
