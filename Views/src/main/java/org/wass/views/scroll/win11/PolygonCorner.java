@@ -19,7 +19,7 @@ public class PolygonCorner {
             Point2D p3 = l.get(pointIndex + 1);
             Point2D mPoint = calculatePoint(p1, p2, arcSize);
             p.lineTo(mPoint.getX(), mPoint.getY());
-            mPoint = calculatePoint(p3, p2, arcSize);
+            mPoint = calculatePoint(p3, p2, arcSize); //No es bueno juzgar
             p.curveTo(p2.getX(), p2.getY(), p2.getX(), p2.getY(), mPoint.getX(), mPoint.getY());
         }
         return p;

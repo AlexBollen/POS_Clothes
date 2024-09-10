@@ -142,6 +142,7 @@ public class MenuItem extends JButton {
             g2.translate(getWidth() - arrowWidth - 15, (getHeight() - arrowHeight) / 2);
             g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
             g2.draw(p);
+            //Hola Wilson
         }
         g2.dispose();
         rippleEffect.reder(grphcs, new Rectangle2D.Double(0, 0, getWidth(), getHeight()));

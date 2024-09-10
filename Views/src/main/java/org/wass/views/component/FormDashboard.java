@@ -8,12 +8,12 @@ package org.wass.views.component;
  *
  * @author marco
  */
-public class DashboardForm extends javax.swing.JPanel {
+public class FormDashboard extends javax.swing.JPanel {
 
     /**
-     * Creates new form DashboardForm
+     * Creates new form FormDashboard
      */
-    public DashboardForm() {
+    public FormDashboard() {
         initComponents();
     }
 
@@ -28,10 +28,6 @@ public class DashboardForm extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(221, 221, 218));
-        setForeground(new java.awt.Color(221, 221, 218));
-
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Dashboard");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -39,16 +35,16 @@ public class DashboardForm extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(240, 240, 240)
+                .addGap(262, 262, 262)
                 .addComponent(jLabel1)
-                .addContainerGap(284, Short.MAX_VALUE))
+                .addContainerGap(267, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(181, 181, 181)
+                .addGap(172, 172, 172)
                 .addComponent(jLabel1)
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
