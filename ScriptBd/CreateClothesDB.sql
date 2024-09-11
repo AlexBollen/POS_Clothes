@@ -191,20 +191,33 @@ CREATE TABLE `DetalleVenta`
 CREATE INDEX `IX_Relationship9` ON `DetalleVenta` (`IdProducto`);
 CREATE INDEX `IX_Relationship10` ON `DetalleVenta` (`IdFactura`, `IdSerie`);
 
+-- Tabla Rol
+
+CREATE TABLE `Rol`
+(
+  `IdRol` Int NOT NULL AUTO_INCREMENT,
+  `NombreRol` Varchar(100) NOT NULL,
+  `Estado` BIT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`IdRol`),
+  UNIQUE KEY `IdRol` (`IdRol`)
+);
+
 -- Tabla Usuario
 
 CREATE TABLE `Usuario`
 (
   `IdUsuario` Int NOT NULL AUTO_INCREMENT,
   `NombreUsuario` Varchar(75) NOT NULL,
-  `Contrasenia` Varchar(150) NOT NULL,
+  `Contrasenia` TEXT NOT NULL,
   `Estado` BIT NOT NULL DEFAULT 1,
   `IdPersona` Int,
+  `IdRol` INT,
   PRIMARY KEY (`IdUsuario`),
   UNIQUE KEY `IdUsuario` (`IdUsuario`)
 );
 
 CREATE INDEX `IX_Relationship14` ON `Usuario` (`IdPersona`);
+CREATE INDEX `IX_Relationship15` ON `Usuario` (`IdRol`);
 
 -- Tabla Persona
 
@@ -218,20 +231,6 @@ CREATE TABLE `Persona`
   PRIMARY KEY (`IdPersona`),
   UNIQUE KEY `IdPersona` (`IdPersona`)
 );
-
--- Tabla Rol
-
-CREATE TABLE `Rol`
-(
-  `IdRol` Int NOT NULL AUTO_INCREMENT,
-  `NombreRol` Varchar(100) NOT NULL,
-  `Estado` BIT NOT NULL DEFAULT 1,
-  `IdUsuario` Int,
-  PRIMARY KEY (`IdRol`),
-  UNIQUE KEY `IdRol` (`IdRol`)
-);
-
-CREATE INDEX `IX_Relationship15` ON `Rol` (`IdUsuario`);
 
 -- Tabla Caja
 
@@ -303,7 +302,7 @@ ALTER TABLE `Compra` ADD CONSTRAINT `Relationship21` FOREIGN KEY (`IdEstadoCompr
 
 ALTER TABLE `Usuario` ADD CONSTRAINT `Relationship14` FOREIGN KEY (`IdPersona`) REFERENCES `Persona` (`IdPersona`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-ALTER TABLE `Rol` ADD CONSTRAINT `Relationship15` FOREIGN KEY (`IdUsuario`) REFERENCES `Usuario` (`IdUsuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `Usuario` ADD CONSTRAINT `Relationship15` FOREIGN KEY (`IdRol`) REFERENCES `Rol` (`IdRol`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE `Caja` ADD CONSTRAINT `Relationship16` FOREIGN KEY (`IdUsuario`) REFERENCES `Usuario` (`IdUsuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
@@ -349,13 +348,13 @@ INSERT INTO `DetalleCompra` (`IdCompra`, `IdProducto`, `CantidadProducto`, `Esta
 VALUES (1, 1, 50, 1),
        (2, 2, 30, 1);
        
-INSERT INTO `Usuario` (`NombreUsuario`, `Contrasenia`, `Estado`, `IdPersona`)
-VALUES ('admin', 'hashed_password', 1, 1),
-       ('vendedor', 'hashed_password2', 1, 2);
+INSERT INTO `Rol` (`NombreRol`, `Estado`)
+VALUES ('Administrador', 1),
+       ('Vendedor', 1);
        
-INSERT INTO `Rol` (`NombreRol`, `Estado`, `IdUsuario`)
-VALUES ('Administrador', 1, 1),
-       ('Vendedor', 1, 2);
+INSERT INTO `Usuario` (`NombreUsuario`, `Contrasenia`, `Estado`, `IdPersona`, `IdRol`)
+VALUES ('admin', '$2y$10$Z43qTeGzYeQE8kRCPCfoUOwHk.SW7bWgG49//bCpJd4Czq0kti3.i', 1, 1, 1),
+       ('vendedor', '$2y$10$nddaqfK5DmXEoCYmHv3VJe/dWTyPCqaS3j6Dh651Yl2utWzwkCtay', 1, 2, 2);
 
 INSERT INTO `Caja` (`MontoInicial`, `Monto`, `EstadoCaja`, `FechaApertura`, `Estado`, `IdUsuario`)
 VALUES (500.00, 1200.00, 1, '2024-09-01 09:00:00', 1, 1),
