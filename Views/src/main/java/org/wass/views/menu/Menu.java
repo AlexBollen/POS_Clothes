@@ -1,11 +1,10 @@
 
-package org.wass.views.menu;
-
 /**
  *
  * @author marco
  */
 
+package org.wass.views.menu;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;

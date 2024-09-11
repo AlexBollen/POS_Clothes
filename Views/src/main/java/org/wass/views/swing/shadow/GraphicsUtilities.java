@@ -36,8 +36,7 @@ public class GraphicsUtilities {
         return createCompatibleImage(image, image.getWidth(), image.getHeight());
     }
 
-    public static BufferedImage createCompatibleImage(BufferedImage image,
-            int width, int height) {
+    public static BufferedImage createCompatibleImage(BufferedImage image, int width, int height) {
         return getGraphicsConfiguration().createCompatibleImage(width, height,
                 image.getTransparency());
     }
@@ -73,18 +72,15 @@ public class GraphicsUtilities {
         return compatibleImage;
     }
 
-    public static BufferedImage createThumbnailFast(BufferedImage image,
-            int newSize) {
+    public static BufferedImage createThumbnailFast(BufferedImage image,int newSize) {
         float ratio;
         int width = image.getWidth();
         int height = image.getHeight();
         if (width > height) {
             if (newSize >= width) {
-                throw new IllegalArgumentException("newSize must be lower than"
-                        + " the image width");
+                throw new IllegalArgumentException("newSize must be lower than the image width");
             } else if (newSize <= 0) {
-                throw new IllegalArgumentException("newSize must"
-                        + " be greater than 0");
+                throw new IllegalArgumentException("newSize must be greater than 0");
             }
             ratio = (float) width / (float) height;
             width = newSize;
@@ -222,8 +218,7 @@ public class GraphicsUtilities {
         if (pixels == null) {
             pixels = new int[w * h];
         } else if (pixels.length < w * h) {
-            throw new IllegalArgumentException("pixels array must have a length"
-                    + " >= w*h");
+            throw new IllegalArgumentException("pixels array must have a length >= w*h");
         }
         int imageType = img.getType();
         if (imageType == BufferedImage.TYPE_INT_ARGB
@@ -240,8 +235,7 @@ public class GraphicsUtilities {
         if (pixels == null || w == 0 || h == 0) {
             return;
         } else if (pixels.length < w * h) {
-            throw new IllegalArgumentException("pixels array must have a length"
-                    + " >= w*h");
+            throw new IllegalArgumentException("pixels array must have a length >= w*h");
         }
 
         int imageType = img.getType();

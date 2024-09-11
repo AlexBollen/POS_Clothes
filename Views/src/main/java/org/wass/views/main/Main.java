@@ -1,9 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package org.wass.views.main;
 
+package org.wass.views.main;
 import java.awt.Component;
 import org.wass.views.component.FormDashboard;
 import org.wass.views.menu.MenuEvent;
@@ -12,6 +8,7 @@ import org.wass.views.menu.MenuEvent;
  *
  * @author marco
  */
+
 public class Main extends javax.swing.JFrame {
 
   private String usuario = "usuario";

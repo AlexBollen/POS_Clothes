@@ -58,7 +58,6 @@ public class MenuItem extends JButton {
 
     private RippleEffect rippleEffect;
     private BufferedImage shadow;
-    private int shadowWidth;
     private int shadowSize = 10;
     
     private float animate;

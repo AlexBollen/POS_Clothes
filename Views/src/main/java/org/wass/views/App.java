@@ -25,7 +25,7 @@ public final class App {
         System.out.println("Hola MVC!");
          java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                //new Main().setVisible(true);
             }
         });
         
