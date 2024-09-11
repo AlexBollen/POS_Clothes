@@ -5,6 +5,7 @@
 package org.wass.views;
 
 import java.awt.Color;
+import org.wass.controllers.LoginController;
 
 /**
  *
@@ -13,7 +14,10 @@ import java.awt.Color;
 public class FormLogin extends javax.swing.JFrame {
 
     int xMouse, yMouse;
-    public FormLogin() {
+    private LoginController loginController;
+    
+    public FormLogin(LoginController loginController) {
+        this.loginController = loginController;
         initComponents();
     }
 
@@ -270,8 +274,16 @@ public class FormLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_passTxtMousePressed
 
     private void btnLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLabelMouseClicked
-        System.out.println("Se ha iniciado sesion");
-        // Aquí va toda la lógica de verificación de credenciales
+        String user = this.userTxt.getText();
+        String pass = String.valueOf(this.passTxt.getPassword());
+        Boolean isValid = loginController.validateLogin(user, pass);
+        if (isValid) {
+            // Implementar lógica para desplegar vista de dashboard
+            System.out.println("Se inicio sesion");
+        } else {
+            // Indicar error al intentar login
+            System.out.println("No se inicio sesion");
+        }
     }//GEN-LAST:event_btnLabelMouseClicked
 
     private void userTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userTxtFocusGained
