@@ -23,16 +23,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class Menu  extends JComponent{
     
-    public MenuEvent getEvent() {
-        return event;
-    }
-
-    public void setEvent(MenuEvent event) {
-        this.event = event;
-    }
-
-    
-    private  MigLayout layout;
+     private  MigLayout layout;
     
     private MenuEvent event;
     private String [][] menuItems = new String [][]{
@@ -48,7 +39,14 @@ public class Menu  extends JComponent{
     public Menu(){
         init();
     }
-    
+
+    public MenuEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(MenuEvent event) {
+        this.event = event;
+    }
     private void init(){
         layout = new MigLayout("wrap 1, fillx, gapy 0, inset 2", "fill");
         setLayout(layout);

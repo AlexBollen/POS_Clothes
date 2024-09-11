@@ -13,8 +13,6 @@ application {
 dependencies {
     implementation project(':Controllers')
     //implementation 'net.java.timingframework:timingframework-swing:4.1.0'
-    implementation name: 'java-geo-chart'
-    implementation name: 'gson-2.9.0'
     implementation name: 'TimingFramework-0.55'
     implementation name: 'miglayout-4.0'
 
