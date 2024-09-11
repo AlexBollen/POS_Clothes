@@ -5,6 +5,10 @@
 package org.wass.views;
 
 import org.wass.views.utilities.CustomFont;
+import org.wass.controllers.db.DBConfig;
+import org.wass.controllers.LoginController;
+import org.wass.models.UsuarioDao;
+import static org.wass.controllers.db.DBConfig.*;
 
 /**
  * Clase principal encargada de gestionar la entrada y salida de aplicación 
@@ -25,7 +29,21 @@ public final class App {
         // Cargar y registrar fuentes
         CustomFont.cargarFuentes("/fonts/roboto/", "roboto-fonts.properties");
         
-        FormLogin frmLogin = new FormLogin();
-        frmLogin.setVisible(true);
+        DBConfig config = nDataBaseConfig();
+        config.set(DataConfig.MySQLDataBase, "clothesbd");
+        config.set(DataConfig.MySQLUserName, "");
+        config.set(DataConfig.MySQLUserPassword, "");
+
+        // Creación de instancia UsuarioDao para ser utilizado
+        // en la validación de credenciales
+        UsuarioDao userDao = new UsuarioDao();
+        // Creación de instancia del controlador de login con UsuarioDao
+        // para que interactúe con la bd a través de este
+        LoginController loginController = new LoginController(userDao);
+
+        // Crear y mostrar el formulario de inicio de sesión
+        java.awt.EventQueue.invokeLater(() -> {
+            new FormLogin(loginController).setVisible(true);
+        });
     }
 }

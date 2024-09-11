@@ -1,4 +1,4 @@
-description = 'POS Clothes - Models'
+description = 'POS Clothes - Core'
 
 repositories {
     mavenCentral()
@@ -8,5 +8,4 @@ dependencies {
     implementation "com.zaxxer:HikariCP:${hikariCPVersion}"
     implementation "com.mysql:mysql-connector-j:${jdbcMysqlVersion}"
     implementation "at.favre.lib:bcrypt:${bcryptVersion}"
-    implementation project(':Core')
 }
