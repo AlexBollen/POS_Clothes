@@ -6,6 +6,8 @@ package org.wass.views;
 
 import java.awt.Color;
 import org.wass.controllers.LoginController;
+import org.wass.models.Usuario;
+import org.wass.views.main.Main;
 
 /**
  *
@@ -19,6 +21,8 @@ public class FormLogin extends javax.swing.JFrame {
     public FormLogin(LoginController loginController) {
         this.loginController = loginController;
         initComponents();
+        // Centrar form en la pantalla
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -276,13 +280,13 @@ public class FormLogin extends javax.swing.JFrame {
     private void btnLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLabelMouseClicked
         String user = this.userTxt.getText();
         String pass = String.valueOf(this.passTxt.getPassword());
-        Boolean isValid = loginController.validateLogin(user, pass);
-        if (isValid) {
+        Usuario logedUser = loginController.validateLogin(user, pass);
+        if (logedUser != null) {
             // Implementar lógica para desplegar vista de dashboard
-            System.out.println("Se inicio sesion");
-        } else {
-            // Indicar error al intentar login
-            System.out.println("No se inicio sesion");
+            java.awt.EventQueue.invokeLater(() -> {
+                dispose();
+                new Main(logedUser).setVisible(true);
+            });
         }
     }//GEN-LAST:event_btnLabelMouseClicked
 

@@ -1,6 +1,7 @@
 
 package org.wass.views.main;
 import java.awt.Component;
+import org.wass.models.Usuario;
 import org.wass.views.component.FormDashboard;
 import org.wass.views.menu.MenuEvent;
 
@@ -11,26 +12,28 @@ import org.wass.views.menu.MenuEvent;
 
 public class Main extends javax.swing.JFrame {
 
-  private String usuario = "usuario";
+    private String credencialesUsuario = "usuario";
+    private Usuario logedUser;
     
-    public Main() {
+    public Main(Usuario logedUser) {
+        this.logedUser = logedUser;
+        this.credencialesUsuario = logedUser.getNombrePersona() + " : " + logedUser.getRol().getNombreRol();
         initComponents();
         
         jButtonLogout.setFocusPainted(false);
         jButtonSettings.setFocusPainted(false);
         
-        header2.setLabelText("Dashboard - "+usuario);
+        header2.setLabelText("Dashboard - "+ credencialesUsuario);
         showForm(new FormDashboard());
             menu1.setEvent(new MenuEvent() {
             @Override
             public void selected(int index, int subIndex) {
-                System.out.println(index + "" + subIndex );
                 //Aquí se llaman a los formularios
                 switch (index) {
                     case 0:
                         //Dashboard
                         showForm(new FormDashboard());
-                        header2.setLabelText("Dashboard - "+usuario);
+                        header2.setLabelText("Dashboard - "+credencialesUsuario);
                         break;
                 /*if (index == 0) {
                 showForm(new HomeForm());
@@ -41,40 +44,43 @@ public class Main extends javax.swing.JFrame {
                         //Ventas
                         if(subIndex==1){ //Nueva venta
                             //showForm(new Formulario());
-                            header2.setLabelText("Nueva venta - "+usuario);
+                            header2.setLabelText("Nueva venta - "+credencialesUsuario);
                         }
                         else if(subIndex==2){ //Historial
-                            header2.setLabelText("Historial - "+usuario);
+                            header2.setLabelText("Historial - "+credencialesUsuario);
                         }   break;
                     case 2:
                         //Inventario
-                        header2.setLabelText("Inventario - "+usuario);
+                        header2.setLabelText("Inventario - "+credencialesUsuario);
                         break;
                     case 3:
                         //Compras
-                        header2.setLabelText("Compras - "+usuario);
+                        header2.setLabelText("Compras - "+credencialesUsuario);
                         break;
                     case 4:
                         //Beneficiarios
                         if(subIndex==1){//Clientes
-                            header2.setLabelText("Clientes - "+usuario);
+                            header2.setLabelText("Clientes - "+credencialesUsuario);
                         }
                         else if(subIndex==2){//Proveedores
-                            header2.setLabelText("Proveedores - "+usuario);
+                            header2.setLabelText("Proveedores - "+credencialesUsuario);
                         }   break;
                     case 5:
                         //Cajas
-                        header2.setLabelText("Cajas - "+usuario);
+                        header2.setLabelText("Cajas - "+credencialesUsuario);
                         break;
                     case 6:
                         //Reportes
-                        header2.setLabelText("Reportes - "+usuario);
+                        header2.setLabelText("Reportes - "+credencialesUsuario);
                         break;
                     default:
                         break;
                 }
             }
         });
+            
+        // Centrar form en la pantalla
+        setLocationRelativeTo(null);
     }
     
       private void showForm(Component com) {
@@ -127,6 +133,7 @@ public class Main extends javax.swing.JFrame {
 
         jButtonLogout.setBackground(new java.awt.Color(94, 142, 153));
         jButtonLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cerrar-sesion (1).png"))); // NOI18N
+        jButtonLogout.setBorder(null);
         jButtonLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLogoutActionPerformed(evt);
@@ -135,6 +142,7 @@ public class Main extends javax.swing.JFrame {
 
         jButtonSettings.setBackground(new java.awt.Color(94, 142, 153));
         jButtonSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ajustes (1).png"))); // NOI18N
+        jButtonSettings.setBorder(null);
         jButtonSettings.setFocusPainted(false);
         jButtonSettings.setFocusable(false);
         jButtonSettings.setRequestFocusEnabled(false);
@@ -176,7 +184,7 @@ public class Main extends javax.swing.JFrame {
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 

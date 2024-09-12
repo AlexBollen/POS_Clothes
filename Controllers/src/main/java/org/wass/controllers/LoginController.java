@@ -18,21 +18,21 @@ public class LoginController {
         this.userDao = userDao;
     }
     
-    public boolean validateLogin(String username, String password) {
+    public Usuario validateLogin(String username, String password) {
         if (username.isEmpty() || username.equals("Ingrese su nombre de usuario")) {
             JOptionPane.showMessageDialog(null, "El nombre de usuario es requerido");
-            return false;
+            return null;
         }
         if (password.isEmpty() || password.equals("********")) {
             JOptionPane.showMessageDialog(null, "La contraseña es requerida");
-            return false;
+            return null;
         }
         user = userDao.validateCredentials(username, password);
         if (user != null && user.getNombreUsuario() != null) {
-            return true;
+            return user;
         } else {
             JOptionPane.showMessageDialog(null, "Las credenciales no son válidas");
-            return false;
+            return null;
         }
     }
 }
