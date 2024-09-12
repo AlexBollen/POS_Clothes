@@ -12,12 +12,9 @@ application {
 
 dependencies {
     implementation project(':Controllers')
-    //implementation 'net.java.timingframework:timingframework-swing:4.1.0'
+    implementation project(':Core')
+    implementation project(':Models')
+
     implementation name: 'TimingFramework-0.55'
     implementation name: 'miglayout-4.0'
-
-
-
-
-
 }
