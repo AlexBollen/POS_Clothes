@@ -38,6 +38,7 @@ public final class App {
     public static void main(String[] args) {     
         // Cargar y registrar fuentes
         CustomFont.cargarFuentes("/fonts/roboto/", "roboto-fonts.properties");
+        CustomFont.cargarFuentes("/fonts/Cantarell/", "Cantarell.properties");
         
         DBConfig config = nDataBaseConfig();
         config.set(DataConfig.MySQLDataBase, "clothesbd");
