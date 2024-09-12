@@ -20,7 +20,7 @@ import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 public class RippleEffect {
-
+    
     private final Component component;
     private Color rippleColor = new Color(255, 255, 255);
     private List<Effect> effects;

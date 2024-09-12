@@ -22,7 +22,9 @@ import net.miginfocom.swing.MigLayout;
 
 public class Menu  extends JComponent{
     
-     private  MigLayout layout;
+    public static final Color BACKGROUND = new Color(247, 248, 250);
+    
+    private  MigLayout layout;
     
     private MenuEvent event;
     private String [][] menuItems = new String [][]{
@@ -54,18 +56,17 @@ public class Menu  extends JComponent{
         for (int i = 0; i < menuItems.length; i++) {
             addMenu(menuItems[i][0], i);
         }
+        
+        setBackground(BACKGROUND);
     }
     
-     private Icon getIcon(int index) {
-         
+     private Icon getIcon(int index) {         
         URL url = getClass().getResource("/Iconos/" + index + ".png");
         if (url != null) {
             return new ImageIcon(url);
         } else {
             return null;
-        }
-        
-        
+        }        
     }
 
     
@@ -105,12 +106,9 @@ public class Menu  extends JComponent{
         //panel.setBackground(new Color(0,0,0));
         for (int i = 1; i < length; i++) {
             MenuItem subItem = new MenuItem(menuItems[index][i], i, false);
-            subItem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent ae) {
-                     if (event != null) {
-                        event.selected(index, subItem.getIndex());
-                    }
+            subItem.addActionListener((ActionEvent ae) -> {
+                if (event != null) {
+                    event.selected(index, subItem.getIndex());
                 }
             });
             subItem.initSubMenu(i, length);
@@ -136,11 +134,8 @@ public class Menu  extends JComponent{
      @Override
     protected void paintComponent(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs.create();
-        g2.setColor(new Color(94, 142, 153));
+        g2.setColor(BACKGROUND);
         g2.fill(new Rectangle2D.Double(0, 0, getWidth(), getHeight()));
         super.paintComponent(grphcs);
     }
-
-
-    
 }
