@@ -24,10 +24,10 @@ public class UsuarioDao {
     * @return el usuario encontrado con credenciales validas, null en caso contrario
     */
     public Usuario validateCredentials(String username, String password) {
-        String sql = "SELECT U.*, P.*, R.NombreRol FROM usuario AS U " +
-                     "INNER JOIN persona AS P " +
+        String sql = "SELECT U.*, P.*, R.NombreRol FROM Usuario AS U " +
+                     "INNER JOIN Persona AS P " +
                      "ON P.IdPersona = U.IdPersona " +
-                     "INNER JOIN rol AS R " +
+                     "INNER JOIN Rol AS R " +
                      "ON R.IdRol = U.IdRol " +
                      "WHERE U.NombreUsuario=?";
         Usuario us = null;
