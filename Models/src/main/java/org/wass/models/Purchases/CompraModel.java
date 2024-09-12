@@ -112,5 +112,4 @@ public class CompraModel {
         this.idEstadoCompra = idEstadoCompra;
     }
 
-    
 }

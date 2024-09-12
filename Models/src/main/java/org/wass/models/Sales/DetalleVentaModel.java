@@ -72,5 +72,4 @@ public class DetalleVentaModel {
         this.idSerie = idSerie;
     }
     
-    
 }

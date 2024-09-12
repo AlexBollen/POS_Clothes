@@ -42,5 +42,4 @@ public class SerieFacturaModel {
         this.estado = estado;
     }
     
-    
 }

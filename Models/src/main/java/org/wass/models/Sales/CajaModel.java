@@ -82,5 +82,4 @@ public class CajaModel {
         this.idUsuario = idUsuario;
     }
     
-    
 }

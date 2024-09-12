@@ -42,5 +42,4 @@ public class TipoProductoModel {
         this.estado = estado;
     }
     
-    
 }

@@ -91,6 +91,5 @@ public class StockModel {
     public void setIdProducto(int idProducto) {
         this.idProducto = idProducto;
     }
-    
-    
+      
 }

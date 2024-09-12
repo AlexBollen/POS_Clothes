@@ -42,5 +42,4 @@ public class TipoPagoModel {
         this.estado = estado;
     }
     
-    
 }

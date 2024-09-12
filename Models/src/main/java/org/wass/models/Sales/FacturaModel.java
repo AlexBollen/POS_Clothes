@@ -102,5 +102,4 @@ public class FacturaModel {
         this.idSerie = idSerie;
     }
 
-    
 }

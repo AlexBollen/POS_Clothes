@@ -61,5 +61,4 @@ public class DetalleCompraModel {
         this.estado = estado;
     }
     
-    
 }

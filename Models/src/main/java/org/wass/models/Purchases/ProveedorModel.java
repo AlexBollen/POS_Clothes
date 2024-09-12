@@ -72,5 +72,4 @@ public class ProveedorModel {
         this.idPersona = idPersona;
     }
     
-    
 }

@@ -52,5 +52,4 @@ public class ClienteModel {
         this.idPersona = idPersona;
     }
     
-    
 }
