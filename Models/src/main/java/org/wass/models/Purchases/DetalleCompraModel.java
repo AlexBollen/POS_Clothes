@@ -15,9 +15,7 @@ public class DetalleCompraModel {
     private int cantidadProducto;
     private boolean estado;
 
-    public DetalleCompraModel(int idDetalleCompra, int idCompra, int idProducto, int cantidadProducto, boolean estado) {
-        this.idDetalleCompra = idDetalleCompra;
-        this.idCompra = idCompra;
+    public DetalleCompraModel(int idProducto, int cantidadProducto, boolean estado) {
         this.idProducto = idProducto;
         this.cantidadProducto = cantidadProducto;
         this.estado = estado;

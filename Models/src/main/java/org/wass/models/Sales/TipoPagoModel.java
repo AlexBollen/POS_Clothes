@@ -13,8 +13,7 @@ public class TipoPagoModel {
     private String nombreTipoPago;
     private boolean estado;
 
-    public TipoPagoModel(int idTipoPago, String nombreTipoPago, boolean estado) {
-        this.idTipoPago = idTipoPago;
+    public TipoPagoModel(String nombreTipoPago, boolean estado) {
         this.nombreTipoPago = nombreTipoPago;
         this.estado = estado;
     }

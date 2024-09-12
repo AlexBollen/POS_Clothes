@@ -13,8 +13,7 @@ public class SerieFacturaModel {
     private Date fechaInicio;
     private boolean estado;
 
-    public SerieFacturaModel(String idSerie, Date fechaInicio, boolean estado) {
-        this.idSerie = idSerie;
+    public SerieFacturaModel(Date fechaInicio, boolean estado) {
         this.fechaInicio = fechaInicio;
         this.estado = estado;
     }

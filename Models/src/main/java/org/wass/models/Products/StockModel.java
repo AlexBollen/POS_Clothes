@@ -18,8 +18,7 @@ public class StockModel {
     private boolean estado;
     private int idProducto;
 
-    public StockModel(int idStock, int cantidadInicial, int cantidadDisponible, Date fechaIngreso, String descripcionStock, String ubicacionBodega, boolean estado, int idProducto) {
-        this.idStock = idStock;
+    public StockModel( int cantidadInicial, int cantidadDisponible, Date fechaIngreso, String descripcionStock, String ubicacionBodega, boolean estado, int idProducto) {
         this.cantidadInicial = cantidadInicial;
         this.cantidadDisponible = cantidadDisponible;
         this.fechaIngreso = fechaIngreso;

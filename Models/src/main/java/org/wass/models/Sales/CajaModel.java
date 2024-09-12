@@ -17,8 +17,7 @@ public class CajaModel {
     private boolean estado;
     private int idUsuario;
 
-    public CajaModel(int idCaja, float montoInicial, float monto, boolean estadoCaja, Date fechaApertura, boolean estado, int idUsuario) {
-        this.idCaja = idCaja;
+    public CajaModel(float montoInicial, float monto, boolean estadoCaja, Date fechaApertura, boolean estado, int idUsuario) {
         this.montoInicial = montoInicial;
         this.monto = monto;
         this.estadoCaja = estadoCaja;

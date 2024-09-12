@@ -17,8 +17,7 @@ public class ProductoModel {
     private int idTipoProducto;
     private boolean estado;
 
-    public ProductoModel(int idProducto, String nombreProducto, float precioCosto, float precioVenta, float descuentoPorcentual, int idTipoProducto, boolean estado) {
-        this.idProducto = idProducto;
+    public ProductoModel( String nombreProducto, float precioCosto, float precioVenta, float descuentoPorcentual, int idTipoProducto, boolean estado) {
         this.nombreProducto = nombreProducto;
         this.precioCosto = precioCosto;
         this.precioVenta = precioVenta;

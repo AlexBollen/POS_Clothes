@@ -13,8 +13,7 @@ public class TipoProductoModel {
     private String nombreTipoProducto;
     private boolean estado;
 
-    public TipoProductoModel(int idTipoProducto, String nombreTipoProducto, boolean estado) {
-        this.idTipoProducto = idTipoProducto;
+    public TipoProductoModel( String nombreTipoProducto, boolean estado) {
         this.nombreTipoProducto = nombreTipoProducto;
         this.estado = estado;
     }

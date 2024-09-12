@@ -16,8 +16,7 @@ public class ProveedorModel {
     private boolean estado;
     private int idPersona;
 
-    public ProveedorModel(int idProveedor, String nombreComercial, String telefono2, String correo, boolean estado, int idPersona) {
-        this.idProveedor = idProveedor;
+    public ProveedorModel(String nombreComercial, String telefono2, String correo, boolean estado, int idPersona) {
         this.nombreComercial = nombreComercial;
         this.telefono2 = telefono2;
         this.correo = correo;

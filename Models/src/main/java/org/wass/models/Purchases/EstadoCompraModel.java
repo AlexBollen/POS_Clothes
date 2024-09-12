@@ -12,8 +12,7 @@ public class EstadoCompraModel {
     private int idEstadoCompra;
     private String nombreEstadoCompra;
 
-    public EstadoCompraModel(int idEstadoCompra, String nombreEstadoCompra) {
-        this.idEstadoCompra = idEstadoCompra;
+    public EstadoCompraModel(String nombreEstadoCompra) {
         this.nombreEstadoCompra = nombreEstadoCompra;
     }
 

@@ -14,8 +14,7 @@ public class ClienteModel {
     private boolean estado;
     private int idPersona;
 
-    public ClienteModel(int idCliente, String nit, boolean estado, int idPersona) {
-        this.idCliente = idCliente;
+    public ClienteModel(String nit, boolean estado, int idPersona) {
         this.nit = nit;
         this.estado = estado;
         this.idPersona = idPersona;

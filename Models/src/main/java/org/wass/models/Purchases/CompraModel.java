@@ -20,8 +20,7 @@ public class CompraModel {
     private int idTipoPago;
     private int idEstadoCompra;
 
-    public CompraModel(int idCompra, String descripcionCompra, int cantidadPedida, int cantidadRecibida, float totalCompra, Date fechaCompra, boolean estado, int idProveedor, int idTipoPago, int idEstadoCompra) {
-        this.idCompra = idCompra;
+    public CompraModel(String descripcionCompra, int cantidadPedida, int cantidadRecibida, float totalCompra, Date fechaCompra, boolean estado, int idProveedor, int idTipoPago, int idEstadoCompra) {
         this.descripcionCompra = descripcionCompra;
         this.cantidadPedida = cantidadPedida;
         this.cantidadRecibida = cantidadRecibida;
