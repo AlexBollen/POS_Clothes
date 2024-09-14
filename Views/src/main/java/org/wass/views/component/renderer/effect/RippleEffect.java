@@ -1,4 +1,4 @@
-package org.wass.views.effect;
+package org.wass.views.component.renderer.effect;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;

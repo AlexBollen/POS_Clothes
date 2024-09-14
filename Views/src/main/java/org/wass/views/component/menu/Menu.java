@@ -1,30 +1,40 @@
+package org.wass.views.component.menu;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.geom.Rectangle2D;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+
+import net.miginfocom.swing.MigLayout;
+import org.wass.views.component.renderer.BorderRenderer;
 
 /**
  *
  * @author marco
  */
-
-package org.wass.views.menu;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.Rectangle2D;
-import java.net.URL;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import net.miginfocom.swing.MigLayout;
-
-
 public class Menu  extends JComponent{
     
-    public static final Color BACKGROUND = new Color(247, 248, 250);
+    public static final Color BACKGROUND        = new Color(30, 31, 34);
+    public static final Color SELECTED_COLOR    = new Color(46, 67, 110);
     
-    private  MigLayout layout;
+    public static final Color DEFAULT_FOREGROUND  = new Color(187,187,187);
+    public static final Color SELECTED_FOREGROUND = new Color(244, 244, 244);
+    
+    private final Map<MenuItem, Map<Integer, MenuItem>> cache = new HashMap<>();
+    private MigLayout layout;
+    private MenuItemGroup group;
     
     private MenuEvent event;
     private String [][] menuItems = new String [][]{
@@ -50,8 +60,38 @@ public class Menu  extends JComponent{
     }
     private void init(){
         layout = new MigLayout("wrap 1, fillx, gapy 0, inset 2", "fill");
+        group = new MenuItemGroup();
+        group.addMenuItemSelectedListener((MenuItem item, boolean b) -> {
+            Border border = item.getBorder();
+            Insets insets = null;
+            
+            if (border instanceof EmptyBorder emptyBorder) {
+                insets = emptyBorder.getBorderInsets();
+            }
+            
+            if (b) {
+                item.setBackground(SELECTED_COLOR);
+                item.setForeground(SELECTED_FOREGROUND);
+                
+                if (insets != null) {
+                    insets.right = 4;
+                    item.setBorder(new BorderRenderer(insets)
+                                            .addBorderLineColor(BorderRenderer.BorderLine.Right, new Color( 53, 116, 240)));
+                }
+            } else {
+                item.setBackground(BACKGROUND);
+                item.setForeground(DEFAULT_FOREGROUND);
+                item.setBorder(new BorderRenderer(9, 10, 9, 10));
+                
+                if (insets != null) {
+                    item.setBorder(new EmptyBorder(insets));
+                }
+            }
+        });
+        
         setLayout(layout);
         setOpaque(true);
+        
         //  Init MenuItem
         for (int i = 0; i < menuItems.length; i++) {
             addMenu(menuItems[i][0], i);
@@ -77,7 +117,19 @@ public class Menu  extends JComponent{
         if (icon != null) {
             item.setIcon(icon);
         }
-        item.addActionListener((ActionEvent ae) -> {
+        
+        if (length > 1) {
+            item.setContentAreaFilled(false);
+            cache.put(item, new HashMap<>());
+        } else {
+            group.add(item);
+        }
+        
+        if (index == 0) {
+            item.setSelecteItem(true);
+        }
+        
+        item.addActionListener((ActionEvent ae) -> {            
             if (length > 1) {
                 if (!item.isSelected()) {
                     item.setSelected(true);
@@ -89,8 +141,9 @@ public class Menu  extends JComponent{
                 }
             } else {
                 if (event != null) {
-                event.selected(index, 0);
+                    event.selected(index, 0);
                 }
+                item.setSelecteItem(true);
             }
         });
         add(item);
@@ -103,16 +156,30 @@ public class Menu  extends JComponent{
         panel.setName(index + "");
         panel.setOpaque(false); 
        
-        //panel.setBackground(new Color(0,0,0));
+        Map<Integer, MenuItem> cachMenu = cache.get(item);
+        
+        
         for (int i = 1; i < length; i++) {
+            if (cachMenu != null) {
+                MenuItem subItem = cachMenu.get(i);
+                if (subItem != null) {
+                    panel.add(subItem);
+                    continue;
+                }
+            }
+            
             MenuItem subItem = new MenuItem(menuItems[index][i], i, false);
             subItem.addActionListener((ActionEvent ae) -> {
                 if (event != null) {
                     event.selected(index, subItem.getIndex());
                 }
+                subItem.setSelecteItem(true);
             });
             subItem.initSubMenu(i, length);
             panel.add(subItem);
+
+            cachMenu.put(i, subItem);
+            group.add(subItem);
         }
         add(panel, "h 0!", indexZorder + 1);
         revalidate();

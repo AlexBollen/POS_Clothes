@@ -7,13 +7,12 @@ package org.wass.views;
 import java.awt.Color;
 import org.wass.controllers.LoginController;
 import org.wass.models.Usuario;
-import org.wass.views.main.MainFrame;
 
 /**
  *
  * @author Alex
  */
-public class FormLogin extends javax.swing.JFrame {
+public class FormLogin extends AbstractFrame {
 
     int xMouse, yMouse;
     private LoginController loginController;

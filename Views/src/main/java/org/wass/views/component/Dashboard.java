@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 /**
  * @author marco
  */
-public class Dashboard extends JPanel {
+public class Dashboard extends JPanel implements Control {
     
     public Dashboard() {
         initComponents();
@@ -17,7 +17,7 @@ public class Dashboard extends JPanel {
 
         jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(237, 237, 235));
 
         jLabel1.setText("Dashboard");
 
@@ -40,6 +40,10 @@ public class Dashboard extends JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 
+    public String getComponenteTitle() {
+        return "Dashboard";
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables

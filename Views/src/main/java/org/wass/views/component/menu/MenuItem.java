@@ -1,4 +1,4 @@
-package org.wass.views.menu;
+package org.wass.views.component.menu;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -12,18 +12,22 @@ import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import org.wass.views.effect.RippleEffect;
-import org.wass.views.swing.shadow.ShadowRenderer;
+import org.wass.views.component.renderer.effect.RippleEffect;
+import org.wass.views.component.renderer.ShadowRenderer;
 
 public class MenuItem extends JButton {
     
     private static final Color COLOR_DOWN = new Color(53, 116, 240);
-
+    private static final Color COLOR_LINE = new Color(102, 93, 71);
+   
     private RippleEffect rippleEffect;
     private BufferedImage shadow;
-    private int shadowSize = 10;
+    private MenuItemGroup group;
     
+    private int shadowSize = 10;    
     private float animate;
+    private boolean selecteItem;
+    
     //  Submenu
     private int index;
     private boolean subMenuAble;
@@ -35,17 +39,18 @@ public class MenuItem extends JButton {
         super(name);
         this.index = index;
         this.subMenuAble = subMenuAble;
-        setContentAreaFilled(false);
-        //setForeground(new Color(230, 230, 230));
+        
+        setForeground(Menu.DEFAULT_FOREGROUND);
         setHorizontalAlignment(SwingConstants.LEFT);
         setBorder(new EmptyBorder(9, 10, 9, 10));
         setIconTextGap(10);
         setFocusPainted(false);
         setFont(new Font("Cantarell", 0, 14));
         setCursor(new Cursor(Cursor.HAND_CURSOR));
+        setBackground(Menu.BACKGROUND);
         
         rippleEffect = new RippleEffect(this);
-        rippleEffect.setRippleColor(new Color(220, 220, 220));
+        rippleEffect.setRippleColor(Color.BLUE);
     }
 
     private void createShadowImage() {
@@ -63,7 +68,6 @@ public class MenuItem extends JButton {
         this.subMenuIndex = subMenuIndex;
         this.length = length;
         setBorder(new EmptyBorder(9, 33, 9, 10));
-        setBackground(new Color(74, 112, 121));
         setOpaque(true);
     }
 
@@ -73,7 +77,7 @@ public class MenuItem extends JButton {
         Graphics2D g2 = (Graphics2D) grphcs.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         if (length != 0) {
-            //g2.setColor(new Color(230, 230, 230));
+            g2.setColor(COLOR_LINE);
             if (subMenuIndex == 1) {
                 //  First Index
                 g2.drawImage(shadow, -shadowSize, -20, null);
@@ -92,21 +96,14 @@ public class MenuItem extends JButton {
             g2.setColor(COLOR_DOWN);
             int arrowWidth = 8;
             int arrowHeight = 4;
-            Path2D p = new Path2D.Double();
-           /* p.moveTo(0, arrowHeight );
-            p.lineTo(arrowWidth/2,0);
-            p.lineTo(arrowWidth, arrowHeight);
             
-            g2.translate(getWidth() - arrowWidth - 15, (getHeight() - arrowHeight) / 2);
-            g2.draw(p);*/
-            
+            Path2D p = new Path2D.Double();            
             p.moveTo(0, arrowHeight * animate);
             p.lineTo(arrowWidth / 2, (1f - animate) * arrowHeight);
             p.lineTo(arrowWidth, arrowHeight * animate);
             g2.translate(getWidth() - arrowWidth - 15, (getHeight() - arrowHeight) / 2);
             g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
             g2.draw(p);
-            //Hola Wilson
         }
         g2.dispose();
         rippleEffect.reder(grphcs, new Rectangle2D.Double(0, 0, getWidth(), getHeight()));
@@ -116,6 +113,21 @@ public class MenuItem extends JButton {
     public void setBounds(int i, int i1, int i2, int i3) {
         super.setBounds(i, i1, i2, i3);
         createShadowImage();
+    }
+
+    public boolean isSelecteItem() {
+        return selecteItem;
+    }
+
+    public void setSelecteItem(boolean selecteItem) {
+        this.selecteItem = selecteItem;
+        if (group != null) {
+            group.setSelected(this, selecteItem);
+        }
+    }
+
+    public void setGroup(MenuItemGroup group) {
+        this.group = group;
     }
     
     public float getAnimate() {
