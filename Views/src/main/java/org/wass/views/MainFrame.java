@@ -212,7 +212,7 @@ public class MainFrame extends AbstractFrame {
         jPanelBody.setLayout(new java.awt.BorderLayout());
 
         jPanel7.setBackground(new java.awt.Color(244, 244, 244));
-        jPanel7.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        jPanel7.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(204, 204, 204)));
 
         jPanelHeaderView.setBackground(new java.awt.Color(255, 255, 255));
         jPanelHeaderView.setLayout(new java.awt.BorderLayout());
