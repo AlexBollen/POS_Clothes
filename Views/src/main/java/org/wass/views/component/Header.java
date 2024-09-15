@@ -5,10 +5,11 @@
 package org.wass.views.component;
 
 import java.awt.Color;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.Rectangle2D;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -19,43 +20,69 @@ public class Header extends javax.swing.JPanel {
     /**
      * Creates new form Header
      */
-    public Header() {
-        
+    public Header() {        
         initComponents();
         setOpaque(false);
     }
 
-   
-     @Override
+    @Override
     protected void paintComponent(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs.create();
-        g2.setPaint(new GradientPaint(0, 0, new Color(94, 142, 153), 0, getHeight(), new Color(94, 142, 153)));
+        g2.setColor(new Color(244, 244, 244));
         g2.fill(new Rectangle2D.Double(0, 0, getWidth(), getHeight()));
         g2.dispose();
         super.paintComponent(grphcs);
     }
     
-    public void setLabelText(String newText) {
-        jLabelVista.setText(newText);
+    public void setUserName(String value) {
+        jLabelUserName.setText(value);
+    }
+    
+    public void setUserRol(String value) {
+        jLabelRol.setText(value);
+    }
+    
+    public void setHeaderTitle(String value) {
+        jLabelTitle.setText(value);
+    }
+    
+    public void setProfile(Image image) {
+        jLabelProfile.setIcon(new ImageIcon(image.getScaledInstance(48, 48, Image.SCALE_SMOOTH)));
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabelVista = new javax.swing.JLabel();
+        jLabelUserName = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabelProfile = new javax.swing.JLabel();
+        jLabelRol = new javax.swing.JLabel();
+        jLabelTitle = new javax.swing.JLabel();
 
         setForeground(new java.awt.Color(255, 51, 51));
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(230, 230, 230));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logoPetit.png"))); // NOI18N
-        jLabel1.setText("WASS");
+        jLabelUserName.setFont(new java.awt.Font("Cantarell", 1, 14)); // NOI18N
+        jLabelUserName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelUserName.setText("Nombre usuario");
 
-        jLabelVista.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jLabelVista.setForeground(new java.awt.Color(230, 230, 230));
-        jLabelVista.setText("Vista");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/logout_box.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setFocusPainted(false);
+        jButton1.setFocusable(false);
+
+        jLabelProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/avatardefault.png"))); // NOI18N
+
+        jLabelRol.setForeground(new java.awt.Color(133, 133, 133));
+        jLabelRol.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelRol.setText("Mi rol");
+
+        jLabelTitle.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
+        jLabelTitle.setText("My Panel");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -63,25 +90,44 @@ public class Header extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(95, 95, 95)
-                .addComponent(jLabelVista)
-                .addContainerGap(369, Short.MAX_VALUE))
+                .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                    .addComponent(jLabelRol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabelVista))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabelUserName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelRol)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabelProfile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelVista;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabelProfile;
+    private javax.swing.JLabel jLabelRol;
+    private javax.swing.JLabel jLabelTitle;
+    private javax.swing.JLabel jLabelUserName;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,6 +9,7 @@ allprojects {
         jdbcMysqlVersion = '9.0.0'
         log4jApiVersion = '2.0.16'
         bcryptVersion = '0.10.2'
+        flatlafVersion = '3.5.1'
     }
 
     repositories {

@@ -1,4 +1,4 @@
-package org.wass.views.swing.shadow;
+package org.wass.views.utilities;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;

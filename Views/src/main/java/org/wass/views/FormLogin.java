@@ -7,13 +7,12 @@ package org.wass.views;
 import java.awt.Color;
 import org.wass.controllers.LoginController;
 import org.wass.models.Usuario;
-import org.wass.views.main.Main;
 
 /**
  *
  * @author Alex
  */
-public class FormLogin extends javax.swing.JFrame {
+public class FormLogin extends AbstractFrame {
 
     int xMouse, yMouse;
     private LoginController loginController;
@@ -285,7 +284,7 @@ public class FormLogin extends javax.swing.JFrame {
             // Implementar lógica para desplegar vista de dashboard
             java.awt.EventQueue.invokeLater(() -> {
                 dispose();
-                new Main(logedUser).setVisible(true);
+                new MainFrame(logedUser).setVisible(true);
             });
         }
     }//GEN-LAST:event_btnLabelMouseClicked

@@ -4,6 +4,14 @@
  */
 package org.wass.views;
 
+import com.formdev.flatlaf.FlatIntelliJLaf;
+
+import java.awt.EventQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import org.wass.views.utilities.CustomFont;
 import org.wass.controllers.db.DBConfig;
 import org.wass.controllers.LoginController;
@@ -20,6 +28,8 @@ import static org.wass.controllers.db.DBConfig.*;
  * @since 1.0.0
  */
 public final class App {
+    /** Logger de la clase. */
+    private static final Logger LOGGER = Logger.getLogger(App.class.getName());
     
     /**
      * El método principal; utiliza cero argumentos en el arreglo args.
@@ -28,21 +38,33 @@ public final class App {
     public static void main(String[] args) {     
         // Cargar y registrar fuentes
         CustomFont.cargarFuentes("/fonts/roboto/", "roboto-fonts.properties");
+        CustomFont.cargarFuentes("/fonts/Cantarell/", "Cantarell.properties");
         
         DBConfig config = nDataBaseConfig();
         config.set(DataConfig.MySQLDataBase, "clothesbd");
         config.set(DataConfig.MySQLUserName, "");
         config.set(DataConfig.MySQLUserPassword, "");
 
+        /*
+         * Establecer un 'LookAndFeel' del tipo 'flat' si es posibles, de lo
+         * contrario se utilizara el tema predeterminado por el sistema Swinf/AWT.
+         */
+        try {
+            UIManager.setLookAndFeel(new FlatIntelliJLaf());
+        } catch (UnsupportedLookAndFeelException e) {
+            LOGGER.log(Level.WARNING, "Erro al establecer el tema: {0}", e.getMessage());
+        }
+        
         // Creación de instancia UsuarioDao para ser utilizado
         // en la validación de credenciales
         UsuarioDao userDao = new UsuarioDao();
+        
         // Creación de instancia del controlador de login con UsuarioDao
         // para que interactúe con la bd a través de este
         LoginController loginController = new LoginController(userDao);
 
         // Crear y mostrar el formulario de inicio de sesión
-        java.awt.EventQueue.invokeLater(() -> {
+        EventQueue.invokeLater(() -> {
             new FormLogin(loginController).setVisible(true);
         });
     }

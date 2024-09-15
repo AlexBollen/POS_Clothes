@@ -21,7 +21,7 @@ public class CustomFont {
         try (InputStream is = CustomFont.class.getResourceAsStream(fontsPath + propsFile)) {
             props.load(is);
             for (String fontName : props.stringPropertyNames()) {
-                registrarFuente(fontsPath + fontName);
+                registrarFuente(fontsPath + props.getProperty(fontName));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -37,6 +37,7 @@ public class CustomFont {
             }
             // Cargar la fuente desde el archivo
             Font fuente = Font.createFont(Font.TRUETYPE_FONT, is);
+            
             // Registrar la fuente en el sistema
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(fuente);
