@@ -52,7 +52,7 @@ public final class App {
         try {
             UIManager.setLookAndFeel(new FlatIntelliJLaf());
         } catch (UnsupportedLookAndFeelException e) {
-            LOGGER.log(Level.WARNING, "Erro al establecer el tema: {0}", e.getMessage());
+            LOGGER.log(Level.WARNING, "Error al establecer el tema: {0}", e.getMessage());
         }
         
         // Creación de instancia UsuarioDao para ser utilizado

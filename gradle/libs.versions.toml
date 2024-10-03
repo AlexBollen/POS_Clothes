@@ -1,0 +1,29 @@
+## catalog of libraries and plugins used to build the 'POS Clothes' project
+
+[versions]
+
+mysql       = "9.0.0"
+dataSources = "5.1.0"
+bcrypt      = "0.10.2"
+
+log4j     = "2.0.16"
+flatlaf   = "3.5.1"
+
+[libraries]
+
+flatlaf = { module = "com.formdev:flatlaf", version.ref = "flatlaf" }
+
+dataSources = { module = "com.zaxxer:HikariCP",         version.ref = "dataSources" }
+mysql       = { module = "com.mysql:mysql-connector-j", version.ref = "mysql" }
+bcrypt      = { module = "at.favre.lib:bcrypt",         version.ref = "bcrypt" }
+
+slf4j       =  { module = "org.slf4j:slf4j-api",     version.ref = "log4j" }
+slf4jsimple =  { module = "org.slf4j:slf4j-simple",  version.ref = "log4j" }
+
+[bundles]
+
+# none
+
+[plugins]
+
+#none
