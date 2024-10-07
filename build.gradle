@@ -1,41 +1,58 @@
-allprojects {
+plugins {
+    id 'application'
+    id 'java'
+    id 'idea'
+}
 
-    group = 'org.wass'
-    version = '1.0.0'
+group = 'org.wass'
+version = '1.0.0'
+description = 'POS Clothes'
 
-    project.ext {
-        // global dependencies
-        hikariCPVersion = '5.1.0'
-        jdbcMysqlVersion = '9.0.0'
-        log4jApiVersion = '2.0.16'
-        bcryptVersion = '0.10.2'
-        flatlafVersion = '3.5.1'
-    }
-
-    repositories {
-        mavenCentral()
-        mavenLocal()
-        flatDir { dirs "${rootProject.projectDir}/lib" }
+sourceSets {
+    main {
+        java {
+            srcDir 'Views/java'
+            srcDir 'Models/java'
+            srcDir 'Controllers/java'
+        }
+        resources {
+            srcDir 'Views/resources'
+            srcDir 'Models/resources'
+            srcDir 'Controllers/resources'
+        }
     }
 }
 
-subprojects {
-    apply plugin: 'java'
+repositories {
+    mavenCentral()
+    mavenLocal()
+    flatDir { dirs "${rootProject.projectDir}/lib" }
+}
 
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile).tap {
-            configureEach {
-                options.compilerArgs << "-Xlint:unchecked"
-                options.compilerArgs << "-Xlint:deprecation"
-            }
+dependencies {
+    // This dependency is used by the application.
+    implementation libs.flatlaf
+
+    implementation libs.dataSources
+    implementation libs.mysql
+    implementation libs.bcrypt
+
+    implementation libs.slf4j
+    implementation libs.slf4jsimple
+
+    implementation name: 'TimingFramework-0.55'
+    implementation name: 'miglayout-4.0'
+}
+
+application {
+    mainClass = 'org.wass.views.App'
+}
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.compilerArgs << "-Xlint:unchecked"
+            options.compilerArgs << "-Xlint:deprecation"
         }
-    }
-
-    dependencies {
-        // You can read more about how to add dependencies here:
-        //   https://docs.gradle.org/current/userguide/dependency_management.html#sec:how_to_declare_your_dependencies
-     
-        implementation "org.slf4j:slf4j-api:${log4jApiVersion}"
-        implementation "org.slf4j:slf4j-simple:${log4jApiVersion}"
     }
 }
