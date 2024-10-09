@@ -17,12 +17,10 @@ public class CajaModel {
     private boolean estado;
     private int idUsuario;
 
-    public CajaModel(float montoInicial, float monto, boolean estadoCaja, Date fechaApertura, boolean estado, int idUsuario) {
+    public CajaModel(float montoInicial, float monto, boolean estadoCaja, int idUsuario) {
         this.montoInicial = montoInicial;
         this.monto = monto;
         this.estadoCaja = estadoCaja;
-        this.fechaApertura = fechaApertura;
-        this.estado = estado;
         this.idUsuario = idUsuario;
     }
 
@@ -50,7 +48,7 @@ public class CajaModel {
         this.monto = monto;
     }
 
-    public boolean isEstadoCaja() {
+    public boolean getEstadoCaja() {
         return estadoCaja;
     }
 
@@ -66,7 +64,7 @@ public class CajaModel {
         this.fechaApertura = fechaApertura;
     }
 
-    public boolean isEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
@@ -81,6 +79,5 @@ public class CajaModel {
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
-    
-    
+
 }

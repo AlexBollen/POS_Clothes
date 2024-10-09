@@ -31,6 +31,9 @@ public class EstadoCompraModel {
     public void setNombreEstadoCompra(String nombreEstadoCompra) {
         this.nombreEstadoCompra = nombreEstadoCompra;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return nombreEstadoCompra; // Esto es importante para mostrar el nombre en el ComboBox
+    }
 }

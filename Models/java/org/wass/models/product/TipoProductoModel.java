@@ -18,6 +18,7 @@ public class TipoProductoModel {
         this.estado = estado;
     }
 
+    // Getters y Setters
     public int getIdTipoProducto() {
         return idTipoProducto;
     }
@@ -34,13 +35,16 @@ public class TipoProductoModel {
         this.nombreTipoProducto = nombreTipoProducto;
     }
 
-    public boolean isEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return nombreTipoProducto; // Esto es importante para mostrar el nombre en el ComboBox
+    }
 }

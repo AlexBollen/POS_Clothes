@@ -15,11 +15,10 @@ public class DetalleCompraModel {
     private int cantidadProducto;
     private boolean estado;
 
-    public DetalleCompraModel(int idCompra, int idProducto, int cantidadProducto, boolean estado) {
+    public DetalleCompraModel(int idCompra, int idProducto, int cantidadProducto) {
         this.idCompra = idCompra;
         this.idProducto = idProducto;
         this.cantidadProducto = cantidadProducto;
-        this.estado = estado;
     }
 
     public int getIdDetalleCompra() {
@@ -54,7 +53,7 @@ public class DetalleCompraModel {
         this.cantidadProducto = cantidadProducto;
     }
 
-    public boolean isEstado() {
+    public boolean getEstado() {
         return estado;
     }
 

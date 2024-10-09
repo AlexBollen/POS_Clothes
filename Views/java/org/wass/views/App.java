@@ -12,11 +12,19 @@ import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import org.wass.controllers.Purchase.*;
+import org.wass.models.purchase.*;
 import org.wass.views.utilities.CustomFont;
 import org.wass.controllers.db.DBConfig;
 import org.wass.controllers.LoginController;
 import org.wass.models.UsuarioDao;
 import static org.wass.controllers.db.DBConfig.*;
+
+import org.wass.controllers.ProductoController;
+import org.wass.models.product.ProductoDAO;
+
+import org.wass.controllers.Product.TipoProductoController;
+import org.wass.models.product.TipoProducto.TipoProductoDAO;
 
 /**
  * Clase principal encargada de gestionar la entrada y salida de aplicación 
@@ -42,8 +50,8 @@ public final class App {
         
         DBConfig config = nDataBaseConfig();
         config.set(DataConfig.MySQLDataBase, "clothesbd");
-        config.set(DataConfig.MySQLUserName, "");
-        config.set(DataConfig.MySQLUserPassword, "");
+        config.set(DataConfig.MySQLUserName, "root");
+        config.set(DataConfig.MySQLUserPassword, "S@ks_oO4:v");
 
         /*
          * Establecer un 'LookAndFeel' del tipo 'flat' si es posibles, de lo
@@ -63,9 +71,33 @@ public final class App {
         // para que interactúe con la bd a través de este
         LoginController loginController = new LoginController(userDao);
 
+        ProductoDAO productDao = new ProductoDAO();
+        ProductoController productController = new ProductoController(productDao);
+
+        TipoProductoDAO tipoproductDao = new TipoProductoDAO();
+        TipoProductoController tipoproductoController = new TipoProductoController(tipoproductDao);
+
+        DetalleCompraDAO detallecompraDao = new DetalleCompraDAO();
+        DetalleCompraController detallecompraController = new DetalleCompraController(detallecompraDao);
+
+        CompraDAO compraDao = new CompraDAO();
+        CompraController compraController = new CompraController(compraDao,detallecompraDao);
+
+        ProveedorDAO proveedorDao = new ProveedorDAO();
+        ProveedorController proveedorController = new ProveedorController(proveedorDao);
+
+        TipoPagoDAO tipoPagoDao = new TipoPagoDAO();
+        TipoPagoController tipoPagoController = new TipoPagoController(tipoPagoDao);
+
+        EstadoCompraDAO estadoCompraDao = new EstadoCompraDAO();
+        EstadoCompraController estadoCompraController = new EstadoCompraController(estadoCompraDao);
+
         // Crear y mostrar el formulario de inicio de sesión
         EventQueue.invokeLater(() -> {
             new FormLogin(loginController).setVisible(true);
+            //new ProductoView(productController,tipoproductoController).setVisible(true);
+            //new TipoProductoView(tipoproductoController).setVisible(true);
+            new CompraView(productController,proveedorController,tipoPagoController,estadoCompraController,compraController).setVisible(true);
         });
     }
 }

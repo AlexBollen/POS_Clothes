@@ -13,9 +13,8 @@ public class TipoPagoModel {
     private String nombreTipoPago;
     private boolean estado;
 
-    public TipoPagoModel(String nombreTipoPago, boolean estado) {
+    public TipoPagoModel(String nombreTipoPago) {
         this.nombreTipoPago = nombreTipoPago;
-        this.estado = estado;
     }
 
     public int getIdTipoPago() {
@@ -41,6 +40,9 @@ public class TipoPagoModel {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return nombreTipoPago; // Esto es importante para mostrar el nombre en el ComboBox
+    }
 }

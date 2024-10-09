@@ -14,9 +14,8 @@ public class ClienteModel {
     private boolean estado;
     private int idPersona;
 
-    public ClienteModel(String nit, boolean estado, int idPersona) {
+    public ClienteModel(String nit, int idPersona) {
         this.nit = nit;
-        this.estado = estado;
         this.idPersona = idPersona;
     }
 
@@ -51,6 +50,10 @@ public class ClienteModel {
     public void setIdPersona(int idPersona) {
         this.idPersona = idPersona;
     }
-    
+
+    @Override
+    public String toString() {
+        return nit; // Esto es importante para mostrar el nombre en el ComboBox
+    }
     
 }
