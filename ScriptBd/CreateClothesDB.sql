@@ -337,7 +337,7 @@ INSERT INTO `TipoPago` (`NombreTipoPago`, `Estado`)
 VALUES ('Efectivo', 1),
        ('Tarjeta de Credito', 1);
        
-INSERT INTO `EstadoCompra` (`NombreEstadoCompra`)
+INSERT INTO `EstadoCompra` (`NombreEstadoCompra`,`Estado`)
 VALUES ('Completada', 1),
        ('Pendiente', 1);
        
