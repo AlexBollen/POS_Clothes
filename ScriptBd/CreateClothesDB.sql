@@ -255,6 +255,7 @@ CREATE TABLE `EstadoCompra`
 (
   `IdEstadoCompra` Int NOT NULL AUTO_INCREMENT,
   `NombreEstadoCompra` Varchar(100) NOT NULL,
+  `Estado` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`IdEstadoCompra`),
   UNIQUE KEY `IdEstadoCompra` (`IdEstadoCompra`)
 );
@@ -337,8 +338,8 @@ VALUES ('Efectivo', 1),
        ('Tarjeta de Credito', 1);
        
 INSERT INTO `EstadoCompra` (`NombreEstadoCompra`)
-VALUES ('Completada'),
-       ('Pendiente');
+VALUES ('Completada', 1),
+       ('Pendiente', 1);
        
 INSERT INTO `Compra` (`DescripcionCompra`, `CantidadPedida`, `CantidadRecibida`, `TotalCompra`, `FechaCompra`, `Estado`, `IdProveedor`, `IdTipoPago`, `IdEstadoCompra`)
 VALUES ('Compra de Pantalones de tela Versace', 50, 50, 250.00, '2024-09-01', 1, 1, 1, 1),
