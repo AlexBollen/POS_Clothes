@@ -1,5 +1,5 @@
 /*
- * POS Clothes es un sistema informático que está reservado con derechos de 
+ * POS Clothes es un sistema informático que está reservado con derechos de
  * autor, para más información: https://github.com/AlexBollen/POS_Clothes
  */
 package org.wass.models.db;
@@ -20,7 +20,7 @@ import javax.sql.DataSource;
  * La configuración se establece medinate las propiedades el sistemas:<pre><code>
  *      System.setProperty(DBConnection.JDBC_DATABASE, "myDataBase");
  * </code></pre>
- * 
+ *
  * @author wil
  * @version 1.0.0
  * @since 1.0.0
@@ -28,10 +28,10 @@ import javax.sql.DataSource;
 public final class DBConnection {
 
     /** Logger de la clase. */
-    private static final Logger LOGGER = Logger.getLogger(DBConnection.class.getName());  
+    private static final Logger LOGGER = Logger.getLogger(DBConnection.class.getName());
     /** URL de conexión para la base de datos MySQL. */
     private static final String JDBC_CONNECTION = "jdbc:mysql://%s:%s/%s";
-    
+
     /** Clave JDBC para el nombre de la base de dato. */
     public static final String JDBC_DATABASE            = "jdbc.database";
     /** Clave JDBC para el nombre de usuario sel servidor MySQL */
@@ -42,7 +42,7 @@ public final class DBConnection {
     public static final String JDBC_IP                  = "jdbc.ip";
     /** Clave JDBC para el puerto utilizado por el servidor.*/
     public static final String JDBC_PORT                = "jdbc.port";
-    
+
     //--------------------------------------------------------------------------
     //                          Hikari - DataSource
     //--------------------------------------------------------------------------    
@@ -67,18 +67,18 @@ public final class DBConnection {
         ));
         JDB_CONFIG.setUsername(Objects.requireNonNull(properties.getProperty(JDBC_DATABASE_NAME, null), "Nombre de usuario jdbc inválido"));
         JDB_CONFIG.setPassword(Objects.requireNonNull(properties.getProperty(JDBC_DATABASE_PASSWORD, null), "Contraseña jdbc inválido"));
-        
+
         JDB_CONFIG.addDataSourceProperty("cachePrepStmts" , "true");
         JDB_CONFIG.addDataSourceProperty( "prepStmtCacheSize" , "250" );
         JDB_CONFIG.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
         DS = new HikariDataSource( JDB_CONFIG );
-        
+
         LOGGER.log(Level.INFO, "JDBC inicializada...");
     }
-    
+
     /** Constructor privado. */
     private DBConnection() {}
-    
+
     /**
      * Método encargado de devolver un {@link javax.sql.DataSource}.
      * @return Un objeto {@link javax.sql.DataSource}

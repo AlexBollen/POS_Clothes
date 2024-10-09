@@ -77,7 +77,7 @@ CREATE TABLE `Stock`
   `IdStock` Int NOT NULL AUTO_INCREMENT,
   `CantidadInicial` Int NOT NULL,
   `CantidadDisponible` Int NOT NULL,
-  `FechaIngreso` Date NOT NULL,
+  `FechaIngreso` Date NULL,
   `DescripcionStock` Varchar(250),
   `UbicacionBodega` Varchar(3) NOT NULL,
   `Estado` BIT NOT NULL DEFAULT 1,

@@ -19,11 +19,10 @@ public class FacturaModel {
     private int idCaja;
     private String idSerie;
 
-    public FacturaModel(String noFactura, float totalFactura, Date fechaFactura, boolean estado, int idCliente, int idTipoPago, int idCaja, String idSerie) {
+    public FacturaModel(String noFactura, float totalFactura, Date fechaFactura, int idCliente, int idTipoPago, int idCaja, String idSerie) {
         this.noFactura = noFactura;
         this.totalFactura = totalFactura;
         this.fechaFactura = fechaFactura;
-        this.estado = estado;
         this.idCliente = idCliente;
         this.idTipoPago = idTipoPago;
         this.idCaja = idCaja;

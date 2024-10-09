@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.wass.models.purchase;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import org.wass.models.purchase.DetalleCompraModel;
 /**
  *
  * @author SamuelQ
@@ -19,17 +23,17 @@ public class CompraModel {
     private int idProveedor;
     private int idTipoPago;
     private int idEstadoCompra;
+    private List<DetalleCompraModel> detalleCompra;
 
-    public CompraModel(String descripcionCompra, int cantidadPedida, int cantidadRecibida, float totalCompra, Date fechaCompra, boolean estado, int idProveedor, int idTipoPago, int idEstadoCompra) {
+    public CompraModel(String descripcionCompra, int cantidadPedida, int cantidadRecibida, float totalCompra, int idProveedor, int idTipoPago, int idEstadoCompra) {
         this.descripcionCompra = descripcionCompra;
         this.cantidadPedida = cantidadPedida;
         this.cantidadRecibida = cantidadRecibida;
         this.totalCompra = totalCompra;
-        this.fechaCompra = fechaCompra;
-        this.estado = estado;
         this.idProveedor = idProveedor;
         this.idTipoPago = idTipoPago;
         this.idEstadoCompra = idEstadoCompra;
+        this.detalleCompra = new ArrayList<>(); // Inicializa la lista
     }
 
     public int getIdCompra() {
@@ -111,6 +115,12 @@ public class CompraModel {
     public void setIdEstadoCompra(int idEstadoCompra) {
         this.idEstadoCompra = idEstadoCompra;
     }
-    
-    
+
+    public List<DetalleCompraModel> getDetalleCompra() {
+        return detalleCompra;
+    }
+
+    public void setDetalleCompra(List<DetalleCompraModel> detalleCompra) {
+        this.detalleCompra = detalleCompra;
+    }
 }

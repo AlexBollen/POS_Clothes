@@ -14,11 +14,17 @@ sourceSets {
             srcDir 'Views/java'
             srcDir 'Models/java'
             srcDir 'Controllers/java'
+            srcDir 'Views/test'
         }
         resources {
             srcDir 'Views/resources'
             srcDir 'Models/resources'
             srcDir 'Controllers/resources'
+        }
+    }
+    test{
+        java {
+            srcDir 'Views/test'
         }
     }
 }

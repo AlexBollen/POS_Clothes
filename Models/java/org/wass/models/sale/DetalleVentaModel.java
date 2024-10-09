@@ -16,11 +16,10 @@ public class DetalleVentaModel {
     private boolean estado;
     private String idSerie;
 
-    public DetalleVentaModel(int idProducto, int idFactura, int cantidad, boolean estado, String idSerie) {
+    public DetalleVentaModel(int idProducto, int idFactura, int cantidad, String idSerie) {
         this.idProducto = idProducto;
         this.idFactura = idFactura;
         this.cantidad = cantidad;
-        this.estado = estado;
         this.idSerie = idSerie;
     }
 
