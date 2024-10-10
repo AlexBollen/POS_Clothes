@@ -64,7 +64,7 @@ public class CajaModel {
         this.fechaApertura = fechaApertura;
     }
 
-    public boolean isEstado() {
+    public boolean getEstado() {
         return estado;
     }
 

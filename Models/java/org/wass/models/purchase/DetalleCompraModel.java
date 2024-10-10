@@ -53,7 +53,7 @@ public class DetalleCompraModel {
         this.cantidadProducto = cantidadProducto;
     }
 
-    public boolean isEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
