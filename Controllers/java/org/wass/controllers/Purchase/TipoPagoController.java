@@ -26,9 +26,9 @@ public class TipoPagoController {
         }
         boolean resultado = tipoPagoDao.agregarTipoPago(tipoPago);
         if (resultado) {
-            JOptionPane.showMessageDialog(null, "Producto agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Tipo de Pago agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Error al agregar el producto", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al agregar el el tipo de pago", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return resultado;
     }

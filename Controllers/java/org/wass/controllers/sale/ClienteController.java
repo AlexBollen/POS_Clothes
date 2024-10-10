@@ -12,7 +12,7 @@ import org.wass.models.sale.ClienteModel;
 public class ClienteController {
     private ClienteDAO clienteDao;
 
-
+    // Constructor para inicializar productoDao
     public ClienteController(ClienteDAO clienteDao) {
         this.clienteDao = clienteDao;
     }
@@ -70,7 +70,7 @@ public class ClienteController {
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Cliente actualizado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Error al actualizar cliente", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al actualizar clienter", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return resultado;
     }
