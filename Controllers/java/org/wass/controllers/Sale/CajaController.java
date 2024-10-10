@@ -1,4 +1,4 @@
-package org.wass.controllers.Sale;
+package org.wass.controllers.sale;
 
 /**
  *
@@ -14,11 +14,13 @@ public class CajaController {
 
     // Constructor para inicializar productoDao
     public CajaController(CajaDAO productoDao) {
+
+    public CajaController(CajaDAO cajaDao) {
         this.cajaDao = cajaDao;
     }
 
-    // Método para agregar un nuevo producto
-    public boolean agregarProducto(CajaModel caja) {
+    // Método para agregar una nueva caja
+    public boolean agregarCaja(CajaModel caja) {
         if (caja.getMontoInicial() < 0) {
             JOptionPane.showMessageDialog(null, "El monto Inicial debe ser mayor que cero", "Requerido", JOptionPane.WARNING_MESSAGE);
             return false;
@@ -62,7 +64,7 @@ public class CajaController {
         return resultado;
     }
 
-    public boolean actualizarProducto(CajaModel caja,int IdCaja) {
+    public boolean actualizarCaja(CajaModel caja, int IdCaja) {
         if (caja.getMontoInicial() < 0) {
             JOptionPane.showMessageDialog(null, "El monto Inicial debe ser mayor que cero", "Requerido", JOptionPane.WARNING_MESSAGE);
             return false;
