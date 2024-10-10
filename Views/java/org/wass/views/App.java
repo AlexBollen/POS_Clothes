@@ -53,8 +53,8 @@ public final class App {
         
         DBConfig config = nDataBaseConfig();
         config.set(DataConfig.MySQLDataBase, "clothesbd");
-        config.set(DataConfig.MySQLUserName, "");
-        config.set(DataConfig.MySQLUserPassword, "");
+        config.set(DataConfig.MySQLUserName, "root");
+        config.set(DataConfig.MySQLUserPassword, "S@ks_oO4:v");
 
         /*
          * Establecer un 'LookAndFeel' del tipo 'flat' si es posibles, de lo

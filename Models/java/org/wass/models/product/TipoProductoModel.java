@@ -35,7 +35,7 @@ public class TipoProductoModel {
         this.nombreTipoProducto = nombreTipoProducto;
     }
 
-    public boolean getEstado() {
+    public boolean isEstado() {
         return estado;
     }
 
