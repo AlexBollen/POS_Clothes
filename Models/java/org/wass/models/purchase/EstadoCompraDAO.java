@@ -95,6 +95,6 @@ public class EstadoCompraDAO {
             System.err.println("Error al obtener estado compra: " + e.getMessage());
         }
 
-        return tipopago; // Retorna el producto encontrado o null
+        return tipopago;
     }
 }

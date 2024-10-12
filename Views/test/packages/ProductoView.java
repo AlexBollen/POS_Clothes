@@ -2,8 +2,8 @@ package packages;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import org.wass.controllers.Product.ProductoController;
-import org.wass.controllers.Product.TipoProductoController;
+import org.wass.controllers.product.ProductoController;
+import org.wass.controllers.product.TipoProductoController;
 import org.wass.models.product.TipoProductoModel;
 
 import java.awt.event.ActionEvent;

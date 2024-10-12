@@ -32,11 +32,11 @@ public class ClienteDAO {
             statement.setBoolean(2, true);
             statement.setInt(3, cliente.getIdPersona());
 
-            return statement.executeUpdate() > 0; // Devuelve true si se insertó al menos una fila
+            return statement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             System.err.println("Error al agregar el cliente: " + e.getMessage());
-            return false; // Retorna false si hay algún error
+            return false;
         }
     }
     /**

@@ -29,15 +29,15 @@ public class DetalleCompraDAO {
                         rs.getInt("idProducto"),
                         rs.getInt("CantidadProducto")
                 );
-                detalle.setIdDetalleCompra(rs.getInt("IdDetalleCompra")); //Setear ID del detalle
-                detalle.setEstado(rs.getBoolean("Estado")); //Setear estado del detalle
-                detalles.add(detalle); // Agregamos el detalle a la lista
+                detalle.setIdDetalleCompra(rs.getInt("IdDetalleCompra"));
+                detalle.setEstado(rs.getBoolean("Estado"));
+                detalles.add(detalle);
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener producto: " + e.getMessage());
         }
 
-        return detalles; // Retorna los detalles encontrados o null
+        return detalles;
     }
 
     /**
@@ -59,15 +59,15 @@ public class DetalleCompraDAO {
                         rs.getInt("idProducto"),
                         rs.getInt("CantidadProducto")
                 );
-                detalle.setIdDetalleCompra(rs.getInt("IdDetalleCompra")); //Setear ID del detalle
-                detalle.setEstado(rs.getBoolean("Estado")); //Setear estado del detalle
-                detalles.add(detalle); // Agregamos la compra a la lista
+                detalle.setIdDetalleCompra(rs.getInt("IdDetalleCompra"));
+                detalle.setEstado(rs.getBoolean("Estado"));
+                detalles.add(detalle);
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener productos: " + e.getMessage());
         }
 
-        return detalles; // Retorna la lista de productos
+        return detalles;
     }
 
 }

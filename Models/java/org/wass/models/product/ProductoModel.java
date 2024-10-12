@@ -83,6 +83,6 @@ public class ProductoModel {
 
     @Override
     public String toString() {
-        return nombreProducto; // Esto es importante para mostrar el nombre en el ComboBox
+        return nombreProducto;
     }
 }

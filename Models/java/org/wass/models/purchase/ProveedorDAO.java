@@ -34,11 +34,11 @@ public class ProveedorDAO {
             statement.setBoolean(4, true);
             statement.setInt(5, proveedor.getIdPersona());
 
-            return statement.executeUpdate() > 0; // Devuelve true si se insertó al menos una fila
+            return statement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             System.err.println("Error al agregar el proveedor: " + e.getMessage());
-            return false; // Retorna false si hay algún error
+            return false;
         }
     }
     /**
@@ -91,7 +91,7 @@ public class ProveedorDAO {
             statement.setInt(4, proveedor.getIdPersona());
             statement.setInt(5, IdProveedor);
 
-            return statement.executeUpdate() > 0; // Devuelve true si se actualizó al menos una fila
+            return statement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             System.err.println("Error al actualizar proveedor: " + e.getMessage());
@@ -179,6 +179,6 @@ public class ProveedorDAO {
             System.err.println("Error al obtener producto: " + e.getMessage());
         }
 
-        return proveedor; // Retorna el producto encontrado o null
+        return proveedor;
     }
 }

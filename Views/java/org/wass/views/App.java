@@ -4,6 +4,11 @@
  */
 package org.wass.views;
 
+import org.wass.controllers.purchase.ProveedorController;
+import org.wass.controllers.purchase.DetalleCompraController;
+import org.wass.controllers.purchase.EstadoCompraController;
+import org.wass.controllers.purchase.TipoPagoController;
+import org.wass.controllers.purchase.CompraController;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 
 import java.awt.EventQueue;
@@ -12,8 +17,9 @@ import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import org.wass.controllers.Product.ProductoController;
-import org.wass.controllers.Purchase.*;
+
+import org.wass.controllers.product.ProductoController;
+
 import org.wass.models.purchase.*;
 import org.wass.views.utilities.CustomFont;
 import org.wass.controllers.db.DBConfig;
@@ -23,7 +29,7 @@ import static org.wass.controllers.db.DBConfig.*;
 
 import org.wass.models.product.ProductoDAO;
 
-import org.wass.controllers.Product.TipoProductoController;
+import org.wass.controllers.product.TipoProductoController;
 import org.wass.models.product.TipoProductoDAO;
 import packages.CompraView;
 import packages.ProductoView;

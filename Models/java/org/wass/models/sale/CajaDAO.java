@@ -19,6 +19,7 @@ public class CajaDAO {
      * @param caja El objeto CajaModel a agregar
      * @return true si se agrega correctamente, false en caso contrario
      */
+
     public boolean agregarCaja(CajaModel caja) {
         String sql = "INSERT INTO Caja (MontoInicial, Monto, EstadoCaja, FechaApertura, Estado, IdUsuario)"
                 + "VALUES (?, ?, ?, ?, ?, ?)";
@@ -40,6 +41,7 @@ public class CajaDAO {
             return false; // Retorna false si hay algún error
         }
     }
+
     /**
      * Método para obtener todas las cajas de la base de datos.
      *
@@ -98,6 +100,7 @@ public class CajaDAO {
             return false;
         }
     }
+
     /**
      * Método para obtener una caja por su ID.
      *
@@ -128,6 +131,7 @@ public class CajaDAO {
 
         return caja;
     }
+
     /**
      * Método para eliminar una caja por su ID.
      *

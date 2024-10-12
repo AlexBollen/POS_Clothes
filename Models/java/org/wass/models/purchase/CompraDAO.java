@@ -35,16 +35,16 @@ public class CompraDAO {
                             rs.getInt("IdEstadoCompra")
 
                     );
-                    compra.setIdCompra(rs.getInt("IdCompra")); // Seteamos el ID de la compra
-                    compra.setFechaCompra(rs.getDate("FechaCompra")); // Setear la fecha de ingreso
-                    compra.setEstado(rs.getBoolean("Estado")); // También seteamos el Estado
+                    compra.setIdCompra(rs.getInt("IdCompra"));
+                    compra.setFechaCompra(rs.getDate("FechaCompra"));
+                    compra.setEstado(rs.getBoolean("Estado"));
                 }
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener producto: " + e.getMessage());
         }
 
-        return compra; // Retorna el producto encontrado o null
+        return compra;
     }
 
     /**
@@ -70,16 +70,16 @@ public class CompraDAO {
                         rs.getInt("IdTipoPago"),
                         rs.getInt("IdEstadoCompra")
                 );
-                compra.setIdCompra(rs.getInt("IdCompra")); // Seteamos el ID de la compra
-                compra.setFechaCompra(rs.getDate("FechaCompra")); // Setear la fecha de ingreso
-                compra.setEstado(rs.getBoolean("Estado")); // También seteamos el Estado
-                compras.add(compra); // Agregamos la compra a la lista
+                compra.setIdCompra(rs.getInt("IdCompra"));
+                compra.setFechaCompra(rs.getDate("FechaCompra"));
+                compra.setEstado(rs.getBoolean("Estado"));
+                compras.add(compra);
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener productos: " + e.getMessage());
         }
 
-        return compras; // Retorna la lista de productos
+        return compras;
     }
     /**
      * Método para actualizar una compra en la base de datos.
@@ -103,7 +103,7 @@ public class CompraDAO {
             statement.setInt(7, compra.getIdEstadoCompra());
             statement.setInt(8, IdCompra);
 
-            return statement.executeUpdate() > 0; // Devuelve true si se actualizó al menos una fila
+            return statement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             System.err.println("Error al actualizar compra: " + e.getMessage());
@@ -125,10 +125,10 @@ public class CompraDAO {
 
             statement.setInt(1, compraId);
             eliminarDetalleCompraPorCompra(compraId);
-            return statement.executeUpdate() > 0; // Devuelve true si se eliminó al menos una fila
+            return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("Error al eliminar compra: " + e.getMessage());
-            return false; // Retorna false si hay algún error
+            return false;
         }
     }
 
@@ -159,7 +159,7 @@ public class CompraDAO {
         String detalleCompraSql = "INSERT INTO DetalleCompra (idCompra, idProducto, CantidadProducto, Estado) " +
                 "VALUES (?, ?, ?, ?)";
 
-        // Usar try-with-resources para manejar el cierre de recursos
+
         try (Connection connection = DataBase.nDataBase().getConnection()) {
             connection.setAutoCommit(false);
 
@@ -179,29 +179,28 @@ public class CompraDAO {
                 ResultSet generatedKeys = compraStatement.getGeneratedKeys();
                 int idCompra = 0;
                 if (generatedKeys.next()) {
-                    idCompra = generatedKeys.getInt(1); // Obtener el idCompra generado
+                    idCompra = generatedKeys.getInt(1); // Obtener el idCompra que se acaba de crear
                 }
 
                 // Insertar los detalles de la compra
                 try (PreparedStatement detalleCompraStatement = connection.prepareStatement(detalleCompraSql)) {
                     for (DetalleCompraModel detalle : detallesCompra) {
-                        detalleCompraStatement.setInt(1, idCompra);  // Asignar idCompra generado
+                        detalleCompraStatement.setInt(1, idCompra);  // Asignar idCompra que se acaba de crear
                         detalleCompraStatement.setInt(2, detalle.getIdProducto());
                         detalleCompraStatement.setInt(3, detalle.getCantidadProducto());
                         detalleCompraStatement.setBoolean(4, true);
-                        detalleCompraStatement.addBatch();  // Añadir a la ejecución por lotes
+                        detalleCompraStatement.addBatch();
                     }
                     detalleCompraStatement.executeBatch(); // Ejecutar todos los detalles juntos
                 }
 
-                // Commit de la transacción si todo sale bien
                 connection.commit();
-                return true;  // Retornar true porque la compra se registró exitosamente
+                return true;
             } catch (SQLException e) {
                 // Revertir la transacción si hay algún error
                 connection.rollback();
                 System.err.println("Error al agregar compra: " + e.getMessage());
-                return false;  // Retornar false indicando que la operación falló
+                return false;
             }
         }
     }

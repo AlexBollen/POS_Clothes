@@ -1,10 +1,10 @@
 package packages;
 
-import org.wass.controllers.Product.ProductoController;
-import org.wass.controllers.Purchase.CompraController;
-import org.wass.controllers.Purchase.EstadoCompraController;
-import org.wass.controllers.Purchase.ProveedorController;
-import org.wass.controllers.Purchase.TipoPagoController;
+import org.wass.controllers.product.ProductoController;
+import org.wass.controllers.purchase.CompraController;
+import org.wass.controllers.purchase.EstadoCompraController;
+import org.wass.controllers.purchase.ProveedorController;
+import org.wass.controllers.purchase.TipoPagoController;
 import org.wass.models.product.ProductoModel;
 import org.wass.models.purchase.*;
 

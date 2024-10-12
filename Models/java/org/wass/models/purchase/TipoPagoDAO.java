@@ -31,11 +31,11 @@ public class TipoPagoDAO {
             statement.setString(1, tipoPago.getNombreTipoPago());
             statement.setBoolean(2, true);
 
-            return statement.executeUpdate() > 0; // Devuelve true si se insertó al menos una fila
+            return statement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             System.err.println("Error al agregar el tipo de pago: " + e.getMessage());
-            return false; // Retorna false si hay algún error
+            return false;
         }
     }
     /**
@@ -83,7 +83,7 @@ public class TipoPagoDAO {
             statement.setString(1, tipoPago);
             statement.setInt(2, IdTipoPago);
 
-            return statement.executeUpdate() > 0; // Devuelve true si se actualizó al menos una fila
+            return statement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             System.err.println("Error al actualizar tipo pago: " + e.getMessage());
@@ -132,11 +132,11 @@ public class TipoPagoDAO {
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, tipopagoId);
-            return statement.executeUpdate() > 0; // Devuelve true si se eliminó al menos una fila
+            return statement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             System.err.println("Error al eliminar tipo pago: " + e.getMessage());
-            return false; // Retorna false si hay algún error
+            return false;
         }
     }
     /**
@@ -167,6 +167,6 @@ public class TipoPagoDAO {
             System.err.println("Error al obtener producto: " + e.getMessage());
         }
 
-        return tipopago; // Retorna el producto encontrado o null
+        return tipopago;
     }
 }

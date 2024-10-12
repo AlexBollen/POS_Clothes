@@ -136,11 +136,11 @@ public class TipoProductoDAO {
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, tipoproductoId);
-            return statement.executeUpdate() > 0; // Devuelve true si se eliminó al menos una fila
+            return statement.executeUpdate() > 0;
 
         } catch (SQLException e) {
             System.err.println("Error al eliminar tipo de producto: " + e.getMessage());
-            return false; // Retorna false si hay algún error
+            return false;
         }
     }
 }
