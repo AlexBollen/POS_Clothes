@@ -1,8 +1,8 @@
 package org.wass.controllers;
 
 import javax.swing.JOptionPane;
-import org.wass.models.person.UsuarioModel;
-import org.wass.models.person.UsuarioDao;
+import org.wass.models.Usuario;
+import org.wass.models.UsuarioDao;
 
 /**
  * Controlador para manejar la validación de inicio de sesión.
@@ -10,7 +10,7 @@ import org.wass.models.person.UsuarioDao;
  * @author Alex
  */
 public class LoginController {
-    private UsuarioModel user;
+    private Usuario user;
     private UsuarioDao userDao;
 
     // Constructor para inicializar userDao
@@ -18,7 +18,7 @@ public class LoginController {
         this.userDao = userDao;
     }
     
-    public UsuarioModel validateLogin(String username, String password) {
+    public Usuario validateLogin(String username, String password) {
         if (username.isEmpty() || username.equals("Ingrese su nombre de usuario")) {
             JOptionPane.showMessageDialog(null, "El nombre de usuario es requerido", "Requerido", JOptionPane.WARNING_MESSAGE);
             return null;

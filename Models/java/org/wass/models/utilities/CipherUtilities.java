@@ -36,7 +36,7 @@ import java.nio.charset.StandardCharsets;
  * @version 1.0.0
  * @since 1.0.0
  */
-public final class Cipher {
+public final class CipherUtilities {
     
     /**
      * Tamaño máximo que soporta el algoritmo de cifrado Blowfish, dicho tamaño 

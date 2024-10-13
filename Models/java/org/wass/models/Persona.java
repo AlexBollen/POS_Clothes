@@ -1,4 +1,4 @@
-package org.wass.models.person;
+package org.wass.models;
 
 /**
  *
@@ -6,18 +6,18 @@ package org.wass.models.person;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class PersonaModel {
+public class Persona {
     private int IdPersona;
     private String NombrePersona;
     private String Direccion;
     private String Telefono;
     private Boolean Estado;
     
-    public PersonaModel() {
+    public Persona() {
         
     }
 
-    public PersonaModel(int IdPersona, String NombrePersona, String Direccion, String Telefono, Boolean Estado) {
+    public Persona(int IdPersona, String NombrePersona, String Direccion, String Telefono, Boolean Estado) {
         this.IdPersona = IdPersona;
         this.NombrePersona = NombrePersona;
         this.Direccion = Direccion;

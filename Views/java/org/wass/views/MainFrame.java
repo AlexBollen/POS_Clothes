@@ -4,7 +4,7 @@ import java.awt.Component;
 import javax.swing.ImageIcon;
 import javax.swing.JViewport;
 
-import org.wass.models.person.UsuarioModel;
+import org.wass.models.Usuario;
 import org.wass.views.component.Control;
 import org.wass.views.component.Dashboard;
 
@@ -15,10 +15,10 @@ import org.wass.views.component.Dashboard;
  */
 public class MainFrame extends AbstractFrame {
     
-    private UsuarioModel logedUser;
+    private Usuario logedUser;    
     private Dashboard dashboard;
     
-    public MainFrame(UsuarioModel logedUser) {
+    public MainFrame(Usuario logedUser) {
         this.logedUser = logedUser;
         initComponents();
         componentesAdd();

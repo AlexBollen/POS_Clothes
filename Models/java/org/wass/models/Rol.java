@@ -1,4 +1,4 @@
-package org.wass.models.person;
+package org.wass.models;
 
 /**
  *
@@ -6,16 +6,16 @@ package org.wass.models.person;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class RolModel {
+public class Rol {
     private int IdRol;
     private String NombreRol;
     private Boolean Estado;
     
-    public RolModel() {
+    public Rol() {
         
     }
 
-    public RolModel(int IdRol, String NombreRol, Boolean Estado) {
+    public Rol(int IdRol, String NombreRol, Boolean Estado) {
         this.IdRol = IdRol;
         this.NombreRol = NombreRol;
         this.Estado = Estado;

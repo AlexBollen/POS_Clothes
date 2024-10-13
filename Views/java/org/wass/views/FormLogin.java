@@ -6,7 +6,7 @@ package org.wass.views;
 
 import java.awt.Color;
 import org.wass.controllers.LoginController;
-import org.wass.models.person.UsuarioModel;
+import org.wass.models.Usuario;
 
 /**
  *
@@ -279,7 +279,7 @@ public class FormLogin extends AbstractFrame {
     private void btnLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLabelMouseClicked
         String user = this.userTxt.getText();
         String pass = String.valueOf(this.passTxt.getPassword());
-        UsuarioModel logedUser = loginController.validateLogin(user, pass);
+        Usuario logedUser = loginController.validateLogin(user, pass);
         if (logedUser != null) {
             // Implementar lógica para desplegar vista de dashboard
             java.awt.EventQueue.invokeLater(() -> {

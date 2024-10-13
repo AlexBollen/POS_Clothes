@@ -1,4 +1,4 @@
-package org.wass.models.person;
+package org.wass.models;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import org.wass.controllers.ControllerException;
 import org.wass.controllers.db.DataBase;
-import static org.wass.models.utilities.Cipher.*;
+import static org.wass.models.utilities.CipherUtilities.*;
 
 /**
  *
@@ -23,14 +23,14 @@ public class UsuarioDao {
     * @param password Contraseña
     * @return el usuario encontrado con credenciales validas, null en caso contrario
     */
-    public UsuarioModel validateCredentials(String username, String password) {
+    public Usuario validateCredentials(String username, String password) {
         String sql = "SELECT U.*, P.*, R.NombreRol FROM Usuario AS U " +
                      "INNER JOIN Persona AS P " +
                      "ON P.IdPersona = U.IdPersona " +
                      "INNER JOIN Rol AS R " +
                      "ON R.IdRol = U.IdRol " +
                      "WHERE U.NombreUsuario=?";
-        UsuarioModel us = null;
+        Usuario us = null;
         
         try (Connection connection = DataBase.nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -45,12 +45,12 @@ public class UsuarioDao {
                     
                     if (result) {
                         // Crear objeto Rol para posterior asignación
-                        RolModel rolModel = new RolModel();
-                        rolModel.setIdRol(rs.getInt("IdRol"));
-                        rolModel.setNombreRol(rs.getString("NombreRol"));
+                        Rol rol = new Rol();
+                        rol.setIdRol(rs.getInt("IdRol"));
+                        rol.setNombreRol(rs.getString("NombreRol"));
 
                         // Crear objeto Usuario 
-                        us = new UsuarioModel();
+                        us = new Usuario();
                         us.setIdPersona(rs.getInt("IdPersona"));
                         us.setNombrePersona(rs.getString("NombrePersona"));
                         us.setDireccion(rs.getString("Direccion"));
@@ -58,7 +58,7 @@ public class UsuarioDao {
                         us.setEstado(rs.getBoolean("Estado"));
                         us.setIdUsuario(rs.getInt("IdUsuario"));
                         us.setNombreUsuario(rs.getString("NombreUsuario"));
-                        us.setRol(rolModel);
+                        us.setRol(rol);
                     }
                 }
             }

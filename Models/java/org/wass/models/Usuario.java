@@ -1,4 +1,4 @@
-package org.wass.models.person;
+package org.wass.models;
 
 /**
  *
@@ -6,22 +6,22 @@ package org.wass.models.person;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class UsuarioModel extends PersonaModel {
+public class Usuario extends Persona {
     private int IdUsuario;
     private String NombreUsuario;
     private String Contrasenia;
-    private RolModel RolModel;
+    private Rol Rol;
 
-    public UsuarioModel(){
+    public Usuario(){
         
     }
     
-    public UsuarioModel(int IdPersona, String NombrePersona, String Direccion, String Telefono, Boolean Estado, int IdUsuario, String NombreUsuario, String Contrasenia, RolModel RolModel) {
+    public Usuario(int IdPersona, String NombrePersona, String Direccion, String Telefono, Boolean Estado, int IdUsuario, String NombreUsuario, String Contrasenia, Rol Rol) {
         super(IdPersona, NombrePersona, Direccion, Telefono, Estado);
         this.IdUsuario = IdUsuario;
         this.NombreUsuario = NombreUsuario;
         this.Contrasenia = Contrasenia;
-        this.RolModel = RolModel;
+        this.Rol = Rol;
     }
 
     public int getIdUsuario() {
@@ -48,11 +48,11 @@ public class UsuarioModel extends PersonaModel {
         this.Contrasenia = Contrasenia;
     }
 
-    public RolModel getRol() {
-        return RolModel;
+    public Rol getRol() {
+        return Rol;
     }
 
-    public void setRol(RolModel RolModel) {
-        this.RolModel = RolModel;
+    public void setRol(Rol Rol) {
+        this.Rol = Rol;
     }
 }

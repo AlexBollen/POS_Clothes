@@ -103,7 +103,7 @@
           <Color blue="85" green="85" red="85" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="Mi rolModel"/>
+        <Property name="text" type="java.lang.String" value="Mi rol"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelTitle">
