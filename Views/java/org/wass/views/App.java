@@ -15,7 +15,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.wass.views.utilities.CustomFont;
 import org.wass.controllers.db.DBConfig;
 import org.wass.controllers.LoginController;
-import org.wass.models.UsuarioDao;
+import org.wass.models.person.UsuarioDao;
 import static org.wass.controllers.db.DBConfig.*;
 
 /**
