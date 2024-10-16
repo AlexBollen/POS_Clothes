@@ -1,4 +1,6 @@
-package packages;
+package org.wass.views;
+
+
 
 import org.wass.controllers.product.ProductoController;
 import org.wass.controllers.purchase.CompraController;
@@ -235,6 +237,7 @@ public class CompraView extends JFrame{
         cantidadField.setText("");
     }
 
+    
     private void eliminarProducto() {
         int selectedRow = compraTable.getSelectedRow();
         if (selectedRow >= 0) {

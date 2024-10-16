@@ -14,7 +14,6 @@ sourceSets {
             srcDir 'Views/java'
             srcDir 'Models/java'
             srcDir 'Controllers/java'
-            srcDir 'Views/test'
         }
         resources {
             srcDir 'Views/resources'

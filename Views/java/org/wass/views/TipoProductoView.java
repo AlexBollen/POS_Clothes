@@ -1,4 +1,5 @@
-package packages;
+package org.wass.views;
+
 
 import javax.swing.*;
 
