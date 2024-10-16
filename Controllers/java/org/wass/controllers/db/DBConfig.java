@@ -68,7 +68,7 @@ public final class DBConfig {
         MySQLUserPassword(JDBC_DATABASE_PASSWORD),
 
         /** Conf: El puerto donde trabaja el servidor DB (MySQL). */
-        MySQLServerPort(JDBC_PORT, "3307"),
+        MySQLServerPort(JDBC_PORT, "3306"),
         /** Conf: La direccion IP del servidor (MySQL). */
         MySQLServer(JDBC_IP, "localhost");
 
