@@ -16,11 +16,10 @@ public class ProveedorModel {
     private boolean estado;
     private int idPersona;
 
-    public ProveedorModel(String nombreComercial, String telefono2, String correo, boolean estado, int idPersona) {
+    public ProveedorModel(String nombreComercial, String telefono2, String correo, int idPersona) {
         this.nombreComercial = nombreComercial;
         this.telefono2 = telefono2;
         this.correo = correo;
-        this.estado = estado;
         this.idPersona = idPersona;
     }
 
@@ -71,6 +70,9 @@ public class ProveedorModel {
     public void setIdPersona(int idPersona) {
         this.idPersona = idPersona;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return nombreComercial; // Esto es importante para mostrar el nombre en el ComboBox
+    }
 }

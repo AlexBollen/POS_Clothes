@@ -17,13 +17,12 @@ public class ProductoModel {
     private int idTipoProducto;
     private boolean estado;
 
-    public ProductoModel(String nombreProducto, float precioCosto, float precioVenta, float descuentoPorcentual, int idTipoProducto, boolean estado) {
+    public ProductoModel(String nombreProducto, float precioCosto, float precioVenta, float descuentoPorcentual, int idTipoProducto) {
         this.nombreProducto = nombreProducto;
         this.precioCosto = precioCosto;
         this.precioVenta = precioVenta;
         this.descuentoPorcentual = descuentoPorcentual;
         this.idTipoProducto = idTipoProducto;
-        this.estado = estado;
     }
 
     public int getIdProducto() {
@@ -81,6 +80,9 @@ public class ProductoModel {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return nombreProducto;
+    }
 }

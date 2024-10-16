@@ -3,7 +3,6 @@
  * autor, para más información: https://github.com/AlexBollen/POS_Clothes
  */
 package org.wass.views;
-
 import com.formdev.flatlaf.FlatIntelliJLaf;
 
 import java.awt.EventQueue;
@@ -11,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
 import org.wass.views.utilities.CustomFont;
 import org.wass.controllers.db.DBConfig;
 import org.wass.controllers.LoginController;
@@ -68,4 +66,5 @@ public final class App {
             new FormLogin(loginController).setVisible(true);
         });
     }
+
 }

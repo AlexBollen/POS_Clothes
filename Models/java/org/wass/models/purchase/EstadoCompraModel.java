@@ -11,6 +11,7 @@ package org.wass.models.purchase;
 public class EstadoCompraModel {
     private int idEstadoCompra;
     private String nombreEstadoCompra;
+    private boolean Estado;
 
     public EstadoCompraModel(String nombreEstadoCompra) {
         this.nombreEstadoCompra = nombreEstadoCompra;
@@ -31,6 +32,17 @@ public class EstadoCompraModel {
     public void setNombreEstadoCompra(String nombreEstadoCompra) {
         this.nombreEstadoCompra = nombreEstadoCompra;
     }
-    
-    
+
+    public boolean isEstado() {
+        return Estado;
+    }
+
+    public void setEstado(boolean estado) {
+        Estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return nombreEstadoCompra; // Esto es importante para mostrar el nombre en el ComboBox
+    }
 }

@@ -21,6 +21,11 @@ sourceSets {
             srcDir 'Controllers/resources'
         }
     }
+    test{
+        java {
+            srcDir 'Views/test'
+        }
+    }
 }
 
 repositories {
