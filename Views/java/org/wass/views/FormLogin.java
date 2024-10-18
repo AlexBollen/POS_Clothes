@@ -70,7 +70,7 @@ public class FormLogin extends AbstractFrame {
         exitLabel.setForeground(new java.awt.Color(0, 0, 0));
         exitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exitLabel.setText("X");
-        exitLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        exitLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         exitLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 exitLabelMouseClicked(evt);
@@ -171,7 +171,7 @@ public class FormLogin extends AbstractFrame {
         btnLabel.setForeground(new java.awt.Color(255, 255, 255));
         btnLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnLabel.setText("ACCEDER");
-        btnLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLabelMouseClicked(evt);

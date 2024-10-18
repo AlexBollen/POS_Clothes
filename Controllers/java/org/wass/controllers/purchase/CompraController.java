@@ -33,9 +33,11 @@ public class CompraController {
             JOptionPane.showMessageDialog(null, "La cantidad pedida debe ser mayor que cero", "Requerido", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if (compra.getCantidadRecibida() <= 0) {
+        if (compra.getCantidadRecibida() < 0) {
             JOptionPane.showMessageDialog(null, "La cantidad recibida debe ser mayor que cero", "Requerido", JOptionPane.WARNING_MESSAGE);
             return false;
+        }else if(compra.getCantidadRecibida() == 0){
+            compra.setCantidadRecibida(0);
         }
         if (compra.getTotalCompra() <= 0) {
             JOptionPane.showMessageDialog(null, "El total de la compra debe ser mayor que cero", "Requerido", JOptionPane.WARNING_MESSAGE);
@@ -49,10 +51,7 @@ public class CompraController {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de pago", "Requerido", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if (compra.getIdEstadoCompra() <= 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un estado de compra", "Requerido", JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
+
         boolean resultado = compraDao.agregarCompra(compra,detallesCompra);
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Compra agregada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -108,10 +107,7 @@ public class CompraController {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de pago", "Requerido", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if (compra.getIdEstadoCompra() <= 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un estado de compra", "Requerido", JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
+
         boolean resultado = compraDao.actualizarCompra(compra,IdCompra);
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Compra actualizada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);

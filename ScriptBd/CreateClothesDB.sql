@@ -96,7 +96,7 @@ CREATE TABLE `Compra`
   `DescripcionCompra` Varchar(250),
   `CantidadPedida` Int,
   `CantidadRecibida` Int NOT NULL,
-  `TotalCompra` Decimal(5,2) NOT NULL,
+  `TotalCompra` Decimal(10,2) NOT NULL,
   `FechaCompra` Date NOT NULL,
   `Estado` BIT NOT NULL DEFAULT 1,
   `IdProveedor` Int,
@@ -338,8 +338,10 @@ VALUES ('Efectivo', 1),
        ('Tarjeta de Credito', 1);
        
 INSERT INTO `EstadoCompra` (`NombreEstadoCompra`,`Estado`)
-VALUES ('Completada', 1),
-       ('Pendiente', 1);
+VALUES ('Pendiente', 1),
+       ('Completada', 1),
+       ('Revisada',1),
+	   ('Cancelada', 1);
        
 INSERT INTO `Compra` (`DescripcionCompra`, `CantidadPedida`, `CantidadRecibida`, `TotalCompra`, `FechaCompra`, `Estado`, `IdProveedor`, `IdTipoPago`, `IdEstadoCompra`)
 VALUES ('Compra de Pantalones de tela Versace', 50, 50, 250.00, '2024-09-01', 1, 1, 1, 1),
