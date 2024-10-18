@@ -41,9 +41,9 @@ public final class App {
         CustomFont.cargarFuentes("/fonts/Cantarell/", "Cantarell.properties");
         
         DBConfig config = nDataBaseConfig();
-        config.set(DataConfig.MySQLDataBase, "ClothesBD");
-        config.set(DataConfig.MySQLUserName, "root");
-        config.set(DataConfig.MySQLUserPassword, "phpacceso");
+        config.set(DataConfig.MySQLDataBase, "clothesbd");
+        config.set(DataConfig.MySQLUserName, "");
+        config.set(DataConfig.MySQLUserPassword, "");
 
         /*
          * Establecer un 'LookAndFeel' del tipo 'flat' si es posibles, de lo
