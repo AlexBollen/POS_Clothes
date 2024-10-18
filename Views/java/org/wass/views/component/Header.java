@@ -4,24 +4,28 @@
  */
 package org.wass.views.component;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Rectangle2D;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 /**
  *
  * @author marco
  */
-public class Header extends javax.swing.JPanel {
+public class Header extends JPanel {
 
     /**
      * Creates new form Header
      */
     public Header() {        
         initComponents();
+        jLabelDescripcion.setVisible(false);
         setOpaque(false);
     }
 
@@ -34,6 +38,26 @@ public class Header extends javax.swing.JPanel {
         super.paintComponent(grphcs);
     }
     
+    public void setDescripcion(String desc) {
+        if (desc == null || desc.isEmpty()) {
+            jLabelDescripcion.setVisible(false);
+        } else {
+            if (!jLabelDescripcion.isVisible()) {
+                jLabelDescripcion.setVisible(true);
+            }
+            jLabelDescripcion.setText("    " + desc);
+        }
+    }
+    
+    public void setHeaderView(JComponent component) {
+        if (jPanelHeaderView.getComponentCount() > 0) {
+            jPanelHeaderView.removeAll();
+        }
+        if (component != null) {
+            jPanelHeaderView.add(component, BorderLayout.CENTER);
+        }
+    }
+    
     public void setUserName(String value) {
         jLabelUserName.setText(value);
     }
@@ -43,7 +67,7 @@ public class Header extends javax.swing.JPanel {
     }
     
     public void setHeaderTitle(String value) {
-        jLabelTitle.setText(value);
+        jLabelTitle.setText(" " + value);
     }
     
     public void setProfile(Image image) {
@@ -59,6 +83,8 @@ public class Header extends javax.swing.JPanel {
         jLabelProfile = new javax.swing.JLabel();
         jLabelRol = new javax.swing.JLabel();
         jLabelTitle = new javax.swing.JLabel();
+        jPanelHeaderView = new javax.swing.JPanel();
+        jLabelDescripcion = new javax.swing.JLabel();
 
         setForeground(new java.awt.Color(255, 51, 51));
 
@@ -81,8 +107,14 @@ public class Header extends javax.swing.JPanel {
         jLabelRol.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelRol.setText("Mi rol");
 
-        jLabelTitle.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
+        jLabelTitle.setFont(new java.awt.Font("Cantarell", 0, 36)); // NOI18N
         jLabelTitle.setText("My Panel");
+
+        jPanelHeaderView.setOpaque(false);
+        jPanelHeaderView.setLayout(new java.awt.BorderLayout());
+
+        jLabelDescripcion.setForeground(new java.awt.Color(102, 102, 102));
+        jLabelDescripcion.setText("Descripcion");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -90,10 +122,14 @@ public class Header extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                    .addComponent(jLabelDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelHeaderView, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                    .addComponent(jLabelUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                     .addComponent(jLabelRol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -106,28 +142,35 @@ public class Header extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabelUserName)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelUserName)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelRol))
+                            .addComponent(jLabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelRol)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabelProfile, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(jLabelDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))))
+            .addComponent(jPanelHeaderView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabelDescripcion;
     private javax.swing.JLabel jLabelProfile;
     private javax.swing.JLabel jLabelRol;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelUserName;
+    private javax.swing.JPanel jPanelHeaderView;
     // End of variables declaration//GEN-END:variables
 }

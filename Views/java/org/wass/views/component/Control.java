@@ -4,6 +4,8 @@
  */
 package org.wass.views.component;
 
+import javax.swing.JComponent;
+
 /**
  *
  * @author wil
@@ -11,5 +13,18 @@ package org.wass.views.component;
  * @since 1.0.0
  */
 public interface Control {
+    
     public String getComponenteTitle();
+    
+    public default String getComponenteDescribe() {
+        return null;
+    }
+    
+    public default Footer getFooterComponent() {
+        return null;
+    }
+    
+    public default JComponent getHeaderComponent() {
+        return null;
+    }
 }

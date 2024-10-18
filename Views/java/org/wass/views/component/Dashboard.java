@@ -1,3 +1,7 @@
+/*
+ * POS Clothes es un sistema informático que está reservado con derechos de 
+ * autor, para más información: https://github.com/AlexBollen/POS_Clothes
+ */
 package org.wass.views.component;
 
 import javax.swing.JPanel;
@@ -39,7 +43,7 @@ public class Dashboard extends JPanel implements Control {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
+    @Override
     public String getComponenteTitle() {
         return "Dashboard";
     }

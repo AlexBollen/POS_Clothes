@@ -5,14 +5,14 @@
 package org.wass.views.listeners;
 
 /**
- * Una interfaz <code>OyenteConfiguracion</code> es el encargado de responder los
+ * Una interfaz <code>ConfiguracionListener</code> es el encargado de responder los
  * eventos que realizan o se activan en el menú de configuraciones.
  * 
  * @author wil
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface OyenteConfiguracion {
+public interface ConfiguracionListener {
     
     /** Opciones - Menu*/
     public static enum Opcion {

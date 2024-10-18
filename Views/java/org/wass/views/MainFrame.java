@@ -1,5 +1,10 @@
+/*
+ * POS Clothes es un sistema informático que está reservado con derechos de 
+ * autor, para más información: https://github.com/AlexBollen/POS_Clothes
+ */
 package org.wass.views;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -9,6 +14,7 @@ import javax.swing.JViewport;
 import org.wass.models.Usuario;
 import org.wass.views.component.Control;
 import org.wass.views.component.Dashboard;
+import org.wass.views.component.Footer;
 import org.wass.views.component.ViewUsuario;
 import org.wass.views.component.menu.MenuConfiguraciones;
 
@@ -97,7 +103,27 @@ public class MainFrame extends AbstractFrame {
             
             if (component instanceof Control control) {
                 header2.setHeaderTitle(control.getComponenteTitle());
+                header2.setHeaderView(control.getHeaderComponent());
+                
+                header2.setDescripcion(control.getComponenteDescribe());
+                setFooter(control.getFooterComponent());
             }
+        }
+    }
+    
+    public void removeFooter(Footer footer) {
+        if (footer == null) {
+            jPanelFooter.removeAll();
+        } else {
+            jPanelFooter.remove(footer);
+        }
+    }
+    
+    public void setFooter(Footer footer) {
+        if (footer == null) {
+            removeFooter(null);
+        } else {
+            jPanelFooter.add(footer, BorderLayout.CENTER);
         }
     }
     
@@ -119,6 +145,7 @@ public class MainFrame extends AbstractFrame {
         jPanel7 = new javax.swing.JPanel();
         jPanelHeaderView = new javax.swing.JPanel();
         header2 = new org.wass.views.component.Header();
+        jPanelFooter = new javax.swing.JPanel();
         rootView = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -233,7 +260,7 @@ public class MainFrame extends AbstractFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelHeaderView, javax.swing.GroupLayout.DEFAULT_SIZE, 910, Short.MAX_VALUE)
+                .addComponent(jPanelHeaderView, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -246,7 +273,10 @@ public class MainFrame extends AbstractFrame {
 
         jPanelBody.add(jPanel7, java.awt.BorderLayout.PAGE_START);
 
-        rootView.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelFooter.setOpaque(false);
+        jPanelFooter.setLayout(new java.awt.BorderLayout());
+        jPanelBody.add(jPanelFooter, java.awt.BorderLayout.PAGE_END);
+
         rootView.setBorder(null);
         jPanelBody.add(rootView, java.awt.BorderLayout.CENTER);
 
@@ -260,7 +290,7 @@ public class MainFrame extends AbstractFrame {
         );
         jPanelRootLayout.setVerticalGroup(
             jPanelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelView, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
+            .addComponent(jPanelView, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanelRoot, java.awt.BorderLayout.CENTER);
@@ -274,7 +304,10 @@ public class MainFrame extends AbstractFrame {
         configuraciones.setView(new MenuConfiguraciones().addOyenteConfiguracion((op) -> {
             switch (op) {
                 case Usuario -> { 
-                    changeView(new ViewUsuario()); 
+                    ViewUsuario vwUsuario = new ViewUsuario();
+                    changeView(vwUsuario);
+                    
+                    vwUsuario.setHeader(header2);
                     configuraciones.doClose(FloatingWindow.RET_OK);
                 }
                 case Aplicacion -> {
@@ -300,6 +333,7 @@ public class MainFrame extends AbstractFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanelBody;
+    private javax.swing.JPanel jPanelFooter;
     private javax.swing.JPanel jPanelHeaderView;
     private javax.swing.JPanel jPanelMenu;
     private javax.swing.JPanel jPanelMenuHeader;

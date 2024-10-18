@@ -3,7 +3,7 @@ package org.wass.views.component.menu;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
-import org.wass.views.listeners.OyenteConfiguracion;
+import org.wass.views.listeners.ConfiguracionListener;
 
 /**
  *
@@ -11,20 +11,20 @@ import org.wass.views.listeners.OyenteConfiguracion;
  */
 public class MenuConfiguraciones extends JPanel {
     
-    private List<OyenteConfiguracion> listeners;
+    private List<ConfiguracionListener> listeners;
     
     public MenuConfiguraciones() {
         this.listeners = new ArrayList<>();
         initComponents();
     }
     
-    public MenuConfiguraciones addOyenteConfiguracion(OyenteConfiguracion oyente) {
+    public MenuConfiguraciones addOyenteConfiguracion(ConfiguracionListener oyente) {
         this.listeners.add(oyente);
         return this;
     }
     
-    private void fireOyentesConfiguracion(OyenteConfiguracion.Opcion op) {
-        for (final OyenteConfiguracion oc : this.listeners) {
+    private void fireOyentesConfiguracion(ConfiguracionListener.Opcion op) {
+        for (final ConfiguracionListener oc : this.listeners) {
             if (oc != null) {
                 oc.opcion(op);
             }
@@ -92,11 +92,11 @@ public class MenuConfiguraciones extends JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        fireOyentesConfiguracion(OyenteConfiguracion.Opcion.Usuario);
+        fireOyentesConfiguracion(ConfiguracionListener.Opcion.Usuario);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        fireOyentesConfiguracion(OyenteConfiguracion.Opcion.Aplicacion);
+        fireOyentesConfiguracion(ConfiguracionListener.Opcion.Aplicacion);
     }//GEN-LAST:event_jButton4ActionPerformed
 
 
