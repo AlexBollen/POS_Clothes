@@ -12,10 +12,11 @@ public class UsuarioModel extends PersonaModel {
     private String Contrasenia;
     private RolModel RolModel;
 
-    public UsuarioModel(){
-        
+   
+    UsuarioModel() {
+
     }
-    
+
     public UsuarioModel(int IdPersona, String NombrePersona, String Direccion, String Telefono, Boolean Estado, int IdUsuario, String NombreUsuario, String Contrasenia, RolModel RolModel) {
         super(IdPersona, NombrePersona, Direccion, Telefono, Estado);
         this.IdUsuario = IdUsuario;
@@ -23,6 +24,7 @@ public class UsuarioModel extends PersonaModel {
         this.Contrasenia = Contrasenia;
         this.RolModel = RolModel;
     }
+
 
     public int getIdUsuario() {
         return IdUsuario;

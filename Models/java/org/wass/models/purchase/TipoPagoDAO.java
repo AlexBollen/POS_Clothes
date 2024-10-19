@@ -107,9 +107,9 @@ public class TipoPagoDAO {
 
             while (rs.next()) {
                 tipoPago = new TipoPagoModel(
-                        rs.getString("NombreTipoProducto")
+                        rs.getString("NombreTipoPago")
                 );
-                tipoPago.setIdTipoPago(rs.getInt("IdTipoProducto"));
+                tipoPago.setIdTipoPago(rs.getInt("IdTipoPago"));
                 tipoPago.setEstado(rs.getBoolean("Estado"));
             }
         } catch (SQLException e) {

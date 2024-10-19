@@ -12,7 +12,7 @@ import org.wass.models.sale.ClienteModel;
 public class ClienteController {
     private ClienteDAO clienteDao;
 
-    // Constructor para inicializar productoDao
+    // Constructor para inicializar clienteDAO
     public ClienteController(ClienteDAO clienteDao) {
         this.clienteDao = clienteDao;
     }
@@ -20,7 +20,7 @@ public class ClienteController {
     // Método para agregar un nuevo cliente
     public boolean agregarCliente(ClienteModel cliente) {
         if (cliente.getNit() == null || cliente.getNit().isEmpty()) {
-            cliente.setNit("");
+            cliente.setNit("CF");
         }
         if (cliente.getIdPersona() <= 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una persona", "Requerido", JOptionPane.WARNING_MESSAGE);
@@ -31,7 +31,34 @@ public class ClienteController {
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Cliente agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Error al agregar clienter", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al agregar el cliente", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return resultado;
+    }
+
+    // Método para agragar una nueva persona y un cliente
+    public boolean agregarClientePersona(ClienteModel cliente) {
+        if (cliente.getNit() == null || cliente.getNit().isEmpty()) {
+            cliente.setNit("CF");
+        }
+        if (cliente.getNombrePersona() == null || cliente.getNombrePersona().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe  ingresar un nombre", "Requerido", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (cliente.getDireccion() == null || cliente.getDireccion().isEmpty()) {
+            cliente.setDireccion("");
+        }
+
+        if (cliente.getTelefono() == null || cliente.getTelefono().isEmpty()) {
+            cliente.setTelefono("");
+        }
+
+        boolean resultado = clienteDao.agregarClientePersona(cliente);
+        if (resultado) {
+            JOptionPane.showMessageDialog(null, "Cliente agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al agregar el cliente", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return resultado;
     }
@@ -52,7 +79,7 @@ public class ClienteController {
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Error al eliminar cliente", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al eliminar el cliente", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return resultado;
     }
@@ -70,7 +97,35 @@ public class ClienteController {
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Cliente actualizado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Error al actualizar clienter", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al actualizar el cliente", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return resultado;
+    }
+
+    // Método para actualizar un cliente y una peresona
+    public boolean actualizarClientePersona(ClienteModel cliente,int IdCliente) {
+        if (cliente.getNit() == null || cliente.getNit().isEmpty()) {
+            cliente.setNit("CF");
+        }
+        if (cliente.getNombrePersona() == null || cliente.getNombrePersona().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe  ingresar un nombre", "Requerido", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (cliente.getDireccion() == null || cliente.getDireccion().isEmpty()) {
+            cliente.setDireccion("");
+        }
+
+        if (cliente.getTelefono() == null || cliente.getTelefono().isEmpty()) {
+            cliente.setTelefono("");
+        }
+
+
+        boolean resultado = clienteDao.actualizarClientePersona(cliente,IdCliente);
+        if (resultado) {
+            JOptionPane.showMessageDialog(null, "Cliente actualizado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al actualizar el cliente", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return resultado;
     }
