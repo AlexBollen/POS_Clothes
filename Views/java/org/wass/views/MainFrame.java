@@ -3,10 +3,25 @@ package org.wass.views;
 import java.awt.Component;
 import javax.swing.ImageIcon;
 import javax.swing.JViewport;
+import org.wass.controllers.product.ProductoController;
+import org.wass.controllers.purchase.CompraController;
+import org.wass.controllers.purchase.DetalleCompraController;
+import org.wass.controllers.purchase.EstadoCompraController;
+import org.wass.controllers.purchase.ProveedorController;
+import org.wass.controllers.purchase.TipoPagoController;
+import org.wass.controllers.sale.ClienteController;
 
 import org.wass.models.person.UsuarioModel;
+import org.wass.models.product.ProductoDAO;
+import org.wass.models.purchase.CompraDAO;
+import org.wass.models.purchase.DetalleCompraDAO;
+import org.wass.models.purchase.EstadoCompraDAO;
+import org.wass.models.purchase.ProveedorDAO;
+import org.wass.models.purchase.TipoPagoDAO;
+import org.wass.models.sale.ClienteDAO;
 import org.wass.views.component.Control;
 import org.wass.views.component.Dashboard;
+import org.wass.views.sale.ViewClientes2;
 
 /**
  *
@@ -14,28 +29,33 @@ import org.wass.views.component.Dashboard;
  * @author wil
  */
 public class MainFrame extends AbstractFrame {
-    
+
     private UsuarioModel logedUser;
     private Dashboard dashboard;
-    
+
     public MainFrame(UsuarioModel logedUser) {
         this.logedUser = logedUser;
         initComponents();
         componentesAdd();
     }
-    
-    private void componentesAdd() {        
+
+    private void componentesAdd() {
         dashboard = new Dashboard();
+
         
+        //Instancia para ClienteDAO y ClienteController
+        ClienteDAO clienteDAO = new ClienteDAO();
+        ClienteController clienteController = new ClienteController(clienteDAO);
+
         jButtonSettings.setFocusPainted(false);
         changeView(dashboard);
-        
+
         header2.setUserName(logedUser.getNombrePersona());
         header2.setUserRol(logedUser.getRol().getNombreRol());
         header2.setProfile(new ImageIcon(getClass().getResource("/Iconos/avatardefault.png")).getImage());
-        
+
         //Aquí se llaman a los formularios
-        menu1.setEvent((int index, int subIndex) -> {            
+        menu1.setEvent((int index, int subIndex) -> {
             switch (index) {
                 case 0 -> {
                     //Dashboard
@@ -53,7 +73,7 @@ public class MainFrame extends AbstractFrame {
                             throw new AssertionError();
                     }
                 }
-                case 2 -> { 
+                case 2 -> {
                     //Inventario
                 }
                 case 3 -> {
@@ -63,6 +83,7 @@ public class MainFrame extends AbstractFrame {
                     switch (subIndex) {
                         case 1 -> {
                             //Clientes
+                            changeView(new ViewClientes2(clienteController));
                         }
                         case 2 -> {
                             //Historial
@@ -78,25 +99,26 @@ public class MainFrame extends AbstractFrame {
                 case 6 -> {
                     //Reportes
                 }
-                default -> {}
+                default -> {
+                }
             }
         });
 
         // Centrar form en la pantalla
         setLocationRelativeTo(null);
     }
-    
+
     private void changeView(Component component) {
         JViewport viewport = rootView.getViewport();
         if (viewport.getView() != component) {
             rootView.setViewportView(component);
-            
+
             if (component instanceof Control control) {
                 header2.setHeaderTitle(control.getComponenteTitle());
             }
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

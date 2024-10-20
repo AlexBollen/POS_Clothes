@@ -48,14 +48,10 @@ public class ClienteDAO {
      * @return true si se agrega correctamente, false en caso contrario
      */
     public boolean agregarClientePersona(ClienteModel cliente) {
-        String sql = "INSERT INTO Cliente (Nit, Estado, IdPersona)"
-                + "VALUES (?, ?, ?)";
-
-
         String personaSql = "INSERT INTO Persona (NombrePersona, Direccion, Telefono, Estado)"
-                         + "VALUES (?, ?, ?, ?)";
+                         + " VALUES (?, ?, ?, ?)";
         String clienteSql = "INSERT INTO Cliente (Nit, Estado, IdPersona)"
-                                + " + VALUES (?, ?, ?)";
+                                + "  VALUES (?, ?, ?)";
 
         try (Connection connection = DataBase.nDataBase().getConnection()) {
             connection.setAutoCommit(false);
@@ -109,7 +105,9 @@ public class ClienteDAO {
      * @return Lista de objetos ClienteModel
      */
     public List<ClienteModel> obtenerClientes() {
-        String sql = "SELECT * FROM Cliente WHERE Estado = 1";
+        String sql = "SELECT persona.IdPersona, nombrePersona, direccion, telefono, nit, cliente.idCliente, cliente.estado"
+                + " FROM cliente INNER JOIN persona"
+                + " on Cliente.idPersona = Persona.idPersona WHERE cliente.estado = TRUE;";
         List<ClienteModel> clientes = new ArrayList<>();
 
         try (Connection connection = DataBase.nDataBase().getConnection();
@@ -123,10 +121,12 @@ public class ClienteDAO {
                         rs.getString("Direccion"),
                         rs.getString("Telefono"),
                         rs.getString("Nit")
+                        
 
                 );
                 cliente.setIdCliente(rs.getInt("IdCliente"));
                 cliente.setEstado(rs.getBoolean("Estado"));
+                cliente.setIdPersona(rs.getInt("IdPersona"));
                 clientes.add(cliente);
             }
         } catch (SQLException e) {
@@ -144,7 +144,7 @@ public class ClienteDAO {
      */
     public boolean actualizarCliente(ClienteModel cliente,int idCliente) {
         String sql = "UPDATE Cliente SET Nit=?, IdPersona=?" +
-                " WHERE IdCliente=?";
+                " WHERE IdCliente=?;";
 
         try (Connection connection = DataBase.nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -171,7 +171,7 @@ public class ClienteDAO {
      */
     public boolean actualizarClientePersona(ClienteModel cliente,int idCliente) {
         String sql = "UPDATE Persona p INNER JOIN Cliente c ON c.IdPersona = p.IdPersona"
-                + "SET p.NombrePersona=?, p.Direccion=?, p.Telefono=?, c.Nit=?"
+                + " SET p.NombrePersona=?, p.Direccion=?, p.Telefono=?, c.Nit=?"
                 + " WHERE c.IdCliente=?";
 
         try (Connection connection = DataBase.nDataBase().getConnection();
@@ -229,11 +229,10 @@ public class ClienteDAO {
      * @return true si se elimina correctamente, false en caso contrario
      */
     public boolean eliminarCliente(int clienteId) {
-        String sql = "UPDATE Cliente SET Estado=0 WHERE IdCliente=?";
+        String sql = "UPDATE Cliente SET Estado=false WHERE IdCliente=?";
 
         try (Connection connection = DataBase.nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
             statement.setInt(1, clienteId);
             return statement.executeUpdate() > 0;
 

@@ -55,11 +55,11 @@ public class ClienteController {
         }
 
         boolean resultado = clienteDao.agregarClientePersona(cliente);
-        if (resultado) {
+       /* if (resultado) {
             JOptionPane.showMessageDialog(null, "Cliente agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Error al agregar el cliente", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        }*/
         return resultado;
     }
 
@@ -76,11 +76,11 @@ public class ClienteController {
     // Método para eliminar un cliente
     public boolean eliminarCliente(int clienteId) {
         boolean resultado = clienteDao.eliminarCliente(clienteId);
-        if (resultado) {
+       /* if (resultado) {
             JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Error al eliminar el cliente", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        }*/
         return resultado;
     }
 
@@ -122,11 +122,11 @@ public class ClienteController {
 
 
         boolean resultado = clienteDao.actualizarClientePersona(cliente,IdCliente);
-        if (resultado) {
+       /* if (resultado) {
             JOptionPane.showMessageDialog(null, "Cliente actualizado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Error al actualizar el cliente", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        }*/
         return resultado;
     }
     //Método para obtener un cliente por su nit
