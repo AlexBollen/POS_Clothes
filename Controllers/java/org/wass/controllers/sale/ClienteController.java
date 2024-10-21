@@ -77,7 +77,7 @@ public class ClienteController {
     }
 
     // Método para actualizar un cliente
-    public boolean actualizarCliente(ClienteModel cliente,int IdCliente) {
+    public boolean actualizarCliente(ClienteModel cliente,int idCliente) {
         if (cliente.getNit() == null || cliente.getNit().isEmpty()) {
             cliente.setNit("");
         }
@@ -85,7 +85,7 @@ public class ClienteController {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una persona", "Requerido", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        boolean resultado = clienteDao.actualizarCliente(cliente,IdCliente);
+        boolean resultado = clienteDao.actualizarCliente(cliente, idCliente);
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Cliente actualizado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -95,7 +95,7 @@ public class ClienteController {
     }
 
     // Método para actualizar un cliente y una peresona
-    public boolean actualizarClientePersona(ClienteModel cliente,int IdCliente) {
+    public boolean actualizarClientePersona(ClienteModel cliente,int idCliente) {
         if (cliente.getNit() == null || cliente.getNit().isEmpty()) {
             cliente.setNit("CF");
         }
@@ -113,7 +113,7 @@ public class ClienteController {
         }
 
 
-        boolean resultado = clienteDao.actualizarClientePersona(cliente,IdCliente);
+        boolean resultado = clienteDao.actualizarClientePersona(cliente, idCliente);
      
         return resultado;
     }
