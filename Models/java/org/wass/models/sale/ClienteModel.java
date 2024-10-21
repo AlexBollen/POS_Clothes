@@ -16,8 +16,8 @@ public class ClienteModel extends PersonaModel {
     private int idPersona;
 
 
-    public ClienteModel(int IdPersona, String NombrePersona, String Direccion, String Telefono, String nit) {
-        super(IdPersona, NombrePersona, Direccion, Telefono);
+    public ClienteModel(int idPersona, String nombrePersona, String direccion, String telefono, String nit) {
+        super(idPersona, nombrePersona, direccion, telefono);
         this.nit = nit;
         this.idPersona = idPersona;
     }
