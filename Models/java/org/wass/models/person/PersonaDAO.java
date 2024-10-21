@@ -19,7 +19,7 @@ public class PersonaDAO {
      /**
      * Método para agregar una nueva persona a la base de datos.
      *
-     * @param persona El objeto ClientePersona a agregar
+     * @param persona El objeto Persona a agregar
      * @return true si se agrega correctamente, false en caso contrario
      */
     
@@ -47,9 +47,9 @@ public class PersonaDAO {
     }
      
      /**
-     * Método para obtener todos los tipos productos de la base de datos.
+     * Método para obtener todas personas de la base de datos.
      *
-     * @return Lista de objetos ProductoModel
+     * @return Lista de objetos PersonaModel
      */
     public List<PersonaModel> obtenerPersonas() {
         String sql = "SELECT * FROM Persona WHERE Estado = 1";
@@ -67,7 +67,6 @@ public class PersonaDAO {
                         rs.getString("Telefono"),
                         rs.getBoolean("Estado")
                 );
-              //  persona.setIdPersona(rs.getInt("IdPersona"));
                 personas.add(persona);
             }
         } catch (SQLException e) {
@@ -128,7 +127,6 @@ public class PersonaDAO {
                             rs.getString("Telefono"),
                             rs.getBoolean("Estado")
                     );
-                    //persona.setIdPersona(rs.getInt("IdPersona"));
                 }
             }
         } catch (SQLException e) {
