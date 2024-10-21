@@ -1,7 +1,6 @@
 package org.wass.models.purchase;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.wass.controllers.db.DataBase;
