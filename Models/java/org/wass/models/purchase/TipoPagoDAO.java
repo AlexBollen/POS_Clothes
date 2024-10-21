@@ -7,13 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.wass.controllers.db.DataBase;
-import org.wass.models.purchase.TipoPagoModel;
 
 /**
- *
  * @author SamuelQ
  */
-
 public class TipoPagoDAO {
     /**
      * Método para agregar un nuevo producto a la base de datos.
@@ -102,16 +99,17 @@ public class TipoPagoDAO {
         TipoPagoModel tipoPago = null;
 
         try (Connection connection = DataBase.nDataBase().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+            PreparedStatement statement = connection.prepareStatement(sql)) {
 
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    tipoPago = new TipoPagoModel(
+                            rs.getString("NombreTipoPago")
+                    );
+                    tipoPago.setIdTipoPago(rs.getInt("IdTipoPago"));
+                    tipoPago.setEstado(rs.getBoolean("Estado"));
 
-            while (rs.next()) {
-                tipoPago = new TipoPagoModel(
-                        rs.getString("NombreTipoPago")
-                );
-                tipoPago.setIdTipoPago(rs.getInt("IdTipoPago"));
-                tipoPago.setEstado(rs.getBoolean("Estado"));
-
+                }
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener tipo de pago por id: " + e.getMessage());

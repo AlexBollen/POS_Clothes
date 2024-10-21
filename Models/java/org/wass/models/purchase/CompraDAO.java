@@ -87,7 +87,7 @@ public class CompraDAO {
      * @param compra El objeto CompraModel a actualizar
      * @return true si se agrega correctamente, false en caso contrario
      */
-    public boolean actualizarCompra(CompraModel compra,int IdCompra) {
+    public boolean actualizarCompra(CompraModel compra,int idCompra) {
         String sql = "UPDATE Compra SET DescripcionCompra=?, CantidadPedida=?, CantidadRecibida=?, TotalCompra=?, IdProveedor=?, IdTipoPago=?, IdEstadoCompra=?  "
                 + " WHERE IdCompra=?";
 
@@ -101,7 +101,7 @@ public class CompraDAO {
             statement.setInt(5, compra.getIdProveedor());
             statement.setInt(6, compra.getIdTipoPago());
             statement.setInt(7, compra.getIdEstadoCompra());
-            statement.setInt(8, IdCompra);
+            statement.setInt(8, idCompra);
 
             return statement.executeUpdate() > 0;
 
