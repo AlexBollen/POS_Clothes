@@ -28,15 +28,15 @@ public class CompraDAO {
                     compra = new CompraModel(
                             rs.getString("DescripcionCompra"),
                             rs.getInt("CantidadPedida"),
-                            rs.getInt("CantidadRecibida"),
                             rs.getFloat("TotalCompra"),
                             rs.getInt("IdProveedor"),
-                            rs.getInt("IdTipoPago"),
-                            rs.getInt("IdEstadoCompra")
+                            rs.getInt("IdTipoPago")
 
                     );
                     compra.setIdCompra(rs.getInt("IdCompra"));
+                    compra.setCantidadRecibida(rs.getInt("CantidadRecibida"));
                     compra.setFechaCompra(rs.getDate("FechaCompra"));
+                    compra.setIdEstadoCompra(rs.getInt("IdEstadoCompra"));
                     compra.setEstado(rs.getBoolean("Estado"));
                 }
             }
@@ -64,14 +64,14 @@ public class CompraDAO {
                 CompraModel compra = new CompraModel(
                         rs.getString("DescripcionCompra"),
                         rs.getInt("CantidadPedida"),
-                        rs.getInt("CantidadRecibida"),
                         rs.getFloat("TotalCompra"),
                         rs.getInt("IdProveedor"),
-                        rs.getInt("IdTipoPago"),
-                        rs.getInt("IdEstadoCompra")
+                        rs.getInt("IdTipoPago")
                 );
                 compra.setIdCompra(rs.getInt("IdCompra"));
+                compra.setCantidadRecibida(rs.getInt("CantidadRecibida"));
                 compra.setFechaCompra(rs.getDate("FechaCompra"));
+                compra.setIdEstadoCompra(rs.getInt("IdEstadoCompra"));
                 compra.setEstado(rs.getBoolean("Estado"));
                 compras.add(compra);
             }
@@ -89,7 +89,7 @@ public class CompraDAO {
      */
     public boolean actualizarCompra(CompraModel compra,int IdCompra) {
         String sql = "UPDATE Compra SET DescripcionCompra=?, CantidadPedida=?, CantidadRecibida=?, TotalCompra=?, IdProveedor=?, IdTipoPago=?, IdEstadoCompra=?  "
-                + " WHERE IdStock=?";
+                + " WHERE IdCompra=?";
 
         try (Connection connection = DataBase.nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -145,6 +145,7 @@ public class CompraDAO {
             statement.executeUpdate();
         }
     }
+
     /**
      * Método para agregar una compra.
      *
@@ -172,7 +173,7 @@ public class CompraDAO {
                 compraStatement.setBoolean(6, true);
                 compraStatement.setInt(7, compra.getIdProveedor());
                 compraStatement.setInt(8, compra.getIdTipoPago());
-                compraStatement.setInt(9, compra.getIdEstadoCompra());
+                compraStatement.setInt(9, 1);
                 compraStatement.executeUpdate();
 
                 // Obtener el ID generado de la compra

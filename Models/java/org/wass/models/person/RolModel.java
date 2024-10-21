@@ -1,3 +1,7 @@
+/*
+ * POS Clothes es un sistema informático que está reservado con derechos de
+ * autor, para más información: https://github.com/AlexBollen/POS_Clothes
+ */
 package org.wass.models.person;
 
 /**
@@ -15,10 +19,9 @@ public class RolModel {
         
     }
 
-    public RolModel(int IdRol, String NombreRol, Boolean Estado) {
+    public RolModel(int IdRol, String NombreRol) {
         this.IdRol = IdRol;
         this.NombreRol = NombreRol;
-        this.Estado = Estado;
     }
 
     public int getIdRol() {

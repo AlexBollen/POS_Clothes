@@ -20,7 +20,7 @@ public class EstadoCompraDAO {
      * @return Lista de objetos EstadoCompraModel
      */
     public List<EstadoCompraModel> obtenerEstadosCompra() {
-        String sql = "SELECT * FROM EstadoCompra";
+        String sql = "SELECT * FROM EstadoCompra WHERE Estado = 1";
         List<EstadoCompraModel> estadosCompra = new ArrayList<>();
 
         try (Connection connection = DataBase.nDataBase().getConnection();
@@ -52,14 +52,18 @@ public class EstadoCompraDAO {
         EstadoCompraModel estadoCompra = null;
 
         try (Connection connection = DataBase.nDataBase().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet rs = statement.executeQuery()) {
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            while (rs.next()) {
-                estadoCompra = new EstadoCompraModel(
-                    rs.getString("NombreEstadoCompra")
-                );
-                estadoCompra.setIdEstadoCompra(rs.getInt("IdEstadoCompra"));
+            statement.setInt(1, id);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    estadoCompra = new EstadoCompraModel(
+                            rs.getString("NombreEstadoCompra")
+                    );
+                    estadoCompra.setIdEstadoCompra(rs.getInt("IdEstadoCompra"));
+                    estadoCompra.setEstado(rs.getBoolean("Estado"));
+                }
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener el nombre del estado compra: " + e.getMessage());

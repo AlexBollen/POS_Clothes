@@ -109,19 +109,23 @@ public class ProveedorDAO {
         String sql = "SELECT * FROM Proveedor WHERE IdProveedor = ?";
         ProveedorModel proveedor = null;
         try (Connection connection = DataBase.nDataBase().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet rs = statement.executeQuery()) {
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            if (rs.next()) {
-                proveedor = new ProveedorModel(
-                        rs.getString("NombreTipoProducto"),
-                        rs.getString("Telefono2"),
-                        rs.getString("Correo"),
-                        rs.getInt("IdPersona")
-                );
-                proveedor.setIdProveedor(rs.getInt("IdTipoProducto"));
-                proveedor.setEstado(rs.getBoolean("Estado"));
+            statement.setInt(1, id);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    proveedor = new ProveedorModel(
+                            rs.getString("NombreComercial"),
+                            rs.getString("Telefono2"),
+                            rs.getString("Correo"),
+                            rs.getInt("IdPersona")
+                    );
+                    proveedor.setIdProveedor(rs.getInt("IdTipoProducto"));
+                    proveedor.setEstado(rs.getBoolean("Estado"));
+                }
             }
+
         } catch (SQLException e) {
             System.err.println("Error al obtener proveedor: " + e.getMessage());
         }
@@ -166,7 +170,7 @@ public class ProveedorDAO {
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     proveedor = new ProveedorModel(
-                            rs.getString("NombreTipoProducto"),
+                            rs.getString("NombreComercial"),
                             rs.getString("Telefono2"),
                             rs.getString("Correo"),
                             rs.getInt("IdPersona")
@@ -175,6 +179,21 @@ public class ProveedorDAO {
                     proveedor.setEstado(rs.getBoolean("Estado"));
                 }
             }
+            /*
+                try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    producto = new ProductoModel(
+                            rs.getString("NombreProducto"),
+                            rs.getFloat("PrecioCosto"),
+                            rs.getFloat("PrecioVenta"),
+                            rs.getFloat("DescuentoPorcentual"),
+                            rs.getInt("IdTipoProducto")
+                    );
+                    producto.setIdProducto(rs.getInt("IdProducto")); // Seteamos el ID del producto porque no está en constructor
+                    producto.setEstado(rs.getBoolean("Estado")); // También seteamos el Estado
+                }
+            }
+             */
         } catch (SQLException e) {
             System.err.println("Error al obtener producto: " + e.getMessage());
         }

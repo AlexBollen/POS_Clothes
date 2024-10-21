@@ -102,8 +102,8 @@ public class TipoPagoDAO {
         TipoPagoModel tipoPago = null;
 
         try (Connection connection = DataBase.nDataBase().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet rs = statement.executeQuery()) {
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
 
             while (rs.next()) {
                 tipoPago = new TipoPagoModel(
@@ -111,6 +111,7 @@ public class TipoPagoDAO {
                 );
                 tipoPago.setIdTipoPago(rs.getInt("IdTipoPago"));
                 tipoPago.setEstado(rs.getBoolean("Estado"));
+
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener tipo de pago por id: " + e.getMessage());

@@ -25,14 +25,12 @@ public class CompraModel {
     private int idEstadoCompra;
     private List<DetalleCompraModel> detalleCompra;
 
-    public CompraModel(String descripcionCompra, int cantidadPedida, int cantidadRecibida, float totalCompra, int idProveedor, int idTipoPago, int idEstadoCompra) {
+    public CompraModel(String descripcionCompra, int cantidadPedida, float totalCompra, int idProveedor, int idTipoPago) {
         this.descripcionCompra = descripcionCompra;
         this.cantidadPedida = cantidadPedida;
-        this.cantidadRecibida = cantidadRecibida;
         this.totalCompra = totalCompra;
         this.idProveedor = idProveedor;
         this.idTipoPago = idTipoPago;
-        this.idEstadoCompra = idEstadoCompra;
         this.detalleCompra = new ArrayList<>(); // Inicializa la lista
     }
 

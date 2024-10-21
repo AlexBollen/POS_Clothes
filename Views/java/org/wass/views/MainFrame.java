@@ -9,7 +9,9 @@ import org.wass.controllers.purchase.DetalleCompraController;
 import org.wass.controllers.purchase.EstadoCompraController;
 import org.wass.controllers.purchase.ProveedorController;
 import org.wass.controllers.purchase.TipoPagoController;
+
 import org.wass.controllers.sale.ClienteController;
+
 
 import org.wass.models.person.UsuarioModel;
 import org.wass.models.product.ProductoDAO;
@@ -18,7 +20,9 @@ import org.wass.models.purchase.DetalleCompraDAO;
 import org.wass.models.purchase.EstadoCompraDAO;
 import org.wass.models.purchase.ProveedorDAO;
 import org.wass.models.purchase.TipoPagoDAO;
+
 import org.wass.models.sale.ClienteDAO;
+
 import org.wass.views.component.Control;
 import org.wass.views.component.Dashboard;
 import org.wass.views.sale.ViewClientes2;
@@ -41,6 +45,36 @@ public class MainFrame extends AbstractFrame {
 
     private void componentesAdd() {
         dashboard = new Dashboard();
+
+        // <editor-fold defaultstate="collapsed" desc="Instanciar Controladores"> 
+        
+        //Instancia para ProductoDAO y ProductoController
+        ProductoDAO productodao = new ProductoDAO();
+        ProductoController productocontroller = new ProductoController(productodao);
+        
+        //Instancia para ProveedorDAO y ProveedorController
+        ProveedorDAO proveedordao = new ProveedorDAO();
+        ProveedorController proveedorcontroller = new ProveedorController(proveedordao);
+        
+        //Instancia para TipoPagoDAO y TipoPagoController
+        TipoPagoDAO tipopagodao = new TipoPagoDAO();
+        TipoPagoController tipopagocontroller = new TipoPagoController(tipopagodao);
+        
+        //Instancia para EstadoCompraDAO y EstadoCompraController
+        EstadoCompraDAO estadocompradao = new EstadoCompraDAO();
+        EstadoCompraController estadocompracontroller = new EstadoCompraController(estadocompradao);
+        
+        //Instancia para DetalleCompraDAO y DetalleCompraController
+        DetalleCompraDAO detallecompradao = new DetalleCompraDAO();
+        DetalleCompraController detallecompracontroller = new DetalleCompraController(detallecompradao);
+        
+        //Instancia para CompraDAO y CompraController
+        CompraDAO compradao = new CompraDAO();
+        CompraController compracontroller = new CompraController(compradao,detallecompradao);
+        
+        
+        
+        // </editor-fold> 
 
         
         //Instancia para ClienteDAO y ClienteController
@@ -77,6 +111,7 @@ public class MainFrame extends AbstractFrame {
                     //Inventario
                 }
                 case 3 -> {
+                    changeView(new VistaCompras(productocontroller,proveedorcontroller,tipopagocontroller,estadocompracontroller,compracontroller));
                     //Compras
                 }
                 case 4 -> {

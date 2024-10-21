@@ -263,7 +263,7 @@ public class CompraView extends JFrame{
         //JOptionPane.showMessageDialog(this, "IdEstadoCompra: "+idEstadoCompra);
         CompraModel compra = null;
         try {
-            compra = new CompraModel("",0,0,(float)0,0,0,0);
+            compra = new CompraModel("",0,0,0,0);
             compra.setDescripcionCompra(descripcionField.getText());
             compra.setCantidadPedida(obtenerCantidadSolicitada());
             compra.setCantidadRecibida(Integer.parseInt(cantidadRecibidaField.getText()));
