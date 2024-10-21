@@ -3,7 +3,7 @@ package org.wass.models.person;
 /**
  *
  * @author Alex
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 public class PersonaModel {
@@ -13,8 +13,8 @@ public class PersonaModel {
     private String Telefono;
     private Boolean Estado;
     
-    public PersonaModel() {
-        
+    PersonaModel() {
+
     }
 
     public PersonaModel(int IdPersona, String NombrePersona, String Direccion, String Telefono, Boolean Estado) {
@@ -24,6 +24,13 @@ public class PersonaModel {
         this.Telefono = Telefono;
         this.Estado = Estado;
     }
+
+    public PersonaModel(int IdPersona, String NombrePersona, String Direccion, String Telefono) {
+        this(IdPersona, NombrePersona, Direccion, Telefono, Boolean.TRUE);
+
+
+    }
+
 
     public int getIdPersona() {
         return IdPersona;

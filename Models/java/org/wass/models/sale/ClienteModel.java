@@ -3,18 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.wass.models.sale;
+import org.wass.models.person.PersonaModel;
 
 /**
  *
  * @author SamuelQ
  */
-public class ClienteModel {
+public class ClienteModel extends PersonaModel {
     private int idCliente;
     private String nit;
     private boolean estado;
     private int idPersona;
 
-    public ClienteModel(String nit, int idPersona) {
+
+    public ClienteModel(int idPersona, String nombrePersona, String direccion, String telefono, String nit) {
+        super(idPersona, nombrePersona, direccion, telefono);
         this.nit = nit;
         this.idPersona = idPersona;
     }

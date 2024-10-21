@@ -104,16 +104,14 @@ public class TipoPagoDAO {
         try (Connection connection = DataBase.nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, id);
 
-            try (ResultSet rs = statement.executeQuery()) {
-                if (rs.next()) {
-                    tipoPago = new TipoPagoModel(
-                            rs.getString("NombreTipoPago")
-                    );
-                    tipoPago.setIdTipoPago(rs.getInt("IdTipoPago"));
-                    tipoPago.setEstado(rs.getBoolean("Estado"));
-                }
+            while (rs.next()) {
+                tipoPago = new TipoPagoModel(
+                        rs.getString("NombreTipoPago")
+                );
+                tipoPago.setIdTipoPago(rs.getInt("IdTipoPago"));
+                tipoPago.setEstado(rs.getBoolean("Estado"));
+
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener tipo de pago por id: " + e.getMessage());
