@@ -57,13 +57,13 @@ public class PersonaController {
         return personaDao.obtenerPersonaPorId(idPersona);
     }
     
-    public boolean actualizarPersona(PersonaModel persona,int IdPersona) {
+    public boolean actualizarPersona(PersonaModel persona,int idPersona) {
        if (persona.getNombrePersona() == null || persona.getNombrePersona().isEmpty()) {
            JOptionPane.showMessageDialog(null, "El nombre de la persona es requerido", "Requerido", JOptionPane.WARNING_MESSAGE);
            return false;
        }
 
-       boolean resultado = personaDao.actualizarPersona(persona,IdPersona);
+       boolean resultado = personaDao.actualizarPersona(persona,idPersona);
        if (resultado) {
            JOptionPane.showMessageDialog(null, "Persona actualizada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
        } else {
