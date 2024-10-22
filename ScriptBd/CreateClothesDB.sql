@@ -179,17 +179,16 @@ CREATE INDEX `IX_Relationship18` ON `Factura` (`IdCaja`);
 CREATE TABLE `DetalleVenta`
 (
   `IdDetalleVenta` Int NOT NULL AUTO_INCREMENT,
-  `IdProducto` Int NOT NULL,
+  `IdStock` Int NOT NULL,
   `IdFactura` Int NOT NULL,
   `Cantidad` Int NOT NULL,
   `Estado` BIT NOT NULL DEFAULT 1,
-  `IdSerie` Varchar(25),
   PRIMARY KEY (`IdDetalleVenta`),
   UNIQUE KEY `IdDetalleVenta` (`IdDetalleVenta`)
 );
 
-CREATE INDEX `IX_Relationship9` ON `DetalleVenta` (`IdProducto`);
-CREATE INDEX `IX_Relationship10` ON `DetalleVenta` (`IdFactura`, `IdSerie`);
+CREATE INDEX `IX_Relationship9` ON `DetalleVenta` (`IdStock`);
+CREATE INDEX `IX_Relationship10` ON `DetalleVenta` (`IdFactura`);
 
 -- Tabla Rol
 
@@ -287,9 +286,9 @@ ALTER TABLE `Compra` ADD CONSTRAINT `Relationship7` FOREIGN KEY (`IdTipoPago`) R
 
 ALTER TABLE `Factura` ADD CONSTRAINT `Relationship8` FOREIGN KEY (`IdCliente`) REFERENCES `Cliente` (`IdCliente`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-ALTER TABLE `DetalleVenta` ADD CONSTRAINT `Relationship9` FOREIGN KEY (`IdProducto`) REFERENCES `Producto` (`IdProducto`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `DetalleVenta` ADD CONSTRAINT `Relationship9` FOREIGN KEY (`IdStock`) REFERENCES `Stock` (`IdStock`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-ALTER TABLE `DetalleVenta` ADD CONSTRAINT `Relationship10` FOREIGN KEY (`IdFactura`, `IdSerie`) REFERENCES `Factura` (`IdFactura`, `IdSerie`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `DetalleVenta` ADD CONSTRAINT `Relationship10` FOREIGN KEY (`IdFactura`) REFERENCES `Factura` (`IdFactura`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE `Factura` ADD CONSTRAINT `Relationship11` FOREIGN KEY (`IdTipoPago`) REFERENCES `TipoPago` (`IdTipoPago`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
@@ -371,9 +370,9 @@ INSERT INTO `Factura` (`NoFactura`, `TotalFactura`, `FechaFactura`, `Estado`, `I
 VALUES ('FAC-001', 150.00, '2024-09-02 10:00:00', 1, 1, 1, 1, 'SERIEA'),
        ('FAC-002', 60.00, '2024-09-02 11:00:00', 1, 2, 2, 2, 'SERIEB');
        
-INSERT INTO `DetalleVenta` (`IdProducto`, `IdFactura`, `Cantidad`, `Estado`, `IdSerie`)
-VALUES (1, 1, 1, 1, 'SERIEA'),
-       (2, 2, 3, 1, 'SERIEB');
+INSERT INTO `DetalleVenta` (`IdStock`, `IdFactura`, `Cantidad`, `Estado`)
+VALUES (1, 1, 1, 1),
+       (2, 2, 3, 1);
           
 -- Fin de Script
 
