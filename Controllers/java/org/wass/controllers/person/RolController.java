@@ -6,6 +6,7 @@ package org.wass.controllers.person;
 
 import javax.swing.JOptionPane;
 import java.util.List;
+import org.wass.models.ListDataModel;
 import org.wass.models.person.RolModel;
 import org.wass.models.person.RolDao;
 
@@ -17,12 +18,19 @@ public class RolController {
     private RolDao rolDao;
 
     // Constructor para inicializar rolDao
-    public RolController(RolDao rolDao) { this.rolDao = rolDao; }
+    
+    public RolController() { 
+        this(new RolDao());
+    }
+    public RolController(RolDao rolDao) {
+        this.rolDao = rolDao;
+    }
 
     /**
      * Método para obtener un rol
      *
      * @param idRol ID del rol a obtener
+     * @return modelo
      */
     public RolModel obtenerRol(int idRol) {
         return rolDao.obtenerRol(idRol);
@@ -30,9 +38,20 @@ public class RolController {
 
     /**
      * Método para obtener todos los roles
+     * @return lista modelo
      */
     public List<RolModel> obtenerRoles() {
         return rolDao.obtenerRoles();
+    }
+    
+    /**
+     * Método para obtener todos los roles destinado a un componente Swinf/AWT.
+     * @return lista roles
+     */
+    public ListDataModel<RolModel> obtenerTodoRoles() {
+        return new ListDataModel<RolModel>().addAll(obtenerRoles(), (model) -> {
+            return model.getNombreRol();
+        });
     }
 
     /**

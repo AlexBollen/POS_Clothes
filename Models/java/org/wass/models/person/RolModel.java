@@ -4,13 +4,16 @@
  */
 package org.wass.models.person;
 
+import org.wass.models.Model;
+
 /**
  *
  * @author Alex
  * @version 1.0.0
  * @since 1.0.0
  */
-public class RolModel {
+public class RolModel implements Model {
+    
     private int IdRol;
     private String NombreRol;
     private Boolean Estado;
@@ -22,6 +25,11 @@ public class RolModel {
     public RolModel(int IdRol, String NombreRol) {
         this.IdRol = IdRol;
         this.NombreRol = NombreRol;
+    }
+
+    @Override
+    public int getId() {
+        return getIdRol();
     }
 
     public int getIdRol() {

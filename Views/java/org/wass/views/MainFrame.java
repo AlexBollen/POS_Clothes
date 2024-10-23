@@ -1,6 +1,8 @@
 package org.wass.views;
 
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Point;
 import javax.swing.ImageIcon;
 import javax.swing.JViewport;
 import org.wass.controllers.product.ProductoController;
@@ -25,6 +27,8 @@ import org.wass.models.sale.ClienteDAO;
 
 import org.wass.views.component.Control;
 import org.wass.views.component.Dashboard;
+import org.wass.views.component.ViewUsuario;
+import org.wass.views.component.menu.MenuConfiguraciones;
 import org.wass.views.sale.ViewClientes2;
 
 /**
@@ -243,6 +247,11 @@ public class MainFrame extends AbstractFrame {
         jButtonSettings.setFocusPainted(false);
         jButtonSettings.setFocusable(false);
         jButtonSettings.setRequestFocusEnabled(false);
+        jButtonSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSettingsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -315,6 +324,30 @@ public class MainFrame extends AbstractFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSettingsActionPerformed
+        final FloatingWindow configuraciones = new FloatingWindow(this, false);
+        configuraciones.setTitle("Configuraciones");
+        configuraciones.setView(new MenuConfiguraciones().addOyenteConfiguracion((op) -> {
+            switch (op) {
+                case Usuario -> { 
+                    ViewUsuario vwUsuario = new ViewUsuario();
+                    changeView(vwUsuario);
+
+                    configuraciones.doClose(FloatingWindow.RET_OK);
+                }
+                case Aplicacion -> {
+                    /* nada */
+                }
+                default -> throw new AssertionError();
+            }
+        })).setVisible(true);
+
+        Point point = jButtonSettings.getLocationOnScreen();
+        Dimension size = jButtonSettings.getPreferredSize();        
+        configuraciones.setLocation(point.x + (size.height / 2), 
+                                    point.y - (configuraciones.getPreferredSize().height + (size.height/2)));
+    }//GEN-LAST:event_jButtonSettingsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.wass.views.component.Header header2;
