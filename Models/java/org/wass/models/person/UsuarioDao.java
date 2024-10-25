@@ -86,7 +86,7 @@ public class UsuarioDao {
     public List<UsuarioModel> getUsuarios(ExceptionListener exevn) {
         List<UsuarioModel> usuarios = new ArrayList<>();
         String sql = """
-                     SELECT U.IdUsuario, U.NombreUsuario , U.Contrasenia, 
+                     SELECT U.IdUsuario, U.NombreUsuario, U.Estado AS EstadoUsuario,
                      P.IdPersona, P.NombrePersona, P.Direccion, P.Telefono, P.Estado AS EstadoPersona,
                      R.IdRol, R.NombreRol, R.Estado AS EstadoRol  FROM Usuario U 
                      INNER JOIN Persona P ON U.IdPersona = P.IdPersona 
@@ -104,9 +104,9 @@ public class UsuarioDao {
                     rol.setEstado(rs.getBoolean("EstadoRol"));
                     
                     UsuarioModel usuario = new UsuarioModel();
-                    usuario.setContrasenia(new String(rs.getBytes("Contrasenia")));
+                    usuario.setContrasenia(null);
                     usuario.setDireccion(rs.getString("Direccion"));
-                    usuario.setEstado(rs.getBoolean("EstadoPersona"));
+                    usuario.setEstado(rs.getBoolean("EstadoUsuario"));
                     usuario.setIdPersona(rs.getInt("IdPersona"));
                     usuario.setIdUsuario(rs.getInt("IdUsuario"));
                     usuario.setNombrePersona(rs.getString("NombrePersona"));

@@ -23,9 +23,13 @@ public class UsuarioModel extends PersonaModel {
         this.rolModel = rolModel;
     }
 
+    @Override
+    public int getId() {
+        return idUsuario;
+    }
+
     public void setPersona(PersonaModel m) {
         setDireccion(m.getDireccion());
-        setEstado(m.getEstado());
         setIdPersona(m.getIdPersona());
         setNombrePersona(m.getNombrePersona());
         setTelefono(m.getTelefono());

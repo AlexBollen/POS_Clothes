@@ -3,7 +3,6 @@ package org.wass.controllers;
 import java.beans.ExceptionListener;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import org.wass.models.DisplayTableModel;
 import org.wass.models.TableDataModel;
 import org.wass.models.person.UsuarioDao;
 import org.wass.models.person.UsuarioModel;
@@ -37,14 +36,13 @@ public class UserController {
                                     ? dao.getUsuarios() 
                                     : dao.getUsuarios(exceptionListener);
         TableDataModel<UsuarioModel> dataModel = new TableDataModel<>(new String[] {
-            "ID Usuario", "Nombre Usuario", "Contraseña", "Estado", "Rol"
+            "ID Usuario", "Nombre Usuario", "Estado", "Rol"
         });
         for (final UsuarioModel m : models) {
             dataModel.addRow(m, (UsuarioModel model) -> {
                 return new Object[] {
                     model.getIdUsuario(),
                     model.getNombreUsuario(),
-                    model.getContrasenia(),
                     model.getEstado(),
                     model.getRol().getNombreRol()
                 };

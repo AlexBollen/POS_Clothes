@@ -96,6 +96,7 @@ public class ViewUsuario extends AbstractView {
                         modelRol.setDefaultSelectedItem(userSelected.getRol());
                     } else {
                         jTextFieldNombreUsuario.setText("");
+                        jPasswordPass.setText("");
                         jCheckBoxActivo.setSelected(true);
                     }
                 }
@@ -181,7 +182,7 @@ public class ViewUsuario extends AbstractView {
 
         jPanelListaUsuario.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jLabel1.setText("Usurio:");
+        jLabel1.setText("Usuario:");
 
         jCheckBoxNewContra.setText("Nuevo [ Clave de Acceso ]");
         jCheckBoxNewContra.addActionListener(new java.awt.event.ActionListener() {
