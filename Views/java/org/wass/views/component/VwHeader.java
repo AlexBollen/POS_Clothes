@@ -6,29 +6,48 @@ import javax.swing.JPanel;
 import org.wass.views.listeners.VwActionListener;
 
 /**
+ * Un pequeño encabezado para las vistas que implementen un sistema CRU-D.
  * @author wil
  */
 public class VwHeader extends JPanel {
     
+    /** Evento listar. */
     public static final int BUTTON_LIST = 0xF000;
+    /** Evento para un nuevo regitro. */
     public static final int BUTTON_NEW = 0xF001;
-    
+    /** Lista de oyentes. */
     private List<VwActionListener> actionListeners = new ArrayList<>();
     
     public VwHeader() {
         initComponents();
     }
     
+    /**
+     * Agrega un nuevo oyente
+     * @param val oyente
+     */
     public void addVwActionListener(VwActionListener val) {
         actionListeners.add(val);
     }
     
+    /**
+     * Dispara todo los oyentes diponibles para ejecutar una acción
+     * 
+     * @see #BUTTON_LIST
+     * @see #BUTTON_NEW
+     * 
+     * @param tp tipo de acción
+     */
     private void fireVwActionListener(int tp) {
         for (final VwActionListener val : actionListeners) {
             val.doAction(tp);
         }
     }
     
+    /**
+     * Estable un titulo para este header.
+     * @param title titulo
+     */
     public void setTitle(String title) {
         jLabelTitle.setText(title);
     }

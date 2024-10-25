@@ -10,6 +10,9 @@ import java.awt.Frame;
 import javax.swing.JComponent;
 
 /**
+ * Una ventana emergente flonatens donde se tiene la capacidad de sobreponerse
+ * a un compoente padre y no interferir en su proceso.
+ * 
  * @author wil
  */
 public class FloatingWindow extends AbstractOkCancelDialog {
@@ -22,12 +25,17 @@ public class FloatingWindow extends AbstractOkCancelDialog {
         initComponents();
     }
     
+    // Titulo de la ventana
     @Override
     public void setTitle(String title) {
         super.setTitle(title);
         jLabel1.setText(title);
     }
     
+    /*
+     * Establece el contendio de esta ventana flotantes, dicho contendio de
+     * debe implementar de manera independiente.
+     */
     public FloatingWindow setView(JComponent component) {
         if (component == null) {
             return null;

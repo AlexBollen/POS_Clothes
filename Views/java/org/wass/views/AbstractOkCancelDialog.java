@@ -19,7 +19,12 @@ import javax.swing.JDialog;
 import javax.swing.KeyStroke;
 
 /**
- *
+ * Clase abstracta encargado de gestiona un sistema de botones donde se puede tener
+ * la opcion de aceptar y/o cancelaer (solo la lógica).
+ * <p>
+ * Dicho componentes (botones) se tienen que implementar y mediante los oyenes
+ * de eventos activarlo.
+ * 
  * @author wil
  */
 public abstract class AbstractOkCancelDialog extends JDialog {
