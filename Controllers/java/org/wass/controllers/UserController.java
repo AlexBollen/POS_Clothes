@@ -50,8 +50,4 @@ public class UserController {
         }
         return dataModel;
     }
-    
-    public void actualizar(UsuarioModel model) {
-        
-    }
 }
