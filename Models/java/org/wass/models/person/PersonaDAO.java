@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.wass.controllers.db.DataBase;
-import org.wass.models.person.PersonaModel;
 
 /**
  *

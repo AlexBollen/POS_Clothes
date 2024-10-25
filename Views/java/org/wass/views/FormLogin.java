@@ -5,6 +5,7 @@
 package org.wass.views;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import org.wass.controllers.LoginController;
 import org.wass.models.person.UsuarioModel;
 
@@ -22,6 +23,7 @@ public class FormLogin extends AbstractFrame {
         initComponents();
         // Centrar form en la pantalla
         setLocationRelativeTo(null);
+        btnLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
     /**

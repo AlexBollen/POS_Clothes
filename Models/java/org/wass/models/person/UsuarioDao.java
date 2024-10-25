@@ -1,21 +1,128 @@
 package org.wass.models.person;
 
+import java.beans.ExceptionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.wass.controllers.ControllerException;
-import org.wass.controllers.db.DataBase;
+import static org.wass.controllers.db.DataBase.*;
 import static org.wass.models.utilities.Cipher.*;
 
 /**
- *
  * @author Alex
+ * @author wil
+ * 
  * @version 1.0.0
  * @since 1.0.0
  */
 public class UsuarioDao {
+    
+    public boolean agregarUsuario(UsuarioModel model) {
+        String sql = """
+                     INSERT INTO Usuario (NombreUsuario, Contrasenia, Estado, IdPersona, IdRol) 
+                     VALUES (?, ?, ?, ?, ?) 
+                     """;
+        try (Connection connection = nDataBase().getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, model.getNombreUsuario());
+            statement.setBytes(2, nBCryptGenerateNewRandomHash(model.getContrasenia()));
+            statement.setBoolean(3, model.getEstado());
+            statement.setInt(4, model.getIdPersona());
+            statement.setInt(5, model.getRol().getIdRol());
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error crear un nuevo usuario: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    public boolean actualizarUsuario(UsuarioModel model, boolean todo) {
+        String sql = todo 
+                ? """
+                     UPDATE Usuario SET NombreUsuario=?,Contrasenia=?,
+                     Estado=?,IdPersona=?,IdRol=?' WHERE IdUsuario=?
+                     """
+                : """
+                    UPDATE Usuario SET NombreUsuario=?,
+                    Estado=?,IdPersona=?,IdRol=? WHERE IdUsuario=?
+                  """;
+        
+        try (Connection connection = nDataBase().getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            
+            if (todo) {
+                statement.setString(1, model.getNombreUsuario());
+                statement.setBytes(2, nBCryptGenerateNewRandomHash(model.getContrasenia()));
+                statement.setBoolean(3, model.getEstado());
+                statement.setInt(4, model.getIdPersona());
+                statement.setInt(5, model.getRol().getIdRol());
+                statement.setInt(6, model.getIdUsuario());
+            } else {
+                statement.setString(1, model.getNombreUsuario());
+                statement.setBoolean(2, model.getEstado());
+                statement.setInt(3, model.getIdPersona());
+                statement.setInt(4, model.getRol().getIdRol());
+                statement.setInt(5, model.getIdUsuario());
+            }
+            
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar el usuario: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    public List<UsuarioModel> getUsuarios() {
+        return getUsuarios((excptn) -> {
+            System.err.println("[ Error ] :No se puede listar los usuarios: " + excptn.getMessage());
+        });
+    }
+    public List<UsuarioModel> getUsuarios(ExceptionListener exevn) {
+        List<UsuarioModel> usuarios = new ArrayList<>();
+        String sql = """
+                     SELECT U.IdUsuario, U.NombreUsuario, U.Estado AS EstadoUsuario,
+                     P.IdPersona, P.NombrePersona, P.Direccion, P.Telefono, P.Estado AS EstadoPersona,
+                     R.IdRol, R.NombreRol, R.Estado AS EstadoRol  FROM Usuario U 
+                     INNER JOIN Persona P ON U.IdPersona = P.IdPersona 
+                     INNER JOIN Rol R ON U.IdRol = R.IdRol;
+                     """;
+        
+        try (var connetion = nDataBase().getConnection();
+                PreparedStatement query = connetion.prepareStatement(sql)) {
+            
+            try (ResultSet rs = query.executeQuery()) {
+                while (rs.next()) {                    
+                    RolModel rol = new RolModel();
+                    rol.setIdRol(rs.getInt("IdRol"));
+                    rol.setNombreRol(rs.getString("NombreRol"));
+                    rol.setEstado(rs.getBoolean("EstadoRol"));
+                    
+                    UsuarioModel usuario = new UsuarioModel();
+                    usuario.setContrasenia(null);
+                    usuario.setDireccion(rs.getString("Direccion"));
+                    usuario.setEstado(rs.getBoolean("EstadoUsuario"));
+                    usuario.setIdPersona(rs.getInt("IdPersona"));
+                    usuario.setIdUsuario(rs.getInt("IdUsuario"));
+                    usuario.setNombrePersona(rs.getString("NombrePersona"));
+                    usuario.setNombreUsuario(rs.getString("NombreUsuario"));
+                    usuario.setTelefono(rs.getString("Telefono"));
+                    usuario.setRol(rol);
+                    
+                    usuarios.add(usuario);
+                }
+            }
+        } catch (SQLException  ex) {
+            exevn.exceptionThrown(ex);
+        }
+        return usuarios;
+    }
+    
     /**
     * Método para validar credenciales de usuario en la base de datos.
     * 
@@ -32,7 +139,7 @@ public class UsuarioDao {
                      "WHERE U.NombreUsuario=?";
         UsuarioModel us = null;
         
-        try (Connection connection = DataBase.nDataBase().getConnection();
+        try (Connection connection = nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             
             statement.setString(1, username);
