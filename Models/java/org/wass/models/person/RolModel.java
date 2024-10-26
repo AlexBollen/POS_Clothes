@@ -14,6 +14,20 @@ import org.wass.models.Model;
  */
 public class RolModel implements Model {
     
+    public static enum Tipo {
+        
+        Administrador("Administrador"),
+        Vendedor("Vendedor");
+        
+        private final String rol;
+        private Tipo(String rol) {
+            this.rol = rol;
+        }
+        public String getRol() {
+            return rol;
+        }
+    }
+    
     private int IdRol;
     private String NombreRol;
     private Boolean Estado;
@@ -26,7 +40,7 @@ public class RolModel implements Model {
         this.IdRol = IdRol;
         this.NombreRol = NombreRol;
     }
-
+    
     @Override
     public int getId() {
         return getIdRol();

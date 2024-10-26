@@ -3,6 +3,7 @@ package org.wass.controllers;
 import java.beans.ExceptionListener;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import org.wass.models.ListDataModel;
 import org.wass.models.TableDataModel;
 import org.wass.models.person.UsuarioDao;
 import org.wass.models.person.UsuarioModel;
@@ -29,6 +30,14 @@ public class UserController {
     
     public boolean nuevo(UsuarioModel model) {
         return dao.agregarUsuario(model);
+    }
+    
+    public ListDataModel<UsuarioModel> getListaUsuario() {
+        List<UsuarioModel> modelos = dao.getUsuarios();
+        ListDataModel<UsuarioModel> lista = new ListDataModel<>();        
+        return lista.addAll(modelos, (UsuarioModel model) -> {
+            return model.getNombreUsuario();
+        });
     }
     
     public DefaultTableModel getTablaUsuario() {
