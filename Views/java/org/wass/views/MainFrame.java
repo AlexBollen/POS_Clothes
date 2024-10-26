@@ -41,6 +41,8 @@ public class MainFrame extends AbstractFrame {
     private UsuarioModel logedUser;
     private Dashboard dashboard;
 
+    private FloatingWindow configuraciones;
+    
     public MainFrame(UsuarioModel logedUser) {
         this.logedUser = logedUser;
         initComponents();
@@ -49,6 +51,7 @@ public class MainFrame extends AbstractFrame {
 
     private void componentesAdd() {
         dashboard = new Dashboard();
+        configuraciones = new FloatingWindow(this, false);
 
         // <editor-fold defaultstate="collapsed" desc="Instanciar Controladores"> 
         
@@ -326,7 +329,9 @@ public class MainFrame extends AbstractFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSettingsActionPerformed
-        final FloatingWindow configuraciones = new FloatingWindow(this, false);
+        if (configuraciones.isVisible()) {
+            return;
+        }
         configuraciones.setTitle("Configuraciones");
         configuraciones.setView(new MenuConfiguraciones().addOyenteConfiguracion((op) -> {
             switch (op) {
