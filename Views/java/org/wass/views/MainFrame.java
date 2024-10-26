@@ -5,15 +5,15 @@ import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.ImageIcon;
 import javax.swing.JViewport;
+
+import org.wass.controllers.LoginController;
 import org.wass.controllers.product.ProductoController;
 import org.wass.controllers.purchase.CompraController;
 import org.wass.controllers.purchase.DetalleCompraController;
 import org.wass.controllers.purchase.EstadoCompraController;
 import org.wass.controllers.purchase.ProveedorController;
 import org.wass.controllers.purchase.TipoPagoController;
-
 import org.wass.controllers.sale.ClienteController;
-
 
 import org.wass.models.person.UsuarioModel;
 import org.wass.models.product.ProductoDAO;
@@ -22,7 +22,6 @@ import org.wass.models.purchase.DetalleCompraDAO;
 import org.wass.models.purchase.EstadoCompraDAO;
 import org.wass.models.purchase.ProveedorDAO;
 import org.wass.models.purchase.TipoPagoDAO;
-
 import org.wass.models.sale.ClienteDAO;
 
 import org.wass.views.component.Control;
@@ -285,6 +284,13 @@ public class MainFrame extends AbstractFrame {
 
         jPanelHeaderView.setBackground(new java.awt.Color(255, 255, 255));
         jPanelHeaderView.setLayout(new java.awt.BorderLayout());
+
+        header2.setClonseListener((target) -> {
+            setVisible(false);
+            dispose();
+
+            new FormLogin(new LoginController()).setVisible(true);
+        });
         jPanelHeaderView.add(header2, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
