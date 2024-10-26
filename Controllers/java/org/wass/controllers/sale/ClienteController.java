@@ -3,6 +3,7 @@ package org.wass.controllers.sale;
 /**
  *
  * @author SamuelQ
+ * @author marco
  */
 import javax.swing.JOptionPane;
 import java.util.List;
