@@ -1,6 +1,7 @@
 
-package org.wass.views.sale;
+package org.wass.views.purchase;
 
+import org.wass.views.purchase.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -10,38 +11,44 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import org.wass.controllers.sale.ClienteController;
+import org.wass.controllers.purchase.ProveedorController;
 import org.wass.models.sale.ClienteModel;
+import org.wass.models.purchase.ProveedorModel;
 import org.wass.views.component.Control;
 
 /**
  *
  * @author marco
  */
-public class ViewClientes2 extends javax.swing.JPanel {
+public class ViewProveedores extends javax.swing.JPanel {
 
     private ClienteController clienteController;
-    private DefaultTableModel clienteTableModel;
+    private ProveedorController proveedorController;
+    private DefaultTableModel proveedorTableModel;
     private boolean actualizarB;
     private boolean agregarB;
     private int indiceId;
     private String nombre;
     private String direccion;
     private String telefono;
-    private String nit;
+    private String nombreComercial;
+    private String telefono2;
+    private String correo;
     
     /**
      * Creates new form ViewClientes2
      */
-    public ViewClientes2(ClienteController clienteController) {
-        this.clienteController = clienteController;
+    public ViewProveedores(ProveedorController proveedorController) {
+        this.proveedorController = proveedorController;
 
 
         initComponents();
         
         
-         //Agregar Modelo para tabla de clientes
-        clienteTableModel = new DefaultTableModel(new String[]{"ID", "Nombre", "Dirección", "Telefono", "Nit", "Id Persona"}, 0) {
-            boolean[] canEdit = new boolean[]{false, false, false, false, false, false};
+         //Agregar Modelo para tabla detalle de proveedores
+            
+        proveedorTableModel = new DefaultTableModel(new String[]{"ID","NombreComercial", "Telefono2", "Correo", "Nombre", "Telefono", "Direccion",  "Id Persona"}, 0) {
+            boolean[] canEdit = new boolean[]{false, false, false, false, false, false, false, false};
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -49,8 +56,8 @@ public class ViewClientes2 extends javax.swing.JPanel {
             }
         };
         
-        tablaClientes.setModel(clienteTableModel);
-        tablaClientes.addMouseListener(new MouseAdapter() {
+        tablaProveedores.setModel(proveedorTableModel);
+        tablaProveedores.addMouseListener(new MouseAdapter() {
             
             public void mousePressed(MouseEvent e) {
                 JTable table = (JTable) e.getSource();
@@ -58,8 +65,8 @@ public class ViewClientes2 extends javax.swing.JPanel {
                 int row = table.rowAtPoint(point);
                 if (e.getClickCount() == 1){
                     accionesExtra.setVisible(true); 
-                    txtIdCompra.setText(String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0)));
-                    indiceId = Integer.parseInt(String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0))) ;
+                    txtIdProveedor.setText(String.valueOf(tablaProveedores.getValueAt(tablaProveedores.getSelectedRow(), 0)));
+                    indiceId = Integer.parseInt(String.valueOf(tablaProveedores.getValueAt(tablaProveedores.getSelectedRow(), 0))) ;
                     accionesExtra.revalidate();
                     accionesExtra.repaint();
                 }
@@ -67,8 +74,8 @@ public class ViewClientes2 extends javax.swing.JPanel {
             }
         });
         
-        jTituloHeader.setText("Gestión de clientes");
-        loadClientes();
+        jTituloHeader.setText("Gestión de proveedores");
+        loadProveedores();
     }
     
     
@@ -87,12 +94,12 @@ public class ViewClientes2 extends javax.swing.JPanel {
 
         header = new javax.swing.JPanel();
         jTituloHeader = new javax.swing.JLabel();
-        btnAgregarCliente = new javax.swing.JButton();
-        btnListarCliente = new javax.swing.JButton();
+        btnAgregarProveedor = new javax.swing.JButton();
+        btnListarProveedor = new javax.swing.JButton();
         body = new javax.swing.JPanel();
         listar = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        tablaClientes = new javax.swing.JTable();
+        tablaProveedores = new javax.swing.JTable();
         agregar = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnCancelarCompra = new javax.swing.JButton();
@@ -104,13 +111,17 @@ public class ViewClientes2 extends javax.swing.JPanel {
         txtDireccion = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        txtNit = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtCorreo = new javax.swing.JTextField();
+        txtTelefono2 = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        txtNombreComercial = new javax.swing.JTextField();
         accionesExtra = new javax.swing.JPanel();
         jButtonActualizar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        txtIdCompra = new javax.swing.JTextField();
+        txtIdProveedor = new javax.swing.JTextField();
 
         setMaximumSize(new java.awt.Dimension(0, 0));
         setPreferredSize(new java.awt.Dimension(500, 595));
@@ -124,27 +135,27 @@ public class ViewClientes2 extends javax.swing.JPanel {
 
         jTituloHeader.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jTituloHeader.setForeground(new java.awt.Color(255, 255, 255));
-        jTituloHeader.setText("Gestión de Clientes");
+        jTituloHeader.setText("Gestión de Proveedores");
 
-        btnAgregarCliente.setBackground(new java.awt.Color(0, 168, 232));
-        btnAgregarCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnAgregarCliente.setForeground(new java.awt.Color(237, 242, 244));
-        btnAgregarCliente.setText("AGREGAR");
-        btnAgregarCliente.setPreferredSize(new java.awt.Dimension(106, 31));
-        btnAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarProveedor.setBackground(new java.awt.Color(0, 168, 232));
+        btnAgregarProveedor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAgregarProveedor.setForeground(new java.awt.Color(237, 242, 244));
+        btnAgregarProveedor.setText("AGREGAR");
+        btnAgregarProveedor.setPreferredSize(new java.awt.Dimension(106, 31));
+        btnAgregarProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarClienteActionPerformed(evt);
+                btnAgregarProveedorActionPerformed(evt);
             }
         });
 
-        btnListarCliente.setBackground(new java.awt.Color(0, 168, 232));
-        btnListarCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnListarCliente.setForeground(new java.awt.Color(237, 242, 244));
-        btnListarCliente.setText("LISTAR");
-        btnListarCliente.setPreferredSize(new java.awt.Dimension(106, 31));
-        btnListarCliente.addActionListener(new java.awt.event.ActionListener() {
+        btnListarProveedor.setBackground(new java.awt.Color(0, 168, 232));
+        btnListarProveedor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnListarProveedor.setForeground(new java.awt.Color(237, 242, 244));
+        btnListarProveedor.setText("LISTAR");
+        btnListarProveedor.setPreferredSize(new java.awt.Dimension(106, 31));
+        btnListarProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarClienteActionPerformed(evt);
+                btnListarProveedorActionPerformed(evt);
             }
         });
 
@@ -155,10 +166,10 @@ public class ViewClientes2 extends javax.swing.JPanel {
             .addGroup(headerLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jTituloHeader)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAgregarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
+                .addComponent(btnAgregarProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(btnListarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnListarProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
         headerLayout.setVerticalGroup(
@@ -167,8 +178,8 @@ public class ViewClientes2 extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAgregarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnListarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnAgregarProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnListarProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTituloHeader))
                 .addContainerGap())
         );
@@ -189,9 +200,9 @@ public class ViewClientes2 extends javax.swing.JPanel {
         jScrollPane6.setBackground(new java.awt.Color(255, 209, 102));
         jScrollPane6.setMaximumSize(new java.awt.Dimension(1000, 1000));
 
-        tablaClientes.setBackground(new java.awt.Color(255, 255, 255));
-        tablaClientes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tablaProveedores.setBackground(new java.awt.Color(255, 255, 255));
+        tablaProveedores.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tablaProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -199,9 +210,9 @@ public class ViewClientes2 extends javax.swing.JPanel {
 
             }
         ));
-        tablaClientes.setFillsViewportHeight(true);
-        tablaClientes.setShowGrid(true);
-        jScrollPane6.setViewportView(tablaClientes);
+        tablaProveedores.setFillsViewportHeight(true);
+        tablaProveedores.setShowGrid(true);
+        jScrollPane6.setViewportView(tablaProveedores);
 
         listar.add(jScrollPane6, java.awt.BorderLayout.CENTER);
 
@@ -238,7 +249,7 @@ public class ViewClientes2 extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(518, Short.MAX_VALUE)
+                .addContainerGap(537, Short.MAX_VALUE)
                 .addComponent(btnCancelarCompra)
                 .addGap(30, 30, 30)
                 .addComponent(btnGuardarCompra)
@@ -273,17 +284,44 @@ public class ViewClientes2 extends javax.swing.JPanel {
 
         txtTelefono.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel12.setText("Nit");
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel14.setText("Correo");
 
-        txtNit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        txtTelefono2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel15.setText("Telefono");
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel16.setText("NombreComercial");
+
+        txtNombreComercial.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel15)
+                            .addGap(338, 338, 338))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel14)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtTelefono2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNombreComercial, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(71, 71, 71)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
@@ -295,38 +333,42 @@ public class ViewClientes2 extends javax.swing.JPanel {
                             .addGap(49, 49, 49)
                             .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel12)
-                                    .addGap(86, 86, 86))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel11)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNit, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(437, Short.MAX_VALUE))
+                            .addComponent(jLabel11)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(78, 78, 78))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(114, 114, 114)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre)
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDireccion)
-                    .addComponent(jLabel10))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTelefono)
-                    .addComponent(jLabel11))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNit)
-                    .addComponent(jLabel12))
-                .addGap(243, 243, 243))
+                .addGap(151, 151, 151)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNombre)
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDireccion)
+                            .addComponent(jLabel10))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTelefono)
+                            .addComponent(jLabel11))
+                        .addGap(254, 254, 254))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNombreComercial)
+                            .addComponent(jLabel16))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTelefono2)
+                            .addComponent(jLabel15))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCorreo)
+                            .addComponent(jLabel14))
+                        .addGap(254, 254, 254))))
         );
 
         agregar.add(jPanel3, java.awt.BorderLayout.CENTER);
@@ -359,7 +401,7 @@ public class ViewClientes2 extends javax.swing.JPanel {
         });
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Id Cliente:");
+        jLabel9.setText("Id Proveedor:");
 
         javax.swing.GroupLayout accionesExtraLayout = new javax.swing.GroupLayout(accionesExtra);
         accionesExtra.setLayout(accionesExtraLayout);
@@ -369,7 +411,7 @@ public class ViewClientes2 extends javax.swing.JPanel {
                 .addGap(207, 207, 207)
                 .addComponent(jLabel9)
                 .addGap(27, 27, 27)
-                .addComponent(txtIdCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtIdProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -383,7 +425,7 @@ public class ViewClientes2 extends javax.swing.JPanel {
                     .addComponent(jButtonActualizar)
                     .addComponent(jButtonEliminar)
                     .addComponent(jLabel9)
-                    .addComponent(txtIdCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
@@ -392,8 +434,8 @@ public class ViewClientes2 extends javax.swing.JPanel {
 
    
     
-    private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
-        jTituloHeader.setText("Agregar nuevo cliente");
+    private void btnAgregarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProveedorActionPerformed
+        jTituloHeader.setText("Agregar nuevo proveedor");
         CardLayout l = (CardLayout) body.getLayout();
         l.show(body, "agregar");
         limpiarDatos();
@@ -401,30 +443,32 @@ public class ViewClientes2 extends javax.swing.JPanel {
         actualizarB = false;
         
         
-    }//GEN-LAST:event_btnAgregarClienteActionPerformed
+    }//GEN-LAST:event_btnAgregarProveedorActionPerformed
 
-    private void btnListarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarClienteActionPerformed
-        jTituloHeader.setText("Gestión de clientes");
+    private void btnListarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarProveedorActionPerformed
+        jTituloHeader.setText("Gestión de proveedores");
        CardLayout l = (CardLayout) body.getLayout();
         l.show(body, "listar");
-        loadClientes();
-    }//GEN-LAST:event_btnListarClienteActionPerformed
+        loadProveedores();
+    }//GEN-LAST:event_btnListarProveedorActionPerformed
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
         // TODO add your handling code here:
         llenarTextBox();
-        jTituloHeader.setText("Actualizar cliente con id: "+ indiceId);
+        jTituloHeader.setText("Actualizar proveedor con id: "+ indiceId);
         limpiarDatos();
         CardLayout l = (CardLayout) body.getLayout();
         l.show(body, "agregar");
         agregarB = false;
         actualizarB = true;
         
-        
+        System.out.println(telefono);
         txtNombre.setText(nombre);
         txtDireccion.setText(direccion);
         txtTelefono.setText(telefono);
-        txtNit.setText(nit);
+        txtNombreComercial.setText(nombreComercial);
+        txtCorreo.setText(correo);
+        txtTelefono2.setText(telefono2);
         
        
         
@@ -438,11 +482,11 @@ public class ViewClientes2 extends javax.swing.JPanel {
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         // TODO add your handling code here:
          int opcion = JOptionPane.showConfirmDialog(null,
-            "¿Está seguro de eliminar al cliente: "+String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 1))+"?",
-             "Eliminar cliente",
+            "¿Está seguro de eliminar al proveedor: "+String.valueOf(tablaProveedores.getValueAt(tablaProveedores.getSelectedRow(), 1))+"?",
+             "Eliminar proveedor",
             JOptionPane.OK_CANCEL_OPTION);
        if (opcion == JOptionPane.OK_OPTION){
-           eliminarCliente();
+           eliminarProveedor();
        }
       
         
@@ -452,16 +496,16 @@ public class ViewClientes2 extends javax.swing.JPanel {
         // TODO add your handling code here:
         CardLayout l = (CardLayout) body.getLayout();
         l.show(body, "listar");
-        loadClientes();
+        loadProveedores();
     }//GEN-LAST:event_btnCancelarCompraActionPerformed
 
     private void btnGuardarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCompraActionPerformed
         if(agregarB){
-            guardarCliente();
+            guardarProveedor();
         }
         
         else if(actualizarB){
-            actualizarCliente();
+            actualizarProveedor();
         }
         
         actualizarB = false;
@@ -471,36 +515,43 @@ public class ViewClientes2 extends javax.swing.JPanel {
  
     
     public String getComponenteTitle() {
-       return "CLIENTES";
+       return "PROVEEDORES";
     }
     private void limpiarDatos(){
         txtNombre.setText("");
         txtDireccion.setText("");
         txtTelefono.setText("");
-        txtNit.setText("");
-        clienteTableModel.setRowCount(0);
+        txtNombreComercial.setText("");
+        txtTelefono2.setText("");
+        txtCorreo.setText("");
+        proveedorTableModel.setRowCount(0);
         accionesExtra.setVisible(false);
     }
     
     private void llenarTextBox(){
-        nombre = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 1));
-        direccion = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 2));
-        telefono = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 3));
-        nit = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 4));
+        nombreComercial = String.valueOf(tablaProveedores.getValueAt(tablaProveedores.getSelectedRow(), 1));
+        telefono2 = String.valueOf(tablaProveedores.getValueAt(tablaProveedores.getSelectedRow(), 2));
+        correo = String.valueOf(tablaProveedores.getValueAt(tablaProveedores.getSelectedRow(), 3));
+        nombre = String.valueOf(tablaProveedores.getValueAt(tablaProveedores.getSelectedRow(), 4));
+         telefono = String.valueOf(tablaProveedores.getValueAt(tablaProveedores.getSelectedRow(), 5));
+        direccion = String.valueOf(tablaProveedores.getValueAt(tablaProveedores.getSelectedRow(), 6));
+       
+        
+        
     }
     
-     private void eliminarCliente() {
+     private void eliminarProveedor() {
          
-        int selectedRow = tablaClientes.getSelectedRow();
+        int selectedRow = tablaProveedores.getSelectedRow();
         if (selectedRow >= 0) {
-            clienteTableModel.removeRow(selectedRow);
-           boolean   resultado = clienteController.eliminarCliente(indiceId);
+            proveedorTableModel.removeRow(selectedRow);
+           boolean   resultado = proveedorController.eliminarProveedor(indiceId);
             if (resultado) {
-                JOptionPane.showMessageDialog(this, "Cliente exterminado exitosamente.");
+                JOptionPane.showMessageDialog(this, "Proveedor exterminado exitosamente.");
                 limpiarDatos();
-                loadClientes();
+                loadProveedores();
             } else {
-                JOptionPane.showMessageDialog(this, "Error al eliminar el cliente.");
+                JOptionPane.showMessageDialog(this, "Error al eliminar el proveedor.");
             }        
            
         } else {
@@ -508,23 +559,25 @@ public class ViewClientes2 extends javax.swing.JPanel {
         }
     }
      
-     private void guardarCliente(){
-         ClienteModel cliente = null;
+     private void guardarProveedor(){
+         ProveedorModel proveedor = null;
          
          try{
-             cliente = new ClienteModel(0, "","","","");
-             cliente.setNombrePersona(txtNombre.getText());
-             cliente.setDireccion(txtDireccion.getText());
-             cliente.setTelefono(txtTelefono.getText());
-             cliente.setNit(txtNit.getText());
+             proveedor = new ProveedorModel("", "","",0,"","", "");
+             proveedor.setNombrePersona(txtNombre.getText());
+             proveedor.setDireccion(txtDireccion.getText());
+             proveedor.setTelefono(txtTelefono.getText());
+             proveedor.setNombreComercial(txtNombreComercial.getText());
+             proveedor.setTelefono2(txtTelefono2.getText());
+             proveedor.setCorreo(txtCorreo.getText());
              
-             boolean resultado = clienteController.agregarClientePersona(cliente);
+             boolean resultado = proveedorController.agregarProveedorPersona(proveedor);
              
               if (resultado) {
-                JOptionPane.showMessageDialog(this, "Cliente guardado exitosamente.");
+                JOptionPane.showMessageDialog(this, "Proveedor guardado exitosamente.");
                 limpiarDatos();
             } else {
-                JOptionPane.showMessageDialog(this, "Error al guardar el cliente.");
+                JOptionPane.showMessageDialog(this, "Error al guardar el proveedor.");
             }        
              
          }
@@ -533,28 +586,30 @@ public class ViewClientes2 extends javax.swing.JPanel {
          }
          
          
-         jTituloHeader.setText("Gestión de clietnes");
+         jTituloHeader.setText("Gestión de proveedores");
          CardLayout l = (CardLayout) body.getLayout();
             l.show(body, "listar");
-         loadClientes();
+         loadProveedores();
      }
      
-     private void actualizarCliente(){
-         ClienteModel cliente = null;
+     private void actualizarProveedor(){
+         ProveedorModel proveedor = null;
          try{
-             cliente = new ClienteModel(0, "","","","");
-             cliente.setNombrePersona(txtNombre.getText());
-             cliente.setDireccion(txtDireccion.getText());
-             cliente.setTelefono(txtTelefono.getText());
-             cliente.setNit(txtNit.getText());
+             proveedor = new ProveedorModel("", "","",0,"","", "");
+             proveedor.setNombrePersona(txtNombre.getText());
+             proveedor.setDireccion(txtDireccion.getText());
+             proveedor.setTelefono(txtTelefono.getText());
+             proveedor.setNombreComercial(txtNombreComercial.getText());
+             proveedor.setTelefono2(txtTelefono2.getText());
+               proveedor.setCorreo(txtCorreo.getText());
              
-             boolean resultado = clienteController.actualizarClientePersona(cliente, indiceId);
+             boolean resultado = proveedorController.actualizarProveedor(proveedor, indiceId);
              
               if (resultado) {
-                JOptionPane.showMessageDialog(this, "Cliente actualizado exitosamente.");
+                JOptionPane.showMessageDialog(this, "Proveedor actualizado exitosamente.");
                 limpiarDatos();
             } else {
-                JOptionPane.showMessageDialog(this, "Error al actualizar el cliente.");
+                JOptionPane.showMessageDialog(this, "Error al actualizar el proveedor.");
             }        
              
          }
@@ -562,33 +617,34 @@ public class ViewClientes2 extends javax.swing.JPanel {
              JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
          }
          
-         jTituloHeader.setText("Gestión de clientes ");
+         jTituloHeader.setText("Gestión de proveedores ");
          CardLayout l = (CardLayout) body.getLayout();
          l.show(body, "listar");
-         loadClientes();
+         loadProveedores();
      }
     
- private void loadClientes(){
+ private void loadProveedores(){
         limpiarDatos();
-        List<ClienteModel> listaClientes = clienteController.obtenerClientes();
+        List<ProveedorModel> listaProveedores = proveedorController.obtenerProveedores();
 
-        for (ClienteModel cliente : listaClientes) {
+        for (ProveedorModel proveedor : listaProveedores) {
         
         // Insertar los datos en la tabla
-        clienteTableModel.addRow(new Object[]{
-            cliente.getIdCliente(),
-            cliente.getNombrePersona(),
-            cliente.getDireccion(),
-            cliente.getTelefono(),
-            cliente.getNit(),
-            cliente.getIdPersona()
-          
+        proveedorTableModel.addRow(new Object[]{
+            proveedor.getIdProveedor(),
+            proveedor.getNombreComercial(),
+            proveedor.getTelefono2(),
+            proveedor.getCorreo(),
+            proveedor.getNombrePersona(),
+            proveedor.getTelefono(),
+            proveedor.getDireccion(),
+            proveedor.getIdPersona()
         });
         
         
     // Asignar el modelo a la tabla
     
-    tablaClientes.setModel(clienteTableModel);
+    tablaProveedores.setModel(proveedorTableModel);
     }
     
  }
@@ -598,16 +654,18 @@ public class ViewClientes2 extends javax.swing.JPanel {
     private javax.swing.JPanel accionesExtra;
     private javax.swing.JPanel agregar;
     private javax.swing.JPanel body;
-    private javax.swing.JButton btnAgregarCliente;
+    private javax.swing.JButton btnAgregarProveedor;
     private javax.swing.JButton btnCancelarCompra;
     private javax.swing.JButton btnGuardarCompra;
-    private javax.swing.JButton btnListarCliente;
+    private javax.swing.JButton btnListarProveedor;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButtonActualizar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
@@ -615,11 +673,13 @@ public class ViewClientes2 extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JLabel jTituloHeader;
     private javax.swing.JPanel listar;
-    private javax.swing.JTable tablaClientes;
+    private javax.swing.JTable tablaProveedores;
+    private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtIdCompra;
-    private javax.swing.JTextField txtNit;
+    private javax.swing.JTextField txtIdProveedor;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombreComercial;
     private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtTelefono2;
     // End of variables declaration//GEN-END:variables
 }

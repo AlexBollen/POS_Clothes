@@ -71,7 +71,7 @@ public class ProveedorController {
         }
 
 
-        boolean resultado = proveedorDao.agregarProveedor(proveedor);
+        boolean resultado = proveedorDao.agregarProveedorPersona(proveedor);
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Proveedor agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {

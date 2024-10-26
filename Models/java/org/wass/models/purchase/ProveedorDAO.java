@@ -49,9 +49,11 @@ public class ProveedorDAO {
      */
     public boolean agregarProveedorPersona(ProveedorModel proveedor) {
         String personaSql = "INSERT INTO Persona (NombrePersona, Direccion, Telefono, Estado)"
-                + " VALUES (?, ?, ?, ?)";
+                + " VALUES (?, ?, ?, ?);";
         String proveedorSql = "INSERT INTO Proveedor (NombreComercial, Telefono2, Correo, Estado, IdPersona)"
-                + "  VALUES (?, ?, ?, ?, ?)";
+                + "  VALUES (?, ?, ?, ?, ?);";
+        
+        System.out.println("aa");
 
         try (Connection connection = DataBase.nDataBase().getConnection()) {
             connection.setAutoCommit(false);
@@ -68,6 +70,8 @@ public class ProveedorDAO {
                 if (generatedKeys.next()) {
                     idPersona = generatedKeys.getInt(1); // Obtener el id que se acaba de crear
                 }
+                
+                System.out.println("id generado: "+idPersona);
 
                 // Insertar la el nuevo proveedor
                 try (PreparedStatement proveedorStatement = connection.prepareStatement(proveedorSql)) {
@@ -106,7 +110,7 @@ public class ProveedorDAO {
      * @return Lista de objetos ProveedorModel
      */
     public List<ProveedorModel> obtenerProveedores() {
-        String sql = "SELECT nombreComercial, telefono2, correo, nombrepersona, direccion, telefono"
+        String sql = "SELECT IdProveedor, NombreComercial, Telefono2, Correo, Nombrepersona, Direccion, Telefono, proveedor.estado, persona.IdPersona"
                 + " FROM proveedor INNER JOIN persona ON proveedor.idpersona = persona.idpersona"
                 + "  WHERE proveedor.estado=true;";
         List<ProveedorModel> proveedores = new ArrayList<>();
@@ -127,7 +131,7 @@ public class ProveedorDAO {
 
 
                 );
-                proveedor.setIdProveedor(rs.getInt("IdCliente"));
+                proveedor.setIdProveedor(rs.getInt("IdProveedor"));
                 proveedor.setEstado(rs.getBoolean("Estado"));
                 proveedor.setIdPersona(rs.getInt("IdPersona"));
                 proveedores.add(proveedor);
@@ -147,7 +151,7 @@ public class ProveedorDAO {
      */
     public boolean actualizarProveedor(ProveedorModel proveedor,int idProveedor) {
         String sql = "UPDATE proveedor a INNER JOIN persona p ON a.IdPersona = p.IdPersona" +
-                " SET NombreComercial=?, Telefono2=?, Correo=?, SET p.NombrePersona=?, p.Direccion=?, p.Telefono=?" +
+                " SET NombreComercial=?, Telefono2=?, Correo=?, p.NombrePersona=?, p.Direccion=?, p.Telefono=?" +
                 "  WHERE a.IdProveedor = ?";
 
         try (Connection connection = DataBase.nDataBase().getConnection();
