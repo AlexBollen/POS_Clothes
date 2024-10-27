@@ -159,7 +159,7 @@ CREATE TABLE `Factura`
 (
   `IdFactura` Int NOT NULL AUTO_INCREMENT,
   `NoFactura` Varchar(20) NOT NULL,
-  `TotalFactura` Decimal(5,2) NOT NULL,
+  `TotalFactura` DECIMAL(8,2) NOT NULL,
   `FechaFactura` Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Estado` BIT NOT NULL DEFAULT 1,
   `IdCliente` Int,
@@ -333,8 +333,7 @@ VALUES (100, 95, '2024-09-01', 'Pantalón de Tela Versace stock inicial', 'A01',
        (50, 45, '2024-09-01', 'Camisa Polo Lacoste stock inicial', 'B02', 1, 2);
        
 INSERT INTO `TipoPago` (`NombreTipoPago`, `Estado`)
-VALUES ('Efectivo', 1),
-       ('Tarjeta de Credito', 1);
+VALUES ('Efectivo', 1);
        
 INSERT INTO `EstadoCompra` (`NombreEstadoCompra`,`Estado`)
 VALUES ('Pendiente', 1),
@@ -344,7 +343,7 @@ VALUES ('Pendiente', 1),
        
 INSERT INTO `Compra` (`DescripcionCompra`, `CantidadPedida`, `CantidadRecibida`, `TotalCompra`, `FechaCompra`, `Estado`, `IdProveedor`, `IdTipoPago`, `IdEstadoCompra`)
 VALUES ('Compra de Pantalones de tela Versace', 50, 50, 250.00, '2024-09-01', 1, 1, 1, 1),
-       ('Compra de Camisas Polo Lacoste', 30, 30, 300.00, '2024-09-01', 1, 2, 2, 2);
+       ('Compra de Camisas Polo Lacoste', 30, 30, 300.00, '2024-09-01', 1, 2, 1, 2);
        
 INSERT INTO `DetalleCompra` (`IdCompra`, `IdProducto`, `CantidadProducto`, `Estado`)
 VALUES (1, 1, 50, 1),
@@ -368,7 +367,7 @@ VALUES ('SERIEA', '2024-09-01 00:00:00', 1),
        
 INSERT INTO `Factura` (`NoFactura`, `TotalFactura`, `FechaFactura`, `Estado`, `IdCliente`, `IdTipoPago`, `IdCaja`, `IdSerie`)
 VALUES ('FAC-001', 150.00, '2024-09-02 10:00:00', 1, 1, 1, 1, 'SERIEA'),
-       ('FAC-002', 60.00, '2024-09-02 11:00:00', 1, 2, 2, 2, 'SERIEB');
+       ('FAC-002', 60.00, '2024-09-02 11:00:00', 1, 2, 1, 2, 'SERIEB');
        
 INSERT INTO `DetalleVenta` (`IdStock`, `IdFactura`, `Cantidad`, `Estado`)
 VALUES (1, 1, 1, 1),

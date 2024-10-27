@@ -7,7 +7,6 @@ DELIMITER $$
 CREATE PROCEDURE spVenta(
 	IN noFactura VARCHAR(20),
 	IN totalFactura DECIMAL(8,2),
-	IN fechaFactura DATE,
 	IN idCliente INT,
 	IN idTipoPago INT,
 	IN idCaja INT,
@@ -44,8 +43,8 @@ VentaSP:BEGIN
 		END IF;
 	
 		-- CREAR FACTURA
-		INSERT INTO Factura (NoFactura, TotalFactura, FechaFactura, IdCliente, IdTipoPago, IdCaja, IdSerie)
-		VALUES (noFactura, totalFactura, fechaFactura, idCliente, idTipoPago, idCaja, idSerie);
+		INSERT INTO Factura (NoFactura, TotalFactura, IdCliente, IdTipoPago, IdCaja, IdSerie)
+		VALUES (noFactura, totalFactura, idCliente, idTipoPago, idCaja, idSerie);
 		
 		SET idVenta = LAST_INSERT_ID();
 		

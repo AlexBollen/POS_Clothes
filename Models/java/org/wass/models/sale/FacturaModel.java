@@ -11,18 +11,17 @@ import java.util.Date;
 public class FacturaModel {
     private int idFactura;
     private String noFactura;
-    private float totalFactura;
+    private double totalFactura;
     private Date fechaFactura;
     private boolean estado;
-    private int idCliente;
+    private Integer idCliente;
     private int idTipoPago;
     private int idCaja;
     private String idSerie;
 
-    public FacturaModel(String noFactura, float totalFactura, Date fechaFactura, int idCliente, int idTipoPago, int idCaja, String idSerie) {
+    public FacturaModel(String noFactura, double totalFactura, Integer idCliente, int idTipoPago, int idCaja, String idSerie) {
         this.noFactura = noFactura;
         this.totalFactura = totalFactura;
-        this.fechaFactura = fechaFactura;
         this.idCliente = idCliente;
         this.idTipoPago = idTipoPago;
         this.idCaja = idCaja;
@@ -45,7 +44,7 @@ public class FacturaModel {
         this.noFactura = noFactura;
     }
 
-    public float getTotalFactura() {
+    public double getTotalFactura() {
         return totalFactura;
     }
 
@@ -69,7 +68,7 @@ public class FacturaModel {
         this.estado = estado;
     }
 
-    public int getIdCliente() {
+    public Integer getIdCliente() {
         return idCliente;
     }
 

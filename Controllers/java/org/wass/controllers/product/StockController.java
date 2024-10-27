@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import java.util.List;
 import org.wass.models.product.StockDAO;
 import org.wass.models.product.StockModel;
+import org.wass.models.product.StockPosModel;
 
 public class StockController {
     private StockDAO stockDao;
@@ -55,6 +56,9 @@ public class StockController {
     public StockModel obtenerStockPorId(int idStock) {
         return stockDao.obtenerStockPorId(idStock);
     }
+
+    // Método para obtener todos los stocks para el POS
+    public List<StockPosModel> obtenerStocksPos() { return stockDao.obtenerStocksPos(); }
 
     // Método para eliminar un stock
     public boolean eliminarStock(int stockId) {
