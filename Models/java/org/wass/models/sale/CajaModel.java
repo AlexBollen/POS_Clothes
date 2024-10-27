@@ -1,83 +1,96 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.wass.models.sale;
+
 import java.util.Date;
+import org.wass.models.Model;
+
 /**
- *
  * @author SamuelQ
  */
-public class CajaModel {
-    private int idCaja;
+public class CajaModel implements Model {
+    
+    private int id;
+    private int idUsuario;
+    
     private float montoInicial;
     private float monto;
-    private boolean estadoCaja;
+    
     private Date fechaApertura;
+    
+    private boolean estadoCaja;
     private boolean estado;
-    private int idUsuario;
 
+    /**
+     * Constructor del modelo <code>Caja</code>.
+     */
+    public CajaModel() { }
+    @Deprecated
     public CajaModel(float montoInicial, float monto, boolean estadoCaja, int idUsuario) {
         this.montoInicial = montoInicial;
-        this.monto = monto;
+        this.monto        = monto;
         this.estadoCaja = estadoCaja;
+        this.idUsuario  = idUsuario;
+    }
+
+    //=== ------------------------------------------------------------------ ===
+    //===                           SETTERS
+    //=== ------------------------------------------------------------------ ===    
+    public void setId(int id) {
+        this.id = id;
+    }
+    @Deprecated
+    public void setIdCaja(int idCaja) {
+        this.setId(idCaja);
+    }
+    public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
-
-    public int getIdCaja() {
-        return idCaja;
-    }
-
-    public void setIdCaja(int idCaja) {
-        this.idCaja = idCaja;
-    }
-
-    public float getMontoInicial() {
-        return montoInicial;
-    }
-
     public void setMontoInicial(float montoInicial) {
         this.montoInicial = montoInicial;
     }
-
-    public float getMonto() {
-        return monto;
-    }
-
     public void setMonto(float monto) {
         this.monto = monto;
     }
-
-    public boolean getEstadoCaja() {
-        return estadoCaja;
-    }
-
-    public void setEstadoCaja(boolean estadoCaja) {
-        this.estadoCaja = estadoCaja;
-    }
-
-    public Date getFechaApertura() {
-        return fechaApertura;
-    }
-
     public void setFechaApertura(Date fechaApertura) {
         this.fechaApertura = fechaApertura;
     }
-
-    public boolean isEstado() {
-        return estado;
+    public void setEstadoCaja(boolean estadoCaja) {
+        this.estadoCaja = estadoCaja;
     }
-
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
+    //=== ------------------------------------------------------------------ ===
+    //===                           GETTERS
+    //=== ------------------------------------------------------------------ ===    
     public int getIdUsuario() {
         return idUsuario;
     }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public float getMontoInicial() {
+        return montoInicial;
     }
-
+    public float getMonto() {
+        return monto;
+    }
+    public Date getFechaApertura() {
+        return fechaApertura;
+    }
+    public boolean isEstadoCaja() {
+        return estadoCaja;
+    }
+    public boolean isEstado() {
+        return estado;
+    }
+    @Override
+    public int getId() {
+        return id;
+    }
+    @Deprecated
+    public int getIdCaja() {
+        return getId();
+    }
+    @Deprecated
+    public boolean getEstadoCaja() {
+        return isEstadoCaja();
+    }
 }

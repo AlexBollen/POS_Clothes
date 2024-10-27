@@ -4,29 +4,64 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import org.wass.controllers.db.DataBase;
-import org.wass.models.purchase.ProveedorModel;
+
+import static org.wass.controllers.db.DataBase.*;
 
 /**
- *
  * @author SamuelQ
  */
-
 public class CajaDAO {
+    
+    /**
+     * Busca la caja un usuario con el rol de vendero.
+     * 
+     * @param idUsuario id usuario -> vendedor
+     * @return modelo caja
+     */
+    public CajaModel obtenerCajaVendedor(int idUsuario) {
+        String sql = """
+                    SELECT * FROM Caja WHERE IdUsuario = ? AND EstadoCaja = TRUE
+                     """;
+        
+        try (var db     = nDataBase().getConnection(); 
+             var query  = db.prepareStatement(sql);
+             var result = query.executeQuery()) {
+            
+            query.setInt(1, idUsuario);            
+            if (result.next()) {
+                CajaModel model = new CajaModel();
+                model.setId(result.getInt("IdCaja"));
+                
+                model.setMonto(result.getFloat("Monto"));
+                model.setMontoInicial(result.getFloat("MontoInicial"));
+                
+                model.setEstadoCaja(result.getBoolean("EstadoCaja"));
+                model.setEstado(result.getBoolean("Estado "));
+                
+                model.setFechaApertura(result.getDate("FechaApertura"));
+                model.setIdUsuario(idUsuario);
+                return model;
+            }
+        } catch (Exception e) {
+            System.err.println("Erro al obtender la caja del vendedor: "+e.getMessage());
+        }
+        return null;
+    }
+    
     /**
      * Método para agregar una nueva caja a la base de datos.
      *
      * @param caja El objeto CajaModel a agregar
      * @return true si se agrega correctamente, false en caso contrario
      */
-
+    @SuppressWarnings("deprecation")
     public boolean agregarCaja(CajaModel caja) {
         String sql = "INSERT INTO Caja (MontoInicial, Monto, EstadoCaja, FechaApertura, Estado, IdUsuario)"
                 + "VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (Connection connection = DataBase.nDataBase().getConnection();
+        try (Connection connection = nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
+            
             statement.setFloat(1, caja.getMontoInicial());
             statement.setFloat(2, caja.getMonto());
             statement.setBoolean(3, caja.getEstadoCaja());
@@ -47,11 +82,12 @@ public class CajaDAO {
      *
      * @return Lista de objetos CajaModel
      */
+    @SuppressWarnings("deprecation")
     public List<CajaModel> obtenerCajas() {
         String sql = "SELECT * FROM Caja WHERE Estado = 1";
         List<CajaModel> cajas = new ArrayList<>();
 
-        try (Connection connection = DataBase.nDataBase().getConnection();
+        try (Connection connection = nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet rs = statement.executeQuery()) {
 
@@ -80,11 +116,12 @@ public class CajaDAO {
      * @param caja El objeto CajaModel a actualizar
      * @return true si se agrega correctamente, false en caso contrario
      */
+    @SuppressWarnings("deprecation")
     public boolean actualizarCaja(CajaModel caja,int IdCaja) {
         String sql = "UPDATE Caja SET MontoInicial=?, Monto=?, EstadoCaja=?, IdUsuario=?" +
                 " WHERE IdCaja=?";
 
-        try (Connection connection = DataBase.nDataBase().getConnection();
+        try (Connection connection = nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setFloat(1, caja.getMontoInicial());
@@ -107,10 +144,11 @@ public class CajaDAO {
      * @param id El ID de la caja a obtener
      * @return El objeto CajaModel si se encuentra, null en caso contrario
      */
+    @SuppressWarnings("deprecation")
     public CajaModel obtenerCajaPorId(int id) {
         String sql = "SELECT * FROM Caja WHERE IdCaja = ?";
         CajaModel caja = null;
-        try (Connection connection = DataBase.nDataBase().getConnection();
+        try (Connection connection = nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet rs = statement.executeQuery()) {
 
@@ -141,7 +179,7 @@ public class CajaDAO {
     public boolean eliminarCaja(int cajaId) {
         String sql = "UPDATE Caja SET Estado=0 WHERE IdCaja=?";
 
-        try (Connection connection = DataBase.nDataBase().getConnection();
+        try (Connection connection = nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, cajaId);

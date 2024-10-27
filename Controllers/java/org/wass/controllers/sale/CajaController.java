@@ -1,22 +1,36 @@
 package org.wass.controllers.sale;
 
-/**
- *
- * @author SamuelQ
- */
 import javax.swing.JOptionPane;
 import java.util.List;
+import org.wass.models.DisplayTableModel;
+import org.wass.models.TableDataModel;
+import org.wass.models.person.RolModel;
+import org.wass.models.person.UsuarioModel;
+
 import org.wass.models.sale.CajaModel;
 import org.wass.models.sale.CajaDAO;
 
+/**
+ * @author SamuelQ
+ */
 public class CajaController {
     private CajaDAO cajaDao;
 
-
+    public CajaController() {
+        this(new CajaDAO());
+    }
+    @Deprecated
     public CajaController(CajaDAO cajaDao) {
         this.cajaDao = cajaDao;
     }
 
+    public CajaModel obtenerCajaVendedor(UsuarioModel usuario) {
+        if (usuario.getRol().getNombreRol().equals(RolModel.Tipo.Vendedor.getRol())) {            
+            return cajaDao.obtenerCajaVendedor(usuario.getId());
+        }
+        return null;
+    }
+    
     // Método para agregar una nueva caja
     public boolean agregarCaja(CajaModel caja) {
         if (caja.getMontoInicial() < 0) {
@@ -41,6 +55,29 @@ public class CajaController {
     }
 
     // Método para obtener todas las cajas
+    public TableDataModel<CajaModel> obtenerTablaCajas() {
+        List<CajaModel> modelos = obtenerCajas();
+        TableDataModel<CajaModel> tabla = new TableDataModel<>(new String[] {
+            "ID Caja", "Monto Inicial (Apertura Caja)", "Monto Final (Cierre)",
+            "Estado Caja", "Fecha Apertura", "Estado", "Usuario"
+        });
+        
+        final DisplayTableModel<CajaModel> display = (model) -> {
+            return new Object[] {
+                model.getId(),
+                model.getMontoInicial(),
+                model.getMonto(),
+                model.isEstadoCaja(),
+                model.getFechaApertura(),
+                model.isEstado(),
+                model.getIdUsuario()
+            };
+        };
+        for (final CajaModel m : modelos) {
+            tabla.addRow(m, display);
+        }
+        return tabla;
+    }
     public List<CajaModel> obtenerCajas() {
         return cajaDao.obtenerCajas();
     }
@@ -52,6 +89,9 @@ public class CajaController {
 
 
     // Método para eliminar una caja
+    public boolean eliminarCaja(CajaModel caja) {
+        return eliminarCaja(caja.getId());
+    }
     public boolean eliminarCaja(int cajaId) {
         boolean resultado = cajaDao.eliminarCaja(cajaId);
         if (resultado) {
@@ -62,7 +102,11 @@ public class CajaController {
         return resultado;
     }
 
-    public boolean actualizarCaja(CajaModel caja, int IdCaja) {
+    public boolean actualizarCaja(CajaModel caja) {
+        return actualizarCaja(caja, caja.getId());
+    }
+    @Deprecated
+    public boolean actualizarCaja(CajaModel caja, int idCaja) {
         if (caja.getMontoInicial() < 0) {
             JOptionPane.showMessageDialog(null, "El monto Inicial debe ser mayor que cero", "Requerido", JOptionPane.WARNING_MESSAGE);
             return false;
@@ -75,7 +119,7 @@ public class CajaController {
             JOptionPane.showMessageDialog(null, "Seleccione un usurio válido", "Requerido", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        boolean resultado = cajaDao.actualizarCaja(caja,IdCaja);
+        boolean resultado = cajaDao.actualizarCaja(caja, idCaja);
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Caja actualizada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {

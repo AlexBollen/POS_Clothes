@@ -26,6 +26,7 @@ import org.wass.models.sale.ClienteDAO;
 
 import org.wass.views.component.Control;
 import org.wass.views.component.Dashboard;
+import org.wass.views.component.ViewCaja;
 import org.wass.views.component.ViewUsuario;
 import org.wass.views.component.menu.MenuConfiguraciones;
 import org.wass.views.sale.ViewClientes2;
@@ -136,6 +137,7 @@ public class MainFrame extends AbstractFrame {
                 }
                 case 5 -> {
                     //Cajas
+                    changeView(new ViewCaja());
                 }
                 case 6 -> {
                     //Reportes
