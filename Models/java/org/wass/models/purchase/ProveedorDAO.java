@@ -53,7 +53,7 @@ public class ProveedorDAO {
         String proveedorSql = "INSERT INTO Proveedor (NombreComercial, Telefono2, Correo, Estado, IdPersona)"
                 + "  VALUES (?, ?, ?, ?, ?);";
         
-        System.out.println("aa");
+      
 
         try (Connection connection = DataBase.nDataBase().getConnection()) {
             connection.setAutoCommit(false);
