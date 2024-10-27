@@ -71,7 +71,7 @@ public class ProveedorDAO {
                     idPersona = generatedKeys.getInt(1); // Obtener el id que se acaba de crear
                 }
                 
-                System.out.println("id generado: "+idPersona);
+               
 
                 // Insertar la el nuevo proveedor
                 try (PreparedStatement proveedorStatement = connection.prepareStatement(proveedorSql)) {
@@ -110,9 +110,9 @@ public class ProveedorDAO {
      * @return Lista de objetos ProveedorModel
      */
     public List<ProveedorModel> obtenerProveedores() {
-        String sql = "SELECT IdProveedor, NombreComercial, Telefono2, Correo, Nombrepersona, Direccion, Telefono, proveedor.estado, persona.IdPersona"
-                + " FROM proveedor INNER JOIN persona ON proveedor.idpersona = persona.idpersona"
-                + "  WHERE proveedor.estado=true;";
+        String sql = "SELECT IdProveedor, NombreComercial, Telefono2, Correo, Nombrepersona, Direccion, Telefono, Proveedor.Estado, Persona.IdPersona"
+                + " FROM Proveedor INNER JOIN Persona ON Proveedor.Idpersona = Persona.Idpersona"
+                + "  WHERE Proveedor.Estado=true;";
         List<ProveedorModel> proveedores = new ArrayList<>();
 
         try (Connection connection = DataBase.nDataBase().getConnection();
@@ -150,7 +150,7 @@ public class ProveedorDAO {
      * @return true si se agrega correctamente, false en caso contrario
      */
     public boolean actualizarProveedor(ProveedorModel proveedor,int idProveedor) {
-        String sql = "UPDATE proveedor a INNER JOIN persona p ON a.IdPersona = p.IdPersona" +
+        String sql = "UPDATE proveedor a INNER JOIN Persona p ON a.IdPersona = p.IdPersona" +
                 " SET NombreComercial=?, Telefono2=?, Correo=?, p.NombrePersona=?, p.Direccion=?, p.Telefono=?" +
                 "  WHERE a.IdProveedor = ?";
 
@@ -219,7 +219,7 @@ public class ProveedorDAO {
     public boolean eliminarProveedor(int proveedorId) {
         String sql = "UPDATE Persona p INNER JOIN Proveedor a" +
                 " on a.IdPersona = p.IdPersona" +
-                " set p.estado = false, a.estado = false where a.idProveedor=?";
+                " set p.Estado = false, a.Estado = false where a.IdProveedor=?";
 
         try (Connection connection = DataBase.nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
