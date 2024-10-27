@@ -20,7 +20,7 @@ public class CajaDAO {
      */
     public CajaModel obtenerCajaVendedor(int idUsuario) {
         String sql = """
-                    SELECT * FROM Caja WHERE IdUsuario = ?
+                    SELECT * FROM Caja WHERE IdUsuario = ? AND EstadoCaja = TRUE
                      """;
         
         try (var db     = nDataBase().getConnection(); 
