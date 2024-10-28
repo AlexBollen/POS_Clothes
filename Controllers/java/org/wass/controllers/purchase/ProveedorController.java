@@ -3,6 +3,7 @@ package org.wass.controllers.purchase;
 /**
  *
  * @author SamuelQ
+ * @author marco
  */
 import javax.swing.JOptionPane;
 import java.util.List;
@@ -37,6 +38,40 @@ public class ProveedorController {
         }
 
         boolean resultado = proveedorDao.agregarProveedor(proveedor);
+        if (resultado) {
+            JOptionPane.showMessageDialog(null, "Proveedor agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al agregar el proveedor", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return resultado;
+    }
+
+    // Método para agregar un nuevo proveedor y una nueva persona
+    public boolean agregarProveedorPersona(ProveedorModel proveedor) {
+        if (proveedor.getNombreComercial() == null || proveedor.getNombreComercial().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El nombre comercial es requerido", "Requerido", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (proveedor.getTelefono2() == null || proveedor.getTelefono2().isEmpty()) {
+            proveedor.setTelefono2("");
+        }
+        if (proveedor.getCorreo() == null || proveedor.getCorreo().isEmpty()) {
+            proveedor.setCorreo("");
+        }
+        if (proveedor.getNombrePersona() == null || proveedor.getNombrePersona().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe  ingresar un nombre", "Requerido", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (proveedor.getDireccion() == null || proveedor.getDireccion().isEmpty()) {
+            proveedor.setDireccion("");
+        }
+
+        if (proveedor.getTelefono() == null || proveedor.getTelefono().isEmpty()) {
+            proveedor.setTelefono("");
+        }
+
+
+        boolean resultado = proveedorDao.agregarProveedorPersona(proveedor);
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Proveedor agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -81,9 +116,16 @@ public class ProveedorController {
         if (proveedor.getCorreo() == null || proveedor.getCorreo().isEmpty()) {
             proveedor.setCorreo("");
         }
-        if (proveedor.getIdPersona() <= 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una persona", "Requerido", JOptionPane.WARNING_MESSAGE);
+        if (proveedor.getNombrePersona() == null || proveedor.getNombrePersona().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe  ingresar un nombre", "Requerido", JOptionPane.WARNING_MESSAGE);
             return false;
+        }
+        if (proveedor.getDireccion() == null || proveedor.getDireccion().isEmpty()) {
+            proveedor.setDireccion("");
+        }
+
+        if (proveedor.getTelefono() == null || proveedor.getTelefono().isEmpty()) {
+            proveedor.setTelefono("");
         }
         boolean resultado = proveedorDao.actualizarProveedor(proveedor,IdProveedor);
         if (resultado) {

@@ -14,6 +14,7 @@ import org.wass.controllers.purchase.EstadoCompraController;
 import org.wass.controllers.purchase.ProveedorController;
 import org.wass.controllers.purchase.TipoPagoController;
 import org.wass.controllers.sale.ClienteController;
+import org.wass.controllers.purchase.ProveedorController;
 
 import org.wass.models.person.UsuarioModel;
 import org.wass.models.product.ProductoDAO;
@@ -23,6 +24,7 @@ import org.wass.models.purchase.EstadoCompraDAO;
 import org.wass.models.purchase.ProveedorDAO;
 import org.wass.models.purchase.TipoPagoDAO;
 import org.wass.models.sale.ClienteDAO;
+import org.wass.models.purchase.ProveedorDAO;
 
 import org.wass.views.component.Control;
 import org.wass.views.component.Dashboard;
@@ -30,6 +32,7 @@ import org.wass.views.component.ViewCaja;
 import org.wass.views.component.ViewUsuario;
 import org.wass.views.component.menu.MenuConfiguraciones;
 import org.wass.views.sale.ViewClientes2;
+import org.wass.views.purchase.ViewProveedores;
 
 /**
  *
@@ -79,14 +82,18 @@ public class MainFrame extends AbstractFrame {
         CompraDAO compradao = new CompraDAO();
         CompraController compracontroller = new CompraController(compradao,detallecompradao);
         
+        //Instancia para ClienteDAO y ClienteController
+        ClienteDAO clienteDAO = new ClienteDAO();
+        ClienteController clienteController = new ClienteController(clienteDAO);
         
+        //Instancia para ClienteDAO y ClienteController
+        ProveedorDAO proveedorDAO = new ProveedorDAO();
+        ProveedorController proveedorController = new ProveedorController(proveedorDAO);
         
         // </editor-fold> 
 
         
-        //Instancia para ClienteDAO y ClienteController
-        ClienteDAO clienteDAO = new ClienteDAO();
-        ClienteController clienteController = new ClienteController(clienteDAO);
+        
 
         jButtonSettings.setFocusPainted(false);
         changeView(dashboard);
@@ -128,8 +135,8 @@ public class MainFrame extends AbstractFrame {
                             changeView(new ViewClientes2(clienteController));
                         }
                         case 2 -> {
-                            //Historial
                             //Proveedores
+                             changeView(new ViewProveedores(proveedorController));
                         }
                         default ->
                             throw new AssertionError();
