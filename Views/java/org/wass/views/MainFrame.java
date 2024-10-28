@@ -92,13 +92,12 @@ public class MainFrame extends AbstractFrame {
         //Instancia para CajaDAO y CajaController
         CajaDAO cajaDAO = new CajaDAO();
         CajaController cajaController = new CajaController(cajaDAO);
-        
-        // </editor-fold> 
 
-        
         //Instancia para ClienteDAO y ClienteController
         ClienteDAO clienteDAO = new ClienteDAO();
         ClienteController clienteController = new ClienteController(clienteDAO);
+
+        // </editor-fold>
 
         jButtonSettings.setFocusPainted(false);
         changeView(dashboard);
