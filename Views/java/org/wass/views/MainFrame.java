@@ -2,7 +2,12 @@ package org.wass.views;
 
 import java.awt.Component;
 import javax.swing.*;
+import java.awt.Dimension;
+import java.awt.Point;
+import javax.swing.ImageIcon;
+import javax.swing.JViewport;
 
+import org.wass.controllers.LoginController;
 import org.wass.controllers.product.ProductoController;
 import org.wass.controllers.product.StockController;
 import org.wass.controllers.purchase.CompraController;
@@ -13,7 +18,7 @@ import org.wass.controllers.purchase.TipoPagoController;
 
 import org.wass.controllers.sale.CajaController;
 import org.wass.controllers.sale.ClienteController;
-
+import org.wass.controllers.purchase.ProveedorController;
 
 import org.wass.controllers.sale.FacturaController;
 import org.wass.controllers.sale.SerieFacturaController;
@@ -25,12 +30,15 @@ import org.wass.models.purchase.DetalleCompraDAO;
 import org.wass.models.purchase.EstadoCompraDAO;
 import org.wass.models.purchase.ProveedorDAO;
 import org.wass.models.purchase.TipoPagoDAO;
-
 import org.wass.models.sale.*;
 
 import org.wass.views.component.Control;
 import org.wass.views.component.Dashboard;
+import org.wass.views.component.ViewCaja;
+import org.wass.views.component.ViewUsuario;
+import org.wass.views.component.menu.MenuConfiguraciones;
 import org.wass.views.sale.ViewClientes2;
+import org.wass.views.purchase.ViewProveedores;
 
 /**
  *
@@ -42,6 +50,8 @@ public class MainFrame extends AbstractFrame {
     private UsuarioModel logedUser;
     private Dashboard dashboard;
 
+    private FloatingWindow configuraciones;
+    
     public MainFrame(UsuarioModel logedUser) {
         this.logedUser = logedUser;
         initComponents();
@@ -50,6 +60,7 @@ public class MainFrame extends AbstractFrame {
 
     private void componentesAdd() {
         dashboard = new Dashboard();
+        configuraciones = new FloatingWindow(this, false);
 
         // <editor-fold defaultstate="collapsed" desc="Instanciar Controladores"> 
         
@@ -96,6 +107,10 @@ public class MainFrame extends AbstractFrame {
         //Instancia para ClienteDAO y ClienteController
         ClienteDAO clienteDAO = new ClienteDAO();
         ClienteController clienteController = new ClienteController(clienteDAO);
+        
+        //Instancia para ClienteDAO y ClienteController
+        ProveedorDAO proveedorDAO = new ProveedorDAO();
+        ProveedorController proveedorController = new ProveedorController(proveedorDAO);
 
         // </editor-fold>
 
@@ -147,8 +162,8 @@ public class MainFrame extends AbstractFrame {
                             changeView(new ViewClientes2(clienteController));
                         }
                         case 2 -> {
-                            //Historial
                             //Proveedores
+                             changeView(new ViewProveedores(proveedorController));
                         }
                         default ->
                             throw new AssertionError();
@@ -156,6 +171,7 @@ public class MainFrame extends AbstractFrame {
                 }
                 case 5 -> {
                     //Cajas
+                    changeView(new ViewCaja());
                 }
                 case 6 -> {
                     //Reportes
@@ -269,6 +285,11 @@ public class MainFrame extends AbstractFrame {
         jButtonSettings.setFocusPainted(false);
         jButtonSettings.setFocusable(false);
         jButtonSettings.setRequestFocusEnabled(false);
+        jButtonSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSettingsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -299,6 +320,13 @@ public class MainFrame extends AbstractFrame {
 
         jPanelHeaderView.setBackground(new java.awt.Color(255, 255, 255));
         jPanelHeaderView.setLayout(new java.awt.BorderLayout());
+
+        header2.setClonseListener((target) -> {
+            setVisible(false);
+            dispose();
+
+            new FormLogin(new LoginController()).setVisible(true);
+        });
         jPanelHeaderView.add(header2, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -341,6 +369,32 @@ public class MainFrame extends AbstractFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSettingsActionPerformed
+        if (configuraciones.isVisible()) {
+            return;
+        }
+        configuraciones.setTitle("Configuraciones");
+        configuraciones.setView(new MenuConfiguraciones().addOyenteConfiguracion((op) -> {
+            switch (op) {
+                case Usuario -> { 
+                    ViewUsuario vwUsuario = new ViewUsuario();
+                    changeView(vwUsuario);
+
+                    configuraciones.doClose(FloatingWindow.RET_OK);
+                }
+                case Aplicacion -> {
+                    /* nada */
+                }
+                default -> throw new AssertionError();
+            }
+        })).setVisible(true);
+
+        Point point = jButtonSettings.getLocationOnScreen();
+        Dimension size = jButtonSettings.getPreferredSize();        
+        configuraciones.setLocation(point.x + (size.height / 2), 
+                                    point.y - (configuraciones.getPreferredSize().height + (size.height/2)));
+    }//GEN-LAST:event_jButtonSettingsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.wass.views.component.Header header2;

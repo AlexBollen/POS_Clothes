@@ -4,11 +4,14 @@
  */
 package org.wass.models.purchase;
 
+import org.wass.models.person.PersonaModel;
+
 /**
  *
  * @author SamuelQ
+ * @author marco
  */
-public class ProveedorModel {
+public class ProveedorModel extends PersonaModel {
     private int idProveedor;
     private String nombreComercial;
     private String telefono2;
@@ -16,7 +19,8 @@ public class ProveedorModel {
     private boolean estado;
     private int idPersona;
 
-    public ProveedorModel(String nombreComercial, String telefono2, String correo, int idPersona) {
+    public ProveedorModel(String nombreComercial, String telefono2, String correo, int idPersona, String nombrePersona, String direccion, String telefono) {
+        super(idPersona, nombrePersona, direccion, telefono);
         this.nombreComercial = nombreComercial;
         this.telefono2 = telefono2;
         this.correo = correo;

@@ -8,6 +8,7 @@ import org.wass.models.person.PersonaModel;
 /**
  *
  * @author SamuelQ
+ * @author marco
  */
 public class ClienteModel extends PersonaModel {
     private int idCliente;

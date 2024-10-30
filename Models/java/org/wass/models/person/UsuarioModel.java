@@ -1,60 +1,69 @@
 package org.wass.models.person;
 
 /**
- *
  * @author Alex
  * @version 1.0.0
  * @since 1.0.0
  */
 public class UsuarioModel extends PersonaModel {
-    private int IdUsuario;
-    private String NombreUsuario;
-    private String Contrasenia;
-    private RolModel RolModel;
+    
+    private int idUsuario;
+    private String nombreUsuario;
+    private String contrasenia;
+    private RolModel rolModel;
 
    
-    UsuarioModel() {
-
+    public UsuarioModel() { }
+    public UsuarioModel(int idPersona, String nombrePersona, String direccion, String telefono, 
+            boolean estado, int idUsuario, String nombreUsuario, String contrasenia, RolModel rolModel) {
+        super(idPersona, nombrePersona, direccion, telefono, estado);
+        this.idUsuario = idUsuario;
+        this.nombreUsuario = nombreUsuario;
+        this.contrasenia = contrasenia;
+        this.rolModel = rolModel;
     }
 
-    public UsuarioModel(int IdPersona, String NombrePersona, String Direccion, String Telefono, Boolean Estado, int IdUsuario, String NombreUsuario, String Contrasenia, RolModel RolModel) {
-        super(IdPersona, NombrePersona, Direccion, Telefono, Estado);
-        this.IdUsuario = IdUsuario;
-        this.NombreUsuario = NombreUsuario;
-        this.Contrasenia = Contrasenia;
-        this.RolModel = RolModel;
+    @Override
+    public int getId() {
+        return idUsuario;
     }
 
-
+    public void setPersona(PersonaModel m) {
+        setDireccion(m.getDireccion());
+        setIdPersona(m.getIdPersona());
+        setNombrePersona(m.getNombrePersona());
+        setTelefono(m.getTelefono());
+    }
+    
     public int getIdUsuario() {
-        return IdUsuario;
-    }
-
-    public void setIdUsuario(int IdUsuario) {
-        this.IdUsuario = IdUsuario;
+        return idUsuario;
     }
 
     public String getNombreUsuario() {
-        return NombreUsuario;
-    }
-
-    public void setNombreUsuario(String NombreUsuario) {
-        this.NombreUsuario = NombreUsuario;
+        return nombreUsuario;
     }
 
     public String getContrasenia() {
-        return Contrasenia;
-    }
-
-    public void setContrasenia(String Contrasenia) {
-        this.Contrasenia = Contrasenia;
+        return contrasenia;
     }
 
     public RolModel getRol() {
-        return RolModel;
+        return rolModel;
     }
 
-    public void setRol(RolModel RolModel) {
-        this.RolModel = RolModel;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
+    public void setRol(RolModel rolModel) {
+        this.rolModel = rolModel;
     }
 }

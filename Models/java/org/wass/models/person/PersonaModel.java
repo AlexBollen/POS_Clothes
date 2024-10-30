@@ -1,12 +1,14 @@
 package org.wass.models.person;
 
+import org.wass.models.Model;
+
 /**
  *
  * @author Alex
  * @version 1.0.1
  * @since 1.0.0
  */
-public class PersonaModel {
+public class PersonaModel implements Model {
     private int IdPersona;
     private String NombrePersona;
     private String Direccion;
@@ -26,12 +28,15 @@ public class PersonaModel {
     }
 
     public PersonaModel(int IdPersona, String NombrePersona, String Direccion, String Telefono) {
-        this(IdPersona, NombrePersona, Direccion, Telefono, Boolean.TRUE);
-
+        this(IdPersona, NombrePersona, Direccion, Telefono, true);
 
     }
 
-
+    @Override
+    public int getId() {
+        return getIdPersona();
+    }
+    
     public int getIdPersona() {
         return IdPersona;
     }

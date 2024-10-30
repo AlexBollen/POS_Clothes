@@ -11,6 +11,7 @@ import org.wass.models.sale.ClienteModel;
 /**
  *
  * @author SamuelQ
+ * @author marco
  */
 
 public class ClienteDAO {
@@ -69,7 +70,7 @@ public class ClienteDAO {
                     idPersona = generatedKeys.getInt(1); // Obtener el id que se acaba de crear
                 }
 
-                // Insertar los detalles de la compra
+                // Insertar el nuevo cliente
                 try (PreparedStatement clienteStatement = connection.prepareStatement(clienteSql)) {
 
                         clienteStatement.setString(1, cliente.getNit());
@@ -77,7 +78,7 @@ public class ClienteDAO {
                         clienteStatement.setInt(3, idPersona);// Asignar id que se acaba de crear
                         clienteStatement.addBatch();
 
-                    clienteStatement.executeBatch(); // Ejecutar todos los detalles juntos
+                    clienteStatement.executeBatch();
                 }
 
                 connection.commit();
@@ -229,7 +230,10 @@ public class ClienteDAO {
      * @return true si se elimina correctamente, false en caso contrario
      */
     public boolean eliminarCliente(int clienteId) {
-        String sql = "UPDATE Cliente SET Estado=false WHERE IdCliente=?";
+        String sql = "UPDATE Persona p INNER JOIN Cliente c" +
+                " on c.IdPersona = p.IdPersona" +
+                " set p.estado = false, c.estado = false where c.idCliente=?";
+
 
         try (Connection connection = DataBase.nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {

@@ -14,6 +14,10 @@ public class LoginController {
     private UsuarioDao userDao;
 
     // Constructor para inicializar userDao
+    public LoginController() {
+        this(new UsuarioDao());
+    }    
+    @Deprecated
     public LoginController(UsuarioDao userDao) {
         this.userDao = userDao;
     }

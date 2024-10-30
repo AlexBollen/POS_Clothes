@@ -10,19 +10,27 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Rectangle2D;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import org.wass.views.listeners.VwActionListener;
 
 /**
- *
  * @author marco
  */
-public class Header extends javax.swing.JPanel {
+public class Header extends JPanel {
 
-    /**
-     * Creates new form Header
-     */
+    private VwActionListener clonseListener;
+    
     public Header() {        
         initComponents();
         setOpaque(false);
+    }
+
+    public VwActionListener getClonseListener() {
+        return clonseListener;
+    }
+
+    public void setClonseListener(VwActionListener clonseListener) {
+        this.clonseListener = clonseListener;
     }
 
     @Override
@@ -73,13 +81,18 @@ public class Header extends javax.swing.JPanel {
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setFocusPainted(false);
         jButton1.setFocusable(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabelProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/avatardefault.png"))); // NOI18N
 
         jLabelRol.setForeground(new java.awt.Color(133, 133, 133));
         jLabelRol.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabelRol.setText("Mi rol");
+        jLabelRol.setText("Mi rolModel");
 
         jLabelTitle.setFont(new java.awt.Font("Cantarell", 0, 24)); // NOI18N
         jLabelTitle.setText("My Panel");
@@ -121,6 +134,12 @@ public class Header extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (clonseListener != null) {
+            clonseListener.doAction(1);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

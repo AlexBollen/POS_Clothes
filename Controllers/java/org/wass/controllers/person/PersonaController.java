@@ -3,18 +3,21 @@ package org.wass.controllers.person;
 
 import javax.swing.JOptionPane;
 import java.util.List;
+import org.wass.models.ListDataModel;
 import org.wass.models.person.PersonaDAO;
 import org.wass.models.person.PersonaModel;
 
 /**
- *
  * @author marco
  */
 public class PersonaController {
     
-     private PersonaDAO personaDao;
+    private PersonaDAO personaDao;
      
-      // Constructor para inicializar personaDao
+    // Constructor para inicializar personaDao
+    public PersonaController() {
+        this(new PersonaDAO());
+    }
     public PersonaController(PersonaDAO personaDao) {
         this.personaDao = personaDao;
     }
@@ -34,9 +37,6 @@ public class PersonaController {
             persona.setTelefono("");
         }
         
-       
-  
-
         boolean resultado = personaDao.agregarPersona(persona);
         if (resultado) {
             JOptionPane.showMessageDialog(null, "Persona agregada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -47,7 +47,12 @@ public class PersonaController {
     }
     
     
-     // Obtener una lista de las personas
+    // Obtener una lista de las personas
+    public ListDataModel<PersonaModel> obtenerTodoPersonas() {
+        return new ListDataModel<PersonaModel>().addAll(obtenerPersonas(), (PersonaModel model) -> {
+            return model.getNombrePersona();
+        });
+    }
     public List<PersonaModel> obtenerPersonas() {
         return personaDao.obtenerPersonas();
     }
@@ -81,9 +86,5 @@ public class PersonaController {
             JOptionPane.showMessageDialog(null, "Error al eliminar la persona", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return resultado;
-    }
-    
-    
-    
-    
+    }    
 }
