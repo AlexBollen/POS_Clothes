@@ -171,6 +171,40 @@ public class CajaDAO {
     }
 
     /**
+     * Método para obtener caja activa por ID de usuario
+     *
+     * @param idUsuario ID del usuario
+     * @return Objeto CajaModel si se encuentra, null en caso contrario
+     */
+    public CajaModel obtenerCajaUsuario(int idUsuario) {
+        String sql = "SELECT * FROM Caja WHERE " +
+                "IdUsuario = ? AND " +
+                "EstadoCaja = TRUE";
+        CajaModel caja = null;
+        try(Connection connection = DataBase.nDataBase().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, idUsuario);
+
+            try (ResultSet rs = statement.executeQuery()){
+                if (rs.next()) {
+                    caja = new CajaModel(
+                            rs.getFloat("MontoInicial"),
+                            rs.getFloat("Monto"),
+                            rs.getBoolean("EstadoCaja"),
+                            rs.getInt("IdUsuario")
+                    );
+                    caja.setIdCaja(rs.getInt("IdCaja"));
+                    caja.setFechaApertura(rs.getDate("FechaApertura"));
+                    caja.setEstado(rs.getBoolean("Estado"));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("El usuario no tiene una caja activa. Error: " + e.getMessage());
+        }
+        return caja;
+    }
+
+    /**
      * Método para eliminar una caja por su ID.
      *
      * @param cajaId El ID de la caja a eliminar

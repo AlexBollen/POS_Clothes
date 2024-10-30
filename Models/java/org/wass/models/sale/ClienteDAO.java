@@ -256,7 +256,17 @@ public class ClienteDAO {
 
 
     public ClienteModel obtenerClientePorNit(String nitCliente) {
-        String sql = "SELECT * FROM Cliente WHERE Nit = ?";
+        String sql = "SELECT " +
+                "C.IdPersona, " +
+                "C.IdCliente, " +
+                "P.NombrePersona, " +
+                "P.Direccion, " +
+                "P.Telefono, " +
+                "C.Nit " +
+                "FROM Cliente AS C " +
+                "INNER JOIN Persona AS P " +
+                "ON C.IdPersona = P.IdPersona " +
+                "WHERE Nit = ?";
         ClienteModel cliente = null;
 
         try (Connection connection = DataBase.nDataBase().getConnection();
@@ -272,10 +282,8 @@ public class ClienteDAO {
                             rs.getString("Direccion"),
                             rs.getString("Telefono"),
                             rs.getString("Nit")
-
                     );
                     cliente.setIdCliente(rs.getInt("IdCliente"));
-                    cliente.setEstado(rs.getBoolean("Estado"));
                 }
             }
         } catch (SQLException e) {

@@ -1,6 +1,7 @@
 package org.wass.views;
 
 import java.awt.Component;
+import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.ImageIcon;
@@ -8,23 +9,28 @@ import javax.swing.JViewport;
 
 import org.wass.controllers.LoginController;
 import org.wass.controllers.product.ProductoController;
+import org.wass.controllers.product.StockController;
 import org.wass.controllers.purchase.CompraController;
 import org.wass.controllers.purchase.DetalleCompraController;
 import org.wass.controllers.purchase.EstadoCompraController;
 import org.wass.controllers.purchase.ProveedorController;
 import org.wass.controllers.purchase.TipoPagoController;
+
+import org.wass.controllers.sale.CajaController;
 import org.wass.controllers.sale.ClienteController;
 import org.wass.controllers.purchase.ProveedorController;
 
+import org.wass.controllers.sale.FacturaController;
+import org.wass.controllers.sale.SerieFacturaController;
 import org.wass.models.person.UsuarioModel;
 import org.wass.models.product.ProductoDAO;
+import org.wass.models.product.StockDAO;
 import org.wass.models.purchase.CompraDAO;
 import org.wass.models.purchase.DetalleCompraDAO;
 import org.wass.models.purchase.EstadoCompraDAO;
 import org.wass.models.purchase.ProveedorDAO;
 import org.wass.models.purchase.TipoPagoDAO;
-import org.wass.models.sale.ClienteDAO;
-import org.wass.models.purchase.ProveedorDAO;
+import org.wass.models.sale.*;
 
 import org.wass.views.component.Control;
 import org.wass.views.component.Dashboard;
@@ -82,6 +88,22 @@ public class MainFrame extends AbstractFrame {
         CompraDAO compradao = new CompraDAO();
         CompraController compracontroller = new CompraController(compradao,detallecompradao);
         
+        //Instancia para FacturaDAO y FacturaController
+        FacturaDao facturaDao = new FacturaDao();
+        FacturaController facturaController = new FacturaController(facturaDao);
+
+        //Instancia para SerieFacturaDAO y SerieFacturaController
+        SerieFacturaDao serieFacturaDao = new SerieFacturaDao();
+        SerieFacturaController serieFacturaController = new SerieFacturaController(serieFacturaDao);
+
+        //Instancia para StockDAO y StockController
+        StockDAO stockDao = new StockDAO();
+        StockController stockController = new StockController(stockDao);
+
+        //Instancia para CajaDAO y CajaController
+        CajaDAO cajaDAO = new CajaDAO();
+        CajaController cajaController = new CajaController(cajaDAO);
+
         //Instancia para ClienteDAO y ClienteController
         ClienteDAO clienteDAO = new ClienteDAO();
         ClienteController clienteController = new ClienteController(clienteDAO);
@@ -89,11 +111,8 @@ public class MainFrame extends AbstractFrame {
         //Instancia para ClienteDAO y ClienteController
         ProveedorDAO proveedorDAO = new ProveedorDAO();
         ProveedorController proveedorController = new ProveedorController(proveedorDAO);
-        
-        // </editor-fold> 
 
-        
-        
+        // </editor-fold>
 
         jButtonSettings.setFocusPainted(false);
         changeView(dashboard);
@@ -112,7 +131,15 @@ public class MainFrame extends AbstractFrame {
                 case 1 -> {
                     switch (subIndex) {
                         case 1 -> {
-                            //Nueva venta  
+                            //Validación para verificar que el usuario logeado tenga una caja activa
+                            CajaModel cajaUsuario = cajaDAO.obtenerCajaUsuario(logedUser.getIdUsuario());
+                            if (cajaUsuario != null) {
+                                //Nueva venta
+                                changeView(new POS(facturaController, serieFacturaController, stockController, clienteController, cajaUsuario));
+                            } else {
+                                JOptionPane.showMessageDialog(this, "El usuario no tiene una caja activa");
+                            }
+
                         }
                         case 2 -> {
                             //Historial

@@ -16,7 +16,6 @@ public class ClienteModel extends PersonaModel {
     private boolean estado;
     private int idPersona;
 
-
     public ClienteModel(int idPersona, String nombrePersona, String direccion, String telefono, String nit) {
         super(idPersona, nombrePersona, direccion, telefono);
         this.nit = nit;

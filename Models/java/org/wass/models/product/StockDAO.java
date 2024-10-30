@@ -117,6 +117,50 @@ public class StockDAO {
 
         return stocks;
     }
+
+    /**
+     * Método para obtener listado de stocks con información de productos para POS
+     *
+     * @return Lista de objetos StockPosModel
+     */
+    public List<StockPosModel> obtenerStocksPos() {
+        String sql = "SELECT " +
+                "S.IdStock, " +
+                "P.NombreProducto, " +
+                "TP.NombreTipoProducto, " +
+                "S.CantidadDisponible, " +
+                "P.PrecioVenta, " +
+                "S.UbicacionBodega " +
+                "FROM Stock AS S " +
+                "INNER JOIN Producto AS P " +
+                "ON S.IdProducto = P.IdProducto " +
+                "INNER JOIN TipoProducto AS TP " +
+                "ON P.IdTipoProducto = TP.IdTipoProducto " +
+                "WHERE S.Estado = TRUE " +
+                "HAVING S.CantidadDisponible > 0;";
+        List<StockPosModel> stocks = new ArrayList<>();
+
+        try (Connection connection = DataBase.nDataBase().getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                StockPosModel stock = new StockPosModel(
+                  rs.getInt("IdStock"),
+                  rs.getString("NombreProducto"),
+                  rs.getString("NombreTipoProducto"),
+                  rs.getInt("CantidadDisponible"),
+                  rs.getDouble("PrecioVenta"),
+                  rs.getString("UbicacionBodega")
+                );
+                stocks.add(stock);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener stocks: " + e.getMessage());
+        }
+
+        return stocks;
+    }
+
     /**
      * Método para actualizar un nuevo stock a la base de datos.
      *

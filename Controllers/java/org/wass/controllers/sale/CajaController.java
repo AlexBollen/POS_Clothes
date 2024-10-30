@@ -87,6 +87,8 @@ public class CajaController {
         return cajaDao.obtenerCajaPorId(idCaja);
     }
 
+    // Método para obtener caja activa de usuario
+    public CajaModel obtenerCajaUsuario(int idUsuario) { return cajaDao.obtenerCajaUsuario(idUsuario); }
 
     // Método para eliminar una caja
     public boolean eliminarCaja(CajaModel caja) {
