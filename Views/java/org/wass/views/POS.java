@@ -435,11 +435,12 @@ public class POS extends javax.swing.JPanel {
             addProducto(productoSeleccionado);
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
+    @SuppressWarnings("deprecation")
     private void btnRealizarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarVentaActionPerformed
         Integer idCliente = null;
         if (cliente != null)
             idCliente = cliente.getIdCliente();
-        SerieFacturaModel serie = (SerieFacturaModel) comboBoxSerieFactura.getSelectedItem();
+        SerieFacturaModel serie = (SerieFacturaModel) comboBoxSerieFactura.getSelectedItem();        
         FacturaModel nuevaVenta = new FacturaModel(
                 txtFieldNumeroFactura.getText(),
                 totalVenta,

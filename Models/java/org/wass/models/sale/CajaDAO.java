@@ -176,12 +176,13 @@ public class CajaDAO {
      * @param idUsuario ID del usuario
      * @return Objeto CajaModel si se encuentra, null en caso contrario
      */
+    @SuppressWarnings("deprecation")
     public CajaModel obtenerCajaUsuario(int idUsuario) {
         String sql = "SELECT * FROM Caja WHERE " +
                 "IdUsuario = ? AND " +
                 "EstadoCaja = TRUE";
         CajaModel caja = null;
-        try(Connection connection = DataBase.nDataBase().getConnection();
+        try(Connection connection = nDataBase().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, idUsuario);
 

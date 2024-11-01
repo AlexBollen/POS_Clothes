@@ -58,6 +58,7 @@ public class MainFrame extends AbstractFrame {
         componentesAdd();
     }
 
+    @SuppressWarnings("deprecation")
     private void componentesAdd() {
         dashboard = new Dashboard();
         configuraciones = new FloatingWindow(this, false);
