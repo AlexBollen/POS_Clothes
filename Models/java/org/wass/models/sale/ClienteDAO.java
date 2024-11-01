@@ -1,12 +1,9 @@
 package org.wass.models.sale;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.wass.controllers.db.DataBase;
-import org.wass.models.purchase.DetalleCompraModel;
-import org.wass.models.sale.ClienteModel;
 
 /**
  *
@@ -106,9 +103,11 @@ public class ClienteDAO {
      * @return Lista de objetos ClienteModel
      */
     public List<ClienteModel> obtenerClientes() {
-        String sql = "SELECT persona.IdPersona, nombrePersona, direccion, telefono, nit, cliente.idCliente, cliente.estado"
-                + " FROM cliente INNER JOIN persona"
-                + " on Cliente.idPersona = Persona.idPersona WHERE cliente.estado = TRUE;";
+        String sql ="""
+                    SELECT Persona.IdPersona, NombrePersona, Direccion, Telefono, Nit, Cliente.IdCliente, Cliente.Estado
+                    FROM Cliente INNER JOIN Persona
+                    ON Cliente.IdPersona = Persona.IdPersona WHERE Cliente.Estado = TRUE;
+                    """;
         List<ClienteModel> clientes = new ArrayList<>();
 
         try (Connection connection = DataBase.nDataBase().getConnection();
