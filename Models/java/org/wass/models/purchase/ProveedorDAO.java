@@ -180,7 +180,10 @@ public class ProveedorDAO {
      * @return El objeto ProveedorModel si se encuentra, null en caso contrario
      */
     public ProveedorModel obtenerProveedorPorId(int id) {
-        String sql = "SELECT * FROM Proveedor WHERE IdProveedor = ?";
+        String sql = """
+                     SELECT * FROM Proveedor PA INNER JOIN Persona PB ON 
+                     PA.IdPersona = PB.IdPersona WHERE PA.IdProveedor = ?;
+                     """;
         ProveedorModel proveedor = null;
         try (Connection connection = DataBase.nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
