@@ -97,10 +97,11 @@ public class TipoPagoDAO {
     public TipoPagoModel obtenerTipoPagoPorId(int id) {
         String sql = "SELECT * FROM TipoPago WHERE IdTipoPago = ?";
         TipoPagoModel tipoPago = null;
-
+        
         try (Connection connection = DataBase.nDataBase().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)) {
-
+            statement.setInt(1, id);
+            
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
                     tipoPago = new TipoPagoModel(

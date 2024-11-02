@@ -1,16 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package org.wass.views;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
 import org.wass.controllers.product.ProductoController;
 import org.wass.controllers.purchase.CompraController;
 import org.wass.controllers.purchase.EstadoCompraController;
@@ -28,82 +26,64 @@ import org.wass.views.component.Control;
  *
  * @author SamuelQ
  */
-public class VistaCompras extends javax.swing.JPanel implements Control{
+public class VistaCompras extends JPanel implements Control {
+
     private ProductoController productoController;
     private ProveedorController proveedorController;
     private TipoPagoController tipoPagoController;
     private EstadoCompraController estadoCompraController;
     private CompraController compraController;
-    
-    
+
     private DefaultTableModel productosTableModel;
     private DefaultTableModel comprasTableModel;
-    private JComboBox<ProductoModel> productoComboBox;
-    private JComboBox<ProveedorModel> proveedorComboBox;
-    private JComboBox<TipoPagoModel> tipoPagoComboBox;
-    private JComboBox<EstadoCompraModel> estadoCompraComboBox;
-    
-    
-    
+
     /**
      * Creates new form DiseñoCompras
      */
-    public VistaCompras(ProductoController productoController, ProveedorController proveedorController,
-                      TipoPagoController tipoPagoController, EstadoCompraController estadoCompraController,
-                      CompraController compraController) {
-        this.productoController = productoController;
-        this.proveedorController = proveedorController;
-        this.tipoPagoController = tipoPagoController;
-        this.estadoCompraController = estadoCompraController;
-        this.compraController = compraController;
-        
-        initComponents();
-        
-        // <editor-fold defaultstate="collapsed" desc="Seteo de Modelos para tablas"> 
-        //Agregar Modelo para tabla detalle de productos
-        productosTableModel = new DefaultTableModel(new String[]{"ID", "Nombre", "Cantidad", "Precio Unitario", "Total"}, 0) {
-            boolean[] canEdit = new boolean[]{false, false, false, false, false};
+    public VistaCompras() {
+        this.productoController     = new ProductoController();
+        this.proveedorController    = new ProveedorController();
+        this.tipoPagoController     = new TipoPagoController();
+        this.estadoCompraController = new EstadoCompraController();
+        this.compraController       = new CompraController();
 
+        initComponents();
+
+        productosTableModel = new DefaultTableModel(new String[]{"ID", "Nombre", "Cantidad", "Precio Unitario", "Total"}, 0) {
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+                return false;
             }
         };
-        
+
         //Agregar Modelo para tabla de compras
         comprasTableModel = new DefaultTableModel(new String[]{"ID Compra", "Descripción", "Fecha Realizada", "Cantidad Pedida", "Cantidad Recibida", "Total", "Proveedor", "Tipo Pago", "Estado Compra"}, 0) {
-            boolean[] canEdit = new boolean[]{false, false, false, false, false, false, false, false, false};
-
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+                return false;
             }
         };
-        
+
         //setear modelo a tabla
         tablaCompras.setModel(comprasTableModel);
-        tablaProductos.setModel(productosTableModel);
+        tablaCompras.getTableHeader().setReorderingAllowed(false);
         
+        tablaProductos.setModel(productosTableModel);
+        tablaProductos.getTableHeader().setReorderingAllowed(false);
+
         tablaCompras.addMouseListener(new MouseAdapter() {
-            
+            @Override
             public void mousePressed(MouseEvent e) {
-                JTable table = (JTable) e.getSource();
-                Point point = e.getPoint();
-                int row = table.rowAtPoint(point);
-                if (e.getClickCount() == 1){
-                    accionesExtra.setVisible(true); 
+                if (e.getClickCount() == 1) {
+                    accionesExtra.setVisible(true);
                     txtIdCompra.setText(String.valueOf(tablaCompras.getValueAt(tablaCompras.getSelectedRow(), 0)));
                     accionesExtra.revalidate();
                     accionesExtra.repaint();
                 }
-                super.mousePressed(e);
             }
         });
 
-        // </editor-fold> 
-
         loadCompras();
-        
     }
 
     /**
@@ -111,7 +91,6 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
      */
-    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -153,12 +132,9 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         accionesExtra = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtIdCompra = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -172,7 +148,6 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
         btnAgregarCompra.setBackground(new java.awt.Color(0, 168, 232));
         btnAgregarCompra.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAgregarCompra.setForeground(new java.awt.Color(237, 242, 244));
-        btnAgregarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Add.png")));
         btnAgregarCompra.setText("AGREGAR");
         btnAgregarCompra.setPreferredSize(new java.awt.Dimension(106, 31));
         btnAgregarCompra.addActionListener(new java.awt.event.ActionListener() {
@@ -184,7 +159,6 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
         btnListarCompras.setBackground(new java.awt.Color(0, 168, 232));
         btnListarCompras.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnListarCompras.setForeground(new java.awt.Color(237, 242, 244));
-        btnListarCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/FileList.png")));
         btnListarCompras.setText("LISTAR");
         btnListarCompras.setPreferredSize(new java.awt.Dimension(106, 31));
         btnListarCompras.addActionListener(new java.awt.event.ActionListener() {
@@ -253,7 +227,6 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
         btnCancelarCompra.setBackground(new java.awt.Color(0, 168, 232));
         btnCancelarCompra.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCancelarCompra.setForeground(new java.awt.Color(237, 242, 244));
-        btnCancelarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/FileDead.png")));
         btnCancelarCompra.setText("CANCELAR");
         btnCancelarCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -264,7 +237,6 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
         btnGuardarCompra.setBackground(new java.awt.Color(0, 168, 232));
         btnGuardarCompra.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnGuardarCompra.setForeground(new java.awt.Color(237, 242, 244));
-        btnGuardarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Save.png")));
         btnGuardarCompra.setText("GUARDAR");
         btnGuardarCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -516,29 +488,19 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
 
         accionesExtra.setBackground(new java.awt.Color(0, 52, 89));
 
-        jButton7.setBackground(new java.awt.Color(0, 168, 232));
-        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(237, 242, 244));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Edit.png")));
-        jButton7.setText("ACTUALIZAR");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
         jButton8.setBackground(new java.awt.Color(0, 168, 232));
         jButton8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton8.setForeground(new java.awt.Color(237, 242, 244));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/FileDead.png")));
         jButton8.setText("ELIMINAR");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Cantidad Recibida:");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Id Compra:");
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtIdCompra.setEditable(false);
 
         javax.swing.GroupLayout accionesExtraLayout = new javax.swing.GroupLayout(accionesExtra);
         accionesExtra.setLayout(accionesExtraLayout);
@@ -549,26 +511,17 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
                 .addComponent(jLabel9)
                 .addGap(27, 27, 27)
                 .addComponent(txtIdCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 758, Short.MAX_VALUE)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115))
+                .addContainerGap())
         );
         accionesExtraLayout.setVerticalGroup(
             accionesExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(accionesExtraLayout.createSequentialGroup()
                 .addGroup(accionesExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7)
                     .addComponent(jButton8)
-                    .addComponent(jLabel5)
                     .addComponent(jLabel9)
-                    .addComponent(txtIdCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
@@ -577,10 +530,9 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
 
     @Override
     public String getComponenteTitle() {
-       return "COMPRAS";
+        return "COMPRAS";
     }
-    
-    
+
     private void btnAgregarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCompraActionPerformed
         CardLayout l = (CardLayout) cuerpo.getLayout();
         l.show(cuerpo, "card4");
@@ -619,9 +571,14 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
         loadCompras();
     }//GEN-LAST:event_btnCancelarCompraActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        try {
+            int idCompra = Integer.parseInt(txtIdCompra.getText());
+            compraController.eliminarCompra(idCompra);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error: Seleccione una compra...");
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void loadProductos() {
         comboBoxProductos.removeAllItems();
@@ -659,18 +616,12 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
         }
     }
 
-
-    
     private void agregarProducto() {
         ProductoModel productoSeleccionado = (ProductoModel) comboBoxProductos.getSelectedItem();
-        //JOptionPane.showMessageDialog(this, "IdProveedor: "+productoSeleccionado);
         
         int cantidad = Integer.parseInt(txtCantidadProducto.getText());
-        //JOptionPane.showMessageDialog(this, "cantidadProducto: "+cantidad);
-        
         float precioUnitario = productoSeleccionado.getPrecioVenta();
-        //JOptionPane.showMessageDialog(this, "precioUnitario: "+precioUnitario);
-        
+
         float total = cantidad * precioUnitario;
         productosTableModel.addRow(new Object[]{productoSeleccionado.getIdProducto(), productoSeleccionado.getNombreProducto(), cantidad, precioUnitario, total});
         txtTotalCompra.setText(String.valueOf(obtenerTotalDeCompra()));
@@ -678,7 +629,6 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
         txtCantidadProducto.setText("");
     }
 
-    
     private void eliminarProducto() {
         int selectedRow = tablaProductos.getSelectedRow();
         if (selectedRow >= 0) {
@@ -690,26 +640,23 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
         }
     }
 
+    @SuppressWarnings("deprecation")
     private void finalizarCompra() {
         ProveedorModel proveedorSeleccionado = (ProveedorModel) comboBoxProveedores.getSelectedItem();
         int idProveedor = proveedorSeleccionado.getIdProveedor();
-        //JOptionPane.showMessageDialog(this, "IdProveedor: "+idProveedor);
 
         TipoPagoModel tipopagoSeleccionado = (TipoPagoModel) comboBoxTipoPago.getSelectedItem();
         int idTipoPago = tipopagoSeleccionado.getIdTipoPago();
-        //JOptionPane.showMessageDialog(this, "IdTipopago: "+idTipoPago);
 
-
-        CompraModel compra = null;
+        CompraModel compra;
 
         try {
-            compra = new CompraModel("",0, (float)0,0,0);
+            compra = new CompraModel("", 0, (float) 0, 0, 0);
             compra.setDescripcionCompra(txtareaDescripcion.getText());
             compra.setCantidadPedida(obtenerCantidadSolicitada());
             compra.setTotalCompra(obtenerTotalDeCompra());
             compra.setIdProveedor(idProveedor);
             compra.setIdTipoPago(idTipoPago);
-
 
             boolean resultado = compraController.agregarCompra(compra, obtenerListaDetalle());
 
@@ -719,11 +666,12 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
             } else {
                 JOptionPane.showMessageDialog(this, "Error al guardar la compra.");
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }
-    private List<DetalleCompraModel> obtenerListaDetalle(){
+
+    private List<DetalleCompraModel> obtenerListaDetalle() {
         List<DetalleCompraModel> listaDetalles = new ArrayList<>();
 
         // Iterar sobre las filas de la tabla
@@ -737,14 +685,16 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
         }
         return listaDetalles;
     }
-    private float obtenerTotalDeCompra(){
+
+    private float obtenerTotalDeCompra() {
         float total = (float) 0;
         for (int row = 0; row < tablaProductos.getRowCount(); row++) {
             total += (float) tablaProductos.getValueAt(row, 4); // Total
         }
         return total;
     }
-    private int obtenerCantidadSolicitada(){
+
+    private int obtenerCantidadSolicitada() {
         int cantidad = 0;
         for (int row = 0; row < tablaProductos.getRowCount(); row++) {
             cantidad += (int) tablaProductos.getValueAt(row, 2);
@@ -752,7 +702,7 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
         return cantidad;
     }
 
-    private void limpiarDatos(){
+    private void limpiarDatos() {
         txtareaDescripcion.setText("");
         txtCantidadPedida.setText("");
         txtTotalCompra.setText("");
@@ -762,36 +712,36 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
         accionesExtra.setVisible(false);
     }
 
-    private void loadCompras(){
+    private void loadCompras() {
         limpiarDatos();
         List<CompraModel> listaDeCompras = compraController.obtenerTodasLasCompras();
 
         for (CompraModel compra : listaDeCompras) {
-        ProveedorModel proveedorBuscado =  proveedorController.obtenerProveedorPorId(compra.getIdProveedor());
-        String nombreProveedor = proveedorBuscado.getNombreComercial();
+            ProveedorModel proveedorBuscado = proveedorController.obtenerProveedorPorId(compra.getIdProveedor());
+            String nombreProveedor = proveedorBuscado.getNombreComercial();
 
-        TipoPagoModel tipopagoBuscado = tipoPagoController.obtenerTipoPagoPorId(compra.getIdTipoPago());
-        String nombreTipoPago = tipopagoBuscado.getNombreTipoPago();
+            TipoPagoModel tipopagoBuscado = tipoPagoController.obtenerTipoPagoPorId(compra.getIdTipoPago());
+            String nombreTipoPago = tipopagoBuscado.getNombreTipoPago();
 
-        EstadoCompraModel estadocompraBuscado = estadoCompraController.obtenerUnEstadoCompraPorId(compra.getIdEstadoCompra());
-        String estadoCompra = estadocompraBuscado.getNombreEstadoCompra();
+            EstadoCompraModel estadocompraBuscado = estadoCompraController.obtenerUnEstadoCompraPorId(compra.getIdEstadoCompra());
+            String estadoCompra = estadocompraBuscado.getNombreEstadoCompra();
 
-        // Insertar los datos en la tabla
-        comprasTableModel.addRow(new Object[]{
-            compra.getIdCompra(),
-            compra.getDescripcionCompra(),
-            compra.getFechaCompra(),
-            compra.getCantidadPedida(),
-            compra.getCantidadRecibida(),
-            compra.getTotalCompra(),
-            nombreProveedor,
-            nombreTipoPago,
-            estadoCompra 
-        });
-    }
+            // Insertar los datos en la tabla
+            comprasTableModel.addRow(new Object[]{
+                compra.getIdCompra(),
+                compra.getDescripcionCompra(),
+                compra.getFechaCompra(),
+                compra.getCantidadPedida(),
+                compra.getCantidadRecibida(),
+                compra.getTotalCompra(),
+                nombreProveedor,
+                nombreTipoPago,
+                estadoCompra
+            });
+        }
 
-    // Asignar el modelo a la tabla
-    tablaCompras.setModel(comprasTableModel);
+        // Asignar el modelo a la tabla
+        tablaCompras.setModel(comprasTableModel);
     }
 // <editor-fold defaultstate="collapsed" desc="Variables declaration"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -808,14 +758,12 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
     private javax.swing.JComboBox<ProveedorModel> comboBoxProveedores;
     private javax.swing.JComboBox<TipoPagoModel> comboBoxTipoPago;
     private javax.swing.JPanel cuerpo;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -830,7 +778,6 @@ public class VistaCompras extends javax.swing.JPanel implements Control{
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel listar;
     private javax.swing.JTable tablaCompras;
     private javax.swing.JTable tablaProductos;

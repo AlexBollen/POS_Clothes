@@ -1,9 +1,5 @@
 package org.wass.controllers.purchase;
 
-/**
- *
- * @author SamuelQ
- */
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,11 +9,20 @@ import org.wass.models.purchase.CompraDAO;
 import org.wass.models.purchase.DetalleCompraModel;
 import org.wass.models.purchase.DetalleCompraDAO;
 
+/**
+ *
+ * @author SamuelQ
+ */
 public class CompraController {
     private CompraDAO compraDao;
     private DetalleCompraDAO detalleCompraDao;
 
     // Constructor para inicializar compraDao
+    
+    public CompraController() {
+        this(new CompraDAO(), new DetalleCompraDAO());
+    }
+    @Deprecated
     public CompraController(CompraDAO compraDao, DetalleCompraDAO detalleCompraDao) {
         this.compraDao = compraDao;
         this.detalleCompraDao = detalleCompraDao;

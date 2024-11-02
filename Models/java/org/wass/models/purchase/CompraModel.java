@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.wass.models.purchase;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +21,17 @@ public class CompraModel {
     private int idEstadoCompra;
     private List<DetalleCompraModel> detalleCompra;
 
-    public CompraModel(String descripcionCompra, int cantidadPedida, float totalCompra, int idProveedor, int idTipoPago) {
+    public CompraModel() {
+    }
+    @Deprecated
+    public CompraModel 
+     (
+            String descripcionCompra, 
+            int cantidadPedida, 
+            float totalCompra, 
+            int idProveedor, 
+            int idTipoPago
+     ) {
         this.descripcionCompra = descripcionCompra;
         this.cantidadPedida = cantidadPedida;
         this.totalCompra = totalCompra;

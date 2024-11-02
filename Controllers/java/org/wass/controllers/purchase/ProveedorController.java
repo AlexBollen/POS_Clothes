@@ -15,6 +15,11 @@ public class ProveedorController {
     private ProveedorDAO proveedorDao;
 
     // Constructor para inicializar productoDao
+    
+    public ProveedorController() {
+        this(new ProveedorDAO());
+    }
+    @Deprecated
     public ProveedorController(ProveedorDAO proveedorDao) {
         this.proveedorDao = proveedorDao;
     }

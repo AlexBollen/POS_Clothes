@@ -17,7 +17,11 @@ import org.wass.models.product.ProductoModel;
 public class ProductoController {
     private ProductoDAO productoDao;
 
-    // Constructor para inicializar productoDao
+    // Constructor para inicializar productoDao    
+    public ProductoController() {
+        this(new ProductoDAO());
+    }
+    @Deprecated
     public ProductoController(ProductoDAO productoDao) {
         this.productoDao = productoDao;
     }

@@ -13,6 +13,10 @@ import org.wass.models.purchase.EstadoCompraDAO;
 public class EstadoCompraController {
     private EstadoCompraDAO estadoCompraDao;
 
+    public EstadoCompraController() {
+        this(new EstadoCompraDAO());
+    }
+    @Deprecated
     public EstadoCompraController(EstadoCompraDAO estadoCompraDao) {
         this.estadoCompraDao = estadoCompraDao;
     }

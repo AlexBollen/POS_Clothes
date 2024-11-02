@@ -10,10 +10,13 @@ import org.wass.models.purchase.TipoPagoModel;
  *
  * @author SamuelQ
  */
-
 public class TipoPagoController {
     private TipoPagoDAO tipoPagoDao;
 
+    public TipoPagoController() {
+        this(new TipoPagoDAO());
+    }
+    @Deprecated
     public TipoPagoController(TipoPagoDAO tipoPagoDao) {
         this.tipoPagoDao = tipoPagoDao;
     }
