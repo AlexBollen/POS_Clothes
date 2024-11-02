@@ -45,7 +45,7 @@ public class UsuarioDao {
         String sql = todo 
                 ? """
                      UPDATE Usuario SET NombreUsuario=?,Contrasenia=?,
-                     Estado=?,IdPersona=?,IdRol=?' WHERE IdUsuario=?
+                     Estado=?,IdPersona=?,IdRol=? WHERE IdUsuario=?
                      """
                 : """
                     UPDATE Usuario SET NombreUsuario=?,
@@ -54,7 +54,6 @@ public class UsuarioDao {
         
         try (Connection connection = nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
             
             if (todo) {
                 statement.setString(1, model.getNombreUsuario());
