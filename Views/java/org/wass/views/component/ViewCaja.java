@@ -14,6 +14,8 @@ import org.wass.models.ListDataModel;
 import org.wass.models.TableDataModel;
 import org.wass.models.person.UsuarioModel;
 import org.wass.models.sale.CajaModel;
+import org.wass.views.component.renderer.MapComboboxModel;
+import org.wass.views.listeners.SearchListener;
 
 /**
  * @author wil
@@ -21,6 +23,7 @@ import org.wass.models.sale.CajaModel;
 public class ViewCaja extends AbstractView implements Control{
     
     private VwHeader header;
+    private MapComboboxModel<String, Integer> mapaFiltro;
     private boolean agregar;
     
     private CajaController cajaController;
@@ -33,6 +36,7 @@ public class ViewCaja extends AbstractView implements Control{
     }
     
     private void componentesAdd() {
+        mapaFiltro = new MapComboboxModel<>();
         header = new VwHeader();
         views  = new JPanel();
         
@@ -74,7 +78,26 @@ public class ViewCaja extends AbstractView implements Control{
         addVwActionListener((target) -> {
             switch (getCurrentCard()) {
                 case VC_LISTAR -> {
-                    jTableView.setModel(cajaController.obtenerTablaCajas());
+                    TableDataModel model = cajaController.obtenerTablaCajas();
+                    for (int i = 0; i < model.getColumnCount(); i++) {
+                        mapaFiltro.put(model.getColumnName(i), i);
+                    }
+                    
+                    jTableView.setModel(model);
+                    header.setMapComboboxModel(mapaFiltro);
+                    header.getSearch().setTable(jTableView);
+                    header.getSearch().setSearchListener(new SearchListener() {
+                        @Override
+                        public int[] search() {
+                            return new int[] {
+                                mapaFiltro.getSelected()
+                            };
+                        }
+                        @Override
+                        public int limit() {
+                            return header.getLimitSlected();
+                        }
+                    });
                 }
                 case VC_ACTUALIZAR -> {
                     if (! agregar) {

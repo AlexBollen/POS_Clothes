@@ -294,7 +294,7 @@ public class MainFrame extends AbstractFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelHeaderView, javax.swing.GroupLayout.DEFAULT_SIZE, 910, Short.MAX_VALUE)
+                .addComponent(jPanelHeaderView, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -317,7 +317,7 @@ public class MainFrame extends AbstractFrame {
         jPanelRoot.setLayout(jPanelRootLayout);
         jPanelRootLayout.setHorizontalGroup(
             jPanelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelView, javax.swing.GroupLayout.DEFAULT_SIZE, 1277, Short.MAX_VALUE)
         );
         jPanelRootLayout.setVerticalGroup(
             jPanelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
