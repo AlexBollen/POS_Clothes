@@ -19,7 +19,7 @@ import org.wass.views.listeners.SearchListener;
 /**
  * @author wil
  */
-public class ViewUsuario extends AbstractView {
+public class ViewUsuario extends AbstractView implements Control {
     
     private VwHeader header;
     private MapComboboxModel<String, Integer> mapFiltro;
@@ -326,6 +326,11 @@ public class ViewUsuario extends AbstractView {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    @Override
+    public String getComponenteTitle() {
+        return "Gestión - Usuario";
+    }
 
     private void jCheckBoxNewContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxNewContraActionPerformed
         jPasswordPass.setEditable(jCheckBoxNewContra.isSelected());
