@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.TableModel;
 import org.wass.controllers.UserController;
 import org.wass.controllers.person.PersonaController;
 import org.wass.controllers.person.RolController;
@@ -12,6 +13,8 @@ import org.wass.models.TableDataModel;
 import org.wass.models.person.PersonaModel;
 import org.wass.models.person.RolModel;
 import org.wass.models.person.UsuarioModel;
+import org.wass.views.component.renderer.MapComboboxModel;
+import org.wass.views.listeners.SearchListener;
 
 /**
  * @author wil
@@ -19,6 +22,7 @@ import org.wass.models.person.UsuarioModel;
 public class ViewUsuario extends AbstractView {
     
     private VwHeader header;
+    private MapComboboxModel<String, Integer> mapFiltro;
     private boolean nuevo;
     
     private UserController controller;
@@ -33,6 +37,7 @@ public class ViewUsuario extends AbstractView {
     }
     
     private void componentesAdd() {
+        mapFiltro = new MapComboboxModel<>();
         viewPanel = new JPanel();
         header = new VwHeader();
         header.addVwActionListener((target) -> {
@@ -75,7 +80,26 @@ public class ViewUsuario extends AbstractView {
         addVwActionListener((target) -> {
             switch (getCurrentCard()) {
                 case VC_LISTAR -> {
-                    jTable1.setModel(controller.getTablaUsuario());
+                    TableModel model = controller.getTablaUsuario();
+                    for (int i = 0; i < model.getColumnCount(); i++) {
+                        mapFiltro.put(model.getColumnName(i), i);
+                    }
+                    
+                    jTable1.setModel(model);
+                    header.setMapComboboxModel(mapFiltro);
+                    header.getSearch().setTable(jTable1);
+                    header.getSearch().setSearchListener(new SearchListener() {
+                        @Override
+                        public int[] search() {
+                            return new int[] {
+                                mapFiltro.getSelected()
+                            };
+                        }
+                        @Override
+                        public int limit() {
+                            return header.getLimitSlected();
+                        }
+                    });
                 }
                 case VC_ACTUALIZAR -> {
                     jCheckBoxNewContra.setVisible(!nuevo);
