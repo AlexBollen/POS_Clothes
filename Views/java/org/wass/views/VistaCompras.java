@@ -85,6 +85,9 @@ public class VistaCompras extends JPanel implements Control {
             }
         });
         
+        
+        //Crear el filtro
+        
         sorter = new TableRowSorter<>(comprasTableModel);
         tablaCompras.setRowSorter(sorter);
         
