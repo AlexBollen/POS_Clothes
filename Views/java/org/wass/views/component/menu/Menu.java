@@ -18,6 +18,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
+import org.wass.models.person.RolModel;
 import org.wass.views.component.renderer.BorderRenderer;
 
 /**
@@ -37,18 +38,13 @@ public class Menu  extends JComponent{
     private MenuItemGroup group;
     
     private MenuEvent event;
-    private String [][] menuItems = new String [][]{
-        {"Dashboard"},
-        {"Ventas", "Nueva Venta", "Historial"},
-        {"Inventario"},
-        {"Compras"},
-        {"Beneficiarios", "Clientes", "Proveedores"},
-        {"Cajas"},
-        {"Reportes"}
-    };
+    private String [][] menuItems;
     
-    public Menu(){
-        init();
+    private RolModel.Tipo tipo;
+    
+    public Menu(RolModel.Tipo tipo){
+        this.tipo = tipo;
+        this.init();
     }
 
     public MenuEvent getEvent() {
@@ -59,6 +55,28 @@ public class Menu  extends JComponent{
         this.event = event;
     }
     private void init(){
+        switch (tipo) {
+            case Administrador -> {
+                menuItems = new String [][]{
+                    {"Dashboard"},
+                    {"Ventas", "Nueva Venta", "Historial"},
+                    {"Inventario"},
+                    {"Compras"},
+                    {"Beneficiarios", "Clientes", "Proveedores"},
+                    {"Cajas"},
+                    {"Reportes"}
+                };
+            }
+            case Vendedor -> {
+                menuItems = new String [][]{
+                    {"Dashboard"},
+                    {"Ventas", "Nueva Venta", "Historial"}
+                };
+            }
+            case Indefinido -> { }
+            default -> {}
+        }
+        
         layout = new MigLayout("wrap 1, fillx, gapy 0, inset 2", "fill");
         group = new MenuItemGroup();
         group.addMenuItemSelectedListener((MenuItem item, boolean b) -> {

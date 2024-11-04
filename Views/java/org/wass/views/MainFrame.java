@@ -57,7 +57,7 @@ public class MainFrame extends AbstractFrame {
         //Instancia para SerieFacturaDAO y SerieFacturaController
         SerieFacturaDao serieFacturaDao = new SerieFacturaDao();
         SerieFacturaController serieFacturaController = new SerieFacturaController(serieFacturaDao);
-
+        
         //Instancia para StockDAO y StockController
         StockDAO stockDao = new StockDAO();
         StockController stockController = new StockController(stockDao);
@@ -166,7 +166,7 @@ public class MainFrame extends AbstractFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        menu1 = new org.wass.views.component.menu.Menu();
+        menu1 = new org.wass.views.component.menu.Menu(logedUser.getRol().getTipoRol());
         jPanel8 = new javax.swing.JPanel();
         jButtonSettings = new javax.swing.JButton();
         jPanelBody = new javax.swing.JPanel();
@@ -317,7 +317,7 @@ public class MainFrame extends AbstractFrame {
         jPanelRoot.setLayout(jPanelRootLayout);
         jPanelRootLayout.setHorizontalGroup(
             jPanelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelView, javax.swing.GroupLayout.DEFAULT_SIZE, 1277, Short.MAX_VALUE)
+            .addComponent(jPanelView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelRootLayout.setVerticalGroup(
             jPanelRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,7 +334,9 @@ public class MainFrame extends AbstractFrame {
             return;
         }
         configuraciones.setTitle("Configuraciones");
-        configuraciones.setView(new MenuConfiguraciones().addOyenteConfiguracion((op) -> {
+        configuraciones.setView(new MenuConfiguraciones()
+                .setRolModel(logedUser.getRol())
+                .addOyenteConfiguracion((op) -> {
             switch (op) {
                 case Usuario -> { 
                     ViewUsuario vwUsuario = new ViewUsuario();
