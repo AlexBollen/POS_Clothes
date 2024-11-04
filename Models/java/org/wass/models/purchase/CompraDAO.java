@@ -53,7 +53,7 @@ public class CompraDAO {
      * @return Lista de objetos CompraModel
      */
     public List<CompraModel> obtenerTodasLasCompras() {
-        String sql = "SELECT * FROM Compra WHERE Estado=1";
+        String sql = "SELECT * FROM Compra";
         List<CompraModel> compras = new ArrayList<>();
 
         try (Connection connection = DataBase.nDataBase().getConnection();
@@ -138,11 +138,13 @@ public class CompraDAO {
      * @param compraId ID de la compra a eliminar
      */
     private void eliminarDetalleCompraPorCompra(int compraId) throws SQLException {
-        String sql = "UPDATE DetalleCompra SET Estado = 0 WHERE IdCompra = ?";
+        String sql = "UPDATE Compra SET Estado = 0, IdEstadoCompra = 4 WHERE IdCompra = ?";
         try (Connection connection = DataBase.nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, compraId);
             statement.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al eliminar la compra: " + e.getMessage());
         }
     }
 

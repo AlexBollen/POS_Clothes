@@ -246,7 +246,7 @@
                 </Container>
                 <Component class="javax.swing.JComboBox" name="comboBoxFiltroEstados">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboBox&lt;&gt;(new String[]{&quot;Todos&quot;, &quot;Pendiente&quot;, &quot;Completada&quot;});&#xd;&#xa;comboBoxFiltroEstados.addActionListener(e -&gt; filtrarPorEstado((String) comboBoxFiltroEstados.getSelectedItem()));"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboBox&lt;&gt;(new String[]{&quot;Todos&quot;, &quot;Pendiente&quot;, &quot;Completada&quot;, &quot;Revisada&quot;,&quot;Cancelada&quot;});&#xd;&#xa;comboBoxFiltroEstados.addActionListener(e -&gt; filtrarPorEstado((String) comboBoxFiltroEstados.getSelectedItem()));"/>
                     <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="VistaCompras_jComboBox1"/>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
