@@ -209,4 +209,44 @@ public class StockDAO {
             return false;
         }
     }
+    
+    /**
+     * Método para retornar el string de la ubicación generada
+     *
+     * @return la nueva ubicación generada, "" si no se genera nada
+     */
+    public String generarNuevaUbicacionBodega() {
+        String nuevaUbicacion = "";
+        String sql = "SELECT UbicacionBodega FROM Stock ORDER BY UbicacionBodega DESC LIMIT 1";
+        
+        try (Connection connection = DataBase.nDataBase().getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet rs = statement.executeQuery()) {
+
+            if (rs.next()) {
+                String ultimaUbicacion = rs.getString("UbicacionBodega");
+                nuevaUbicacion = obtenerNuevaUbicacion(ultimaUbicacion);
+            } else {
+                nuevaUbicacion = "A1";
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al generar nueva ubicación para stock: " + e.getMessage());
+        }
+
+        return nuevaUbicacion;
+    }
+    /**
+     * Método para generar el string de la nueva ubicación
+     *
+     * @return retorna letra + numero de la nueva ubicación en bódega
+     */
+    public String obtenerNuevaUbicacion(String ultimaUbicacion) {
+        String letra = ultimaUbicacion.replaceAll("\\d", "");
+        String numeroStr = ultimaUbicacion.replaceAll("\\D", "");
+
+        int numero = Integer.parseInt(numeroStr);
+        numero += 1;
+
+        return letra + numero;
+    }
 }

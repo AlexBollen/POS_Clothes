@@ -9,9 +9,13 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import org.wass.controllers.product.ProductoController;
+import org.wass.controllers.product.StockController;
 import org.wass.controllers.purchase.CompraController;
+import org.wass.controllers.purchase.DetalleCompraController;
 import org.wass.controllers.purchase.EstadoCompraController;
 import org.wass.controllers.purchase.ProveedorController;
 import org.wass.controllers.purchase.TipoPagoController;
@@ -34,11 +38,15 @@ public class VistaCompras extends JPanel implements Control {
     private TipoPagoController tipoPagoController;
     private EstadoCompraController estadoCompraController;
     private CompraController compraController;
+    private DetalleCompraController detalleController;
     
     private TableRowSorter<DefaultTableModel> sorter;
     private DefaultTableModel productosTableModel;
     private DefaultTableModel comprasTableModel;
-
+    
+    private CompraModel compra;
+    private int idCompra;
+    private StockController stockController;
     /**
      * Creates new form DiseñoCompras
      */
@@ -48,6 +56,8 @@ public class VistaCompras extends JPanel implements Control {
         this.tipoPagoController     = new TipoPagoController();
         this.estadoCompraController = new EstadoCompraController();
         this.compraController       = new CompraController();
+        this.detalleController      = new DetalleCompraController();
+        this.stockController        = new StockController();
 
         initComponents();
 
@@ -78,13 +88,17 @@ public class VistaCompras extends JPanel implements Control {
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() == 1) {
                     accionesExtra.setVisible(true);
-                    txtIdCompra.setText(String.valueOf(tablaCompras.getValueAt(tablaCompras.getSelectedRow(), 0)));
+                    idCompra = Integer.parseInt(String.valueOf(tablaCompras.getValueAt(tablaCompras.getSelectedRow(), 0)));
+                    compra = compraController.obtenerCompraPorId(idCompra);
+                    txtCantidadRecibida.setText(String.valueOf((int)compra.getCantidadRecibida()));
                     accionesExtra.revalidate();
                     accionesExtra.repaint();
+                    loadEstadoCompras();
+                    actualizarComboBoxEstadoCompra();
                 }
             }
         });
-        
+            
         
         //Crear el filtro
         
@@ -143,7 +157,10 @@ public class VistaCompras extends JPanel implements Control {
         accionesExtra = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        txtIdCompra = new javax.swing.JTextField();
+        txtCantidadRecibida = new javax.swing.JTextField();
+        comboBoxEstadoCambiar = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        btnActualizarCompra = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(794, 42));
         setLayout(new java.awt.BorderLayout());
@@ -187,7 +204,7 @@ public class VistaCompras extends JPanel implements Control {
             .addGroup(cabeceraLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 606, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 397, Short.MAX_VALUE)
                 .addComponent(btnAgregarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnListarCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,6 +233,8 @@ public class VistaCompras extends JPanel implements Control {
         listar.setPreferredSize(new java.awt.Dimension(794, 42));
         listar.setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(794, 42));
+
         jScrollPane6.setBackground(new java.awt.Color(255, 209, 102));
 
         tablaCompras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -227,6 +246,7 @@ public class VistaCompras extends JPanel implements Control {
 
             }
         ));
+        tablaCompras.setPreferredSize(new java.awt.Dimension(794, 500));
         jScrollPane6.setViewportView(tablaCompras);
 
         jLabel1.setText("Filtrar por:");
@@ -236,30 +256,29 @@ public class VistaCompras extends JPanel implements Control {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 1189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(jLabel1)
-                        .addGap(38, 38, 38)
-                        .addComponent(comboBoxFiltroEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(56, 56, 56)
+                .addComponent(jLabel1)
+                .addGap(38, 38, 38)
+                .addComponent(comboBoxFiltroEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(667, 762, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(7, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBoxFiltroEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        listar.add(jPanel1, java.awt.BorderLayout.PAGE_START);
+        listar.add(jPanel1, java.awt.BorderLayout.CENTER);
 
         cuerpo.add(listar, "card2");
 
@@ -297,7 +316,7 @@ public class VistaCompras extends JPanel implements Control {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(969, Short.MAX_VALUE)
+                .addContainerGap(754, Short.MAX_VALUE)
                 .addComponent(btnCancelarCompra)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGuardarCompra)
@@ -432,6 +451,11 @@ public class VistaCompras extends JPanel implements Control {
         jLabel8.setText("Tipo Pago:");
 
         comboBoxTipoPago.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        comboBoxTipoPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxTipoPagoActionPerformed(evt);
+            }
+        });
 
         txtCantidadPedida.setEditable(false);
         txtCantidadPedida.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -533,20 +557,37 @@ public class VistaCompras extends JPanel implements Control {
             }
         });
 
-        jLabel9.setText("Id Compra:");
+        jLabel9.setText("Cantidad Recibida:");
 
-        txtIdCompra.setEditable(false);
+        jLabel12.setText("Estado:");
+
+        btnActualizarCompra.setBackground(new java.awt.Color(0, 168, 232));
+        btnActualizarCompra.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnActualizarCompra.setForeground(new java.awt.Color(237, 242, 244));
+        btnActualizarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Edit.png")));
+        btnActualizarCompra.setText("ACTUALIZAR");
+        btnActualizarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarCompraActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout accionesExtraLayout = new javax.swing.GroupLayout(accionesExtra);
         accionesExtra.setLayout(accionesExtraLayout);
         accionesExtraLayout.setHorizontalGroup(
             accionesExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, accionesExtraLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(92, Short.MAX_VALUE)
                 .addComponent(jLabel9)
-                .addGap(27, 27, 27)
-                .addComponent(txtIdCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 882, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCantidadRecibida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(comboBoxEstadoCambiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addComponent(btnActualizarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -556,7 +597,10 @@ public class VistaCompras extends JPanel implements Control {
                 .addGroup(accionesExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton8)
                     .addComponent(jLabel9)
-                    .addComponent(txtIdCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCantidadRecibida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBoxEstadoCambiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(btnActualizarCompra))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
@@ -568,6 +612,27 @@ public class VistaCompras extends JPanel implements Control {
         return "COMPRAS";
     }
 
+    private void actualizarComboBoxEstadoCompra() {
+        int filaSeleccionada = tablaCompras.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            
+            int idEstadoCompra = (int) compra.getIdEstadoCompra();
+            boolean encontrado = false;
+            for (int i = 0; i < comboBoxEstadoCambiar.getItemCount(); i++) {
+                EstadoCompraModel estado = comboBoxEstadoCambiar.getItemAt(i);
+                if (estado.getIdEstadoCompra() == idEstadoCompra) {
+                    comboBoxEstadoCambiar.setSelectedItem(estado);
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (encontrado) {
+                comboBoxEstadoCambiar.repaint();
+            }
+        }
+    }
+
+    
     private void btnAgregarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCompraActionPerformed
         CardLayout l = (CardLayout) cuerpo.getLayout();
         l.show(cuerpo, "card4");
@@ -608,12 +673,49 @@ public class VistaCompras extends JPanel implements Control {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         try {
-            int idCompra = Integer.parseInt(txtIdCompra.getText());
+            int idCompra = Integer.parseInt(txtCantidadRecibida.getText());
             compraController.eliminarCompra(idCompra);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error: Seleccione una compra...");
         }
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void comboBoxTipoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTipoPagoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxTipoPagoActionPerformed
+    
+    @SuppressWarnings("deprecation")
+    private void btnActualizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarCompraActionPerformed
+        Integer  idcompra = compra.getIdCompra();;
+        
+        if ((Integer.parseInt(txtCantidadRecibida.getText())) < compra.getCantidadPedida()){
+            compra.setIdEstadoCompra(3);
+            compra.setCantidadRecibida(Integer.parseInt(String.valueOf(txtCantidadRecibida.getText())));
+            compraController.actualizarCompra(compra, idcompra);
+            loadCompras();
+            txtCantidadRecibida.setText("");
+            JOptionPane.showMessageDialog(this, "Compra Actualizada con éxito");
+        }else if ((txtCantidadRecibida.getText() == null)|| txtCantidadRecibida.getText().trim().isEmpty()){
+            compra.setCantidadRecibida(0);
+            EstadoCompraModel estadoActualizar = (EstadoCompraModel) comboBoxEstadoCambiar.getSelectedItem();
+            int idEstadoCompraActualizar = estadoActualizar.getIdEstadoCompra();
+            compra.setIdEstadoCompra(idEstadoCompraActualizar);
+            compraController.actualizarCompra(compra, idcompra);
+            loadCompras();
+            txtCantidadRecibida.setText("");
+            JOptionPane.showMessageDialog(this, "Estado de compra actualizada con éxito");
+        }else if ((Integer.parseInt(txtCantidadRecibida.getText())) > compra.getCantidadPedida()){
+            JOptionPane.showMessageDialog(this, "No puede ingresar una cantidad mayor a la pedida");
+        }else if ((Integer.parseInt(txtCantidadRecibida.getText())) == compra.getCantidadPedida()){
+            compra.setCantidadRecibida(Integer.parseInt(String.valueOf(txtCantidadRecibida.getText())));
+            int res = compraController.terminarCompra(compra, convertToJSON(),stockController.obtenerNuevaUbicacionBodega());
+            if (res == 1){
+                JOptionPane.showMessageDialog(this, "Compra actualizada con éxito y Stock actualizado");
+                txtCantidadRecibida.setText("");
+                loadCompras();
+            }
+        }
+    }//GEN-LAST:event_btnActualizarCompraActionPerformed
     
     //Método para filtrar por Estado de venta
     private void filtrarPorEstado(String estado){
@@ -622,6 +724,23 @@ public class VistaCompras extends JPanel implements Control {
         }else{
             sorter.setRowFilter(RowFilter.regexFilter(estado, 8));
         }
+    }
+    
+    private String convertToJSON() {
+        JSONArray jsonArray = new JSONArray();
+        List<DetalleCompraModel> listaDetalle = detalleController.obtenerDetallesPorCompra(idCompra);
+        StringBuilder mensaje = new StringBuilder("Detalle de Compra:\n");
+        for (DetalleCompraModel detalle : listaDetalle) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("idProducto", detalle.getIdProducto());
+            jsonObject.put("cantidadProducto", detalle.getCantidadProducto());
+            jsonArray.put(jsonObject);
+            /*mensaje.append("Producto ID: ").append(detalle.getIdProducto())
+                   .append(", Cantidad: ").append(detalle.getCantidadProducto())
+                   .append("\n");*/
+        }
+        //JOptionPane.showMessageDialog(this, mensaje.toString(), "Detalle de la Compra", JOptionPane.INFORMATION_MESSAGE);
+        return jsonArray.toString(); 
     }
     
     private void loadProductos() {
@@ -645,6 +764,18 @@ public class VistaCompras extends JPanel implements Control {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al cargar proveedores: " + e.getMessage());
+        }
+    }
+    
+    private void loadEstadoCompras() {
+        comboBoxEstadoCambiar.removeAllItems();
+        try {
+            List<EstadoCompraModel> estadoCompraList = estadoCompraController.obtenerEstadosCompra();
+            for (EstadoCompraModel estadoCompra : estadoCompraList) {
+                comboBoxEstadoCambiar.addItem(estadoCompra); // Agrega los tipos de pago al ComboBox
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar tipos de pago: " + e.getMessage());
         }
     }
 
@@ -791,6 +922,7 @@ public class VistaCompras extends JPanel implements Control {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel accionesExtra;
     private javax.swing.JPanel agregar;
+    private javax.swing.JButton btnActualizarCompra;
     private javax.swing.JButton btnAgregarCompra;
     private javax.swing.JButton btnAgregarProducto;
     private javax.swing.JButton btnCancelarCompra;
@@ -798,6 +930,7 @@ public class VistaCompras extends JPanel implements Control {
     private javax.swing.JButton btnGuardarCompra;
     private javax.swing.JButton btnListarCompras;
     private javax.swing.JPanel cabecera;
+    private javax.swing.JComboBox<EstadoCompraModel> comboBoxEstadoCambiar;
     private javax.swing.JComboBox<String> comboBoxFiltroEstados;
     private javax.swing.JComboBox<ProductoModel> comboBoxProductos;
     private javax.swing.JComboBox<ProveedorModel> comboBoxProveedores;
@@ -807,6 +940,7 @@ public class VistaCompras extends JPanel implements Control {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -827,7 +961,7 @@ public class VistaCompras extends JPanel implements Control {
     private javax.swing.JTable tablaProductos;
     private javax.swing.JTextField txtCantidadPedida;
     private javax.swing.JTextField txtCantidadProducto;
-    private javax.swing.JTextField txtIdCompra;
+    private javax.swing.JTextField txtCantidadRecibida;
     private javax.swing.JTextField txtTotalCompra;
     private javax.swing.JTextArea txtareaDescripcion;
     // End of variables declaration//GEN-END:variables

@@ -205,4 +205,31 @@ public class CompraDAO {
             }
         }
     }
+    
+    public String terminarCompra(CompraModel compra, String detalleVenta, String ubicacionNueva) {
+        String storedProcedure = "{call spCompra (?, ?, ?, ?, ?, ?, ?, ?)}";
+
+        try (Connection connection = DataBase.nDataBase().getConnection();
+             CallableStatement statement = connection.prepareCall(storedProcedure)) {
+            statement.setInt(1, compra.getIdCompra());
+            statement.setString(2, compra.getDescripcionCompra());
+            statement.setInt(3, compra.getCantidadPedida());
+            statement.setInt(4, compra.getCantidadRecibida());
+            statement.setString(5, ubicacionNueva);
+            statement.setString(6, detalleVenta);
+
+            statement.registerOutParameter(7, Types.VARCHAR);
+            statement.registerOutParameter(8, Types.INTEGER);
+
+            statement.execute();
+
+            String mensaje = statement.getString(7);
+            int estado = statement.getInt(8);
+
+            return Integer.toString(estado).concat(" - " + mensaje);
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar la compra: " + e.getMessage());
+            return "0 - Ha sucedido un error: " + e.getMessage();
+        }
+    }
 }

@@ -20,8 +20,8 @@ public class StockController {
     private StockDAO stockDao;
 
     // Constructor para inicializar stockDao
-    public StockController(StockDAO stockDao) {
-        this.stockDao = stockDao;
+    public StockController() {
+        this.stockDao = new StockDAO();
     }
 
     // Método para agregar un nuevo stock
@@ -91,5 +91,17 @@ public class StockController {
             JOptionPane.showMessageDialog(null, "Error al actualizar el stock", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return resultado;
+    }
+    
+    public String obtenerNuevaUbicacionBodega() {
+        String nuevaUbicacion = stockDao.generarNuevaUbicacionBodega();
+        
+        if (nuevaUbicacion == null || nuevaUbicacion.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error al generar una nueva ubicación para la bodega", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        //JOptionPane.showMessageDialog(null, "Nueva ubicación generada: " + nuevaUbicacion, "Información", JOptionPane.INFORMATION_MESSAGE);
+        return nuevaUbicacion;
     }
 }
