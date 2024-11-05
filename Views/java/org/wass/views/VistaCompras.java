@@ -93,8 +93,6 @@ public class VistaCompras extends JPanel implements Control {
                     txtCantidadRecibida.setText(String.valueOf((int)compra.getCantidadRecibida()));
                     accionesExtra.revalidate();
                     accionesExtra.repaint();
-                    loadEstadoCompras();
-                    actualizarComboBoxEstadoCompra();
                 }
             }
         });
@@ -158,8 +156,6 @@ public class VistaCompras extends JPanel implements Control {
         jButton8 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtCantidadRecibida = new javax.swing.JTextField();
-        comboBoxEstadoCambiar = new javax.swing.JComboBox<>();
-        jLabel12 = new javax.swing.JLabel();
         btnActualizarCompra = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(794, 42));
@@ -559,8 +555,6 @@ public class VistaCompras extends JPanel implements Control {
 
         jLabel9.setText("Cantidad Recibida:");
 
-        jLabel12.setText("Estado:");
-
         btnActualizarCompra.setBackground(new java.awt.Color(0, 168, 232));
         btnActualizarCompra.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnActualizarCompra.setForeground(new java.awt.Color(237, 242, 244));
@@ -577,15 +571,11 @@ public class VistaCompras extends JPanel implements Control {
         accionesExtraLayout.setHorizontalGroup(
             accionesExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, accionesExtraLayout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
+                .addContainerGap(438, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCantidadRecibida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(comboBoxEstadoCambiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addGap(68, 68, 68)
                 .addComponent(btnActualizarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -598,8 +588,6 @@ public class VistaCompras extends JPanel implements Control {
                     .addComponent(jButton8)
                     .addComponent(jLabel9)
                     .addComponent(txtCantidadRecibida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBoxEstadoCambiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12)
                     .addComponent(btnActualizarCompra))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
@@ -612,25 +600,6 @@ public class VistaCompras extends JPanel implements Control {
         return "COMPRAS";
     }
 
-    private void actualizarComboBoxEstadoCompra() {
-        int filaSeleccionada = tablaCompras.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            
-            int idEstadoCompra = (int) compra.getIdEstadoCompra();
-            boolean encontrado = false;
-            for (int i = 0; i < comboBoxEstadoCambiar.getItemCount(); i++) {
-                EstadoCompraModel estado = comboBoxEstadoCambiar.getItemAt(i);
-                if (estado.getIdEstadoCompra() == idEstadoCompra) {
-                    comboBoxEstadoCambiar.setSelectedItem(estado);
-                    encontrado = true;
-                    break;
-                }
-            }
-            if (encontrado) {
-                comboBoxEstadoCambiar.repaint();
-            }
-        }
-    }
 
     
     private void btnAgregarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCompraActionPerformed
@@ -697,9 +666,6 @@ public class VistaCompras extends JPanel implements Control {
             JOptionPane.showMessageDialog(this, "Compra Actualizada con éxito");
         }else if ((txtCantidadRecibida.getText() == null)|| txtCantidadRecibida.getText().trim().isEmpty()){
             compra.setCantidadRecibida(0);
-            EstadoCompraModel estadoActualizar = (EstadoCompraModel) comboBoxEstadoCambiar.getSelectedItem();
-            int idEstadoCompraActualizar = estadoActualizar.getIdEstadoCompra();
-            compra.setIdEstadoCompra(idEstadoCompraActualizar);
             compraController.actualizarCompra(compra, idcompra);
             loadCompras();
             txtCantidadRecibida.setText("");
@@ -764,18 +730,6 @@ public class VistaCompras extends JPanel implements Control {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al cargar proveedores: " + e.getMessage());
-        }
-    }
-    
-    private void loadEstadoCompras() {
-        comboBoxEstadoCambiar.removeAllItems();
-        try {
-            List<EstadoCompraModel> estadoCompraList = estadoCompraController.obtenerEstadosCompra();
-            for (EstadoCompraModel estadoCompra : estadoCompraList) {
-                comboBoxEstadoCambiar.addItem(estadoCompra); // Agrega los tipos de pago al ComboBox
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar tipos de pago: " + e.getMessage());
         }
     }
 
@@ -930,7 +884,6 @@ public class VistaCompras extends JPanel implements Control {
     private javax.swing.JButton btnGuardarCompra;
     private javax.swing.JButton btnListarCompras;
     private javax.swing.JPanel cabecera;
-    private javax.swing.JComboBox<EstadoCompraModel> comboBoxEstadoCambiar;
     private javax.swing.JComboBox<String> comboBoxFiltroEstados;
     private javax.swing.JComboBox<ProductoModel> comboBoxProductos;
     private javax.swing.JComboBox<ProveedorModel> comboBoxProveedores;
@@ -940,7 +893,6 @@ public class VistaCompras extends JPanel implements Control {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
