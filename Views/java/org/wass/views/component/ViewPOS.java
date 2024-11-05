@@ -26,7 +26,7 @@ import org.json.JSONArray;
  *
  * @author Alex
  */
-public class ViewPOS extends javax.swing.JPanel {
+public class ViewPOS extends javax.swing.JPanel implements Control {
 
     private FacturaController facturaController;
     private SerieFacturaController serieFacturaController;
@@ -385,6 +385,11 @@ public class ViewPOS extends javax.swing.JPanel {
         add(cuerpo, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    @Override
+    public String getComponenteTitle() {
+        return "Nueva Venta";
+    }
+    
     private void txtFieldTotalPagadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldTotalPagadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldTotalPagadoActionPerformed
