@@ -20,12 +20,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import org.json.JSONArray;
+import org.wass.views.component.Control;
 
 /**
  *
  * @author Alex
  */
-public class POS extends javax.swing.JPanel {
+public class POS extends javax.swing.JPanel implements Control {
 
     private FacturaController facturaController;
     private SerieFacturaController serieFacturaController;
@@ -389,6 +390,11 @@ public class POS extends javax.swing.JPanel {
         add(cuerpo, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    @Override
+    public String getComponenteTitle() {
+        return "Nueva Venta";
+    }
+    
     private void txtFieldTotalPagadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldTotalPagadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldTotalPagadoActionPerformed
