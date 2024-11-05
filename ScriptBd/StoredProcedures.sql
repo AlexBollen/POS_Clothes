@@ -1,6 +1,7 @@
 USE ClothesBD;
 
 DROP PROCEDURE IF EXISTS spVenta;
+DROP PROCEDURE IF EXISTS spCompra;
 
 DELIMITER $$
 
@@ -73,5 +74,87 @@ VentaSP:BEGIN
 		SET estado = 1;
 		COMMIT ;
 
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE `spCompra`(
+	IN `idCompraActualizar` INT,
+	IN `descripcionCompra` VARCHAR(250),
+	IN `cantidadPedida` INT,
+	IN `cantidadRecibida` INT,
+	IN `ubicacionGenerada` VARCHAR(5),
+	IN `detalleCompra` JSON,
+	OUT `mensaje` VARCHAR(100),
+	OUT `estado` INT
+)
+CompraSP:BEGIN
+    DECLARE idProducto INT;
+    DECLARE cantidadProducto INT;
+    DECLARE estadoStock INT DEFAULT 1;
+    DECLARE idestadocompra INT DEFAULT 2;
+    DECLARE i INT DEFAULT 0;
+    DECLARE n INT DEFAULT 0;
+
+    -- MANEJO DE POSIBLES ERRORES
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        GET DIAGNOSTICS CONDITION 1 mensaje = MESSAGE_TEXT;
+        ROLLBACK;
+        SET estado = 0;
+    END;
+
+    START TRANSACTION;
+    
+    SET idestadocompra = 2;
+    -- ACTUALIZAR COMPRA
+    UPDATE Compra Set DescripcionCompra = descripcionCompra, CantidadPedida=cantidadPedida, CantidadRecibida=cantidadRecibida, IdEstadoCompra=idestadocompra WHERE IdCompra = idCompraActualizar;
+
+
+    -- VERIFICAR SI LA CANTIDAD RECIBIDA ES IGUAL A LA CANTIDAD PEDIDA
+    IF cantidadRecibida = cantidadPedida THEN
+        IF detalleCompra IS NULL OR JSON_LENGTH(detalleCompra) = 0 THEN
+            SET mensaje = 'No se asignaron productos a la compra';
+            SET estado = 0;
+            ROLLBACK;
+            LEAVE CompraSP;
+        END IF;
+
+        SET n = JSON_LENGTH(detalleCompra);
+
+        -- RECORRER DETALLE DE LA COMPRA Y ACTUALIZAR STOCK
+        WHILE i < n DO
+            SET idProducto = JSON_UNQUOTE(JSON_EXTRACT(detalleCompra, CONCAT('$[',i,'].idProducto')));
+            SET cantidadProducto = JSON_UNQUOTE(JSON_EXTRACT(detalleCompra, CONCAT('$[',i,'].cantidadProducto')));
+				
+				
+            -- AGREGAR PRODUCTO AL STOCK O ACTUALIZAR SI YA EXISTE
+            INSERT INTO Stock (IdProducto, CantidadInicial, CantidadDisponible, FechaIngreso, DescripcionStock, UbicacionBodega, Estado)
+            VALUES (
+                idProducto,
+                cantidadProducto,
+                cantidadProducto,
+                CURDATE(),
+                descripcionCompra,
+                ubicacionGenerada,
+                estadoStock
+            )
+            ON DUPLICATE KEY UPDATE 
+                CantidadDisponible = CantidadDisponible + cantidadProducto;
+
+            SET i = i + 1;
+        END WHILE;
+
+        SET mensaje = 'Compra registrada y stock actualizado correctamente';
+        SET estado = 1;
+
+    ELSE
+        -- SI LA CANTIDAD RECIBIDA ES DIFERENTE A LA CANTIDAD PEDIDA
+        SET mensaje = 'La cantidad recibida no coincide con la cantidad pedida';
+        SET estado = 0;
+        ROLLBACK;
+    END IF;
+
+    COMMIT;
 END$$
 DELIMITER ;

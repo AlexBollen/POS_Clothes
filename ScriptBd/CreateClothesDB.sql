@@ -338,7 +338,7 @@ VALUES ('Efectivo', 1);
 INSERT INTO `EstadoCompra` (`NombreEstadoCompra`,`Estado`)
 VALUES ('Pendiente', 1),
        ('Completada', 1),
-       ('Revisada',1),
+       ('En proceso',1),
 	   ('Cancelada', 1);
        
 INSERT INTO `Compra` (`DescripcionCompra`, `CantidadPedida`, `CantidadRecibida`, `TotalCompra`, `FechaCompra`, `Estado`, `IdProveedor`, `IdTipoPago`, `IdEstadoCompra`)

@@ -53,7 +53,7 @@ public class CompraDAO {
      * @return Lista de objetos CompraModel
      */
     public List<CompraModel> obtenerTodasLasCompras() {
-        String sql = "SELECT * FROM Compra WHERE Estado=1";
+        String sql = "SELECT * FROM Compra";
         List<CompraModel> compras = new ArrayList<>();
 
         try (Connection connection = DataBase.nDataBase().getConnection();
@@ -138,11 +138,13 @@ public class CompraDAO {
      * @param compraId ID de la compra a eliminar
      */
     private void eliminarDetalleCompraPorCompra(int compraId) throws SQLException {
-        String sql = "UPDATE DetalleCompra SET Estado = 0 WHERE IdCompra = ?";
+        String sql = "UPDATE Compra SET Estado = 0, IdEstadoCompra = 4 WHERE IdCompra = ?";
         try (Connection connection = DataBase.nDataBase().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, compraId);
             statement.executeUpdate();
+        }catch(SQLException e){
+            System.err.println("Error al eliminar la compra: " + e.getMessage());
         }
     }
 
@@ -203,6 +205,33 @@ public class CompraDAO {
                 System.err.println("Error al agregar compra: " + e.getMessage());
                 return false;
             }
+        }
+    }
+    
+    public String terminarCompra(CompraModel compra, String detalleVenta, String ubicacionNueva) {
+        String storedProcedure = "{call spCompra (?, ?, ?, ?, ?, ?, ?, ?)}";
+
+        try (Connection connection = DataBase.nDataBase().getConnection();
+             CallableStatement statement = connection.prepareCall(storedProcedure)) {
+            statement.setInt(1, compra.getIdCompra());
+            statement.setString(2, compra.getDescripcionCompra());
+            statement.setInt(3, compra.getCantidadPedida());
+            statement.setInt(4, compra.getCantidadRecibida());
+            statement.setString(5, ubicacionNueva);
+            statement.setString(6, detalleVenta);
+
+            statement.registerOutParameter(7, Types.VARCHAR);
+            statement.registerOutParameter(8, Types.INTEGER);
+
+            statement.execute();
+
+            String mensaje = statement.getString(7);
+            int estado = statement.getInt(8);
+
+            return Integer.toString(estado).concat(" - " + mensaje);
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar la compra: " + e.getMessage());
+            return "0 - Ha sucedido un error: " + e.getMessage();
         }
     }
 }

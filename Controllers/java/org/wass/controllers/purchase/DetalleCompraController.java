@@ -11,11 +11,14 @@ import org.wass.models.purchase.DetalleCompraDAO;
 public class DetalleCompraController {
     private DetalleCompraDAO detalleCompraDao;
 
+    public DetalleCompraController() {
+        this.detalleCompraDao = new DetalleCompraDAO();
+    }
+
     public DetalleCompraController(DetalleCompraDAO detalleCompraDao) {
         this.detalleCompraDao = detalleCompraDao;
     }
 
-    // Obtener los detalles de una compra específica
     public List<DetalleCompraModel> obtenerDetallesPorCompra(int idCompra) {
         return detalleCompraDao.obtenerDetallesPorCompra(idCompra);
     }

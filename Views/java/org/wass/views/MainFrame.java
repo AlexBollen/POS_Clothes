@@ -60,7 +60,7 @@ public class MainFrame extends AbstractFrame {
         
         //Instancia para StockDAO y StockController
         StockDAO stockDao = new StockDAO();
-        StockController stockController = new StockController(stockDao);
+        StockController stockController = new StockController();
 
         //Instancia para CajaDAO y CajaController
         CajaDAO cajaDAO = new CajaDAO();

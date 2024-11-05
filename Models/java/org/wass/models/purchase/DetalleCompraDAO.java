@@ -16,14 +16,15 @@ public class DetalleCompraDAO {
     public List<DetalleCompraModel> obtenerDetallesPorCompra(int idCompra) {
         String sql = "SELECT * FROM DetalleCompra WHERE IdCompra=?";
         List<DetalleCompraModel> detalles = new ArrayList<>();
-
+        DetalleCompraModel detalle = null;
+        
         try (Connection connection = DataBase.nDataBase().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet rs = statement.executeQuery()) {
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, idCompra);
-            while (rs.next()) {
-                DetalleCompraModel detalle = new DetalleCompraModel(
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                detalle = new DetalleCompraModel(
                         rs.getInt("idCompra"),
                         rs.getInt("idProducto"),
                         rs.getInt("CantidadProducto")
@@ -32,10 +33,10 @@ public class DetalleCompraDAO {
                 detalle.setEstado(rs.getBoolean("Estado"));
                 detalles.add(detalle);
             }
+            }
         } catch (SQLException e) {
-            System.err.println("Error al obtener producto: " + e.getMessage());
+            System.err.println("Error al obtener detallede Compra: " + e.getMessage());
         }
-
         return detalles;
     }
 
