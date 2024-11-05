@@ -4,8 +4,6 @@ package org.wass.views.sale;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -17,7 +15,7 @@ import org.wass.views.component.Control;
  *
  * @author marco
  */
-public class ViewClientes2 extends javax.swing.JPanel {
+public class ViewClientes2 extends javax.swing.JPanel implements Control {
 
     private ClienteController clienteController;
     private DefaultTableModel clienteTableModel;
@@ -391,6 +389,11 @@ public class ViewClientes2 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
    
+    @Override
+    public String getComponenteTitle() {
+        return "Clientes";
+    }
+
     
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
         jTituloHeader.setText("Agregar nuevo cliente");
@@ -470,9 +473,7 @@ public class ViewClientes2 extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGuardarCompraActionPerformed
  
     
-    public String getComponenteTitle() {
-       return "CLIENTES";
-    }
+    
     private void limpiarDatos(){
         txtNombre.setText("");
         txtDireccion.setText("");

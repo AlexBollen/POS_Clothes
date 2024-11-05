@@ -1,18 +1,15 @@
 
 package org.wass.views.purchase;
 
-import org.wass.views.purchase.*;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import org.wass.controllers.sale.ClienteController;
 import org.wass.controllers.purchase.ProveedorController;
-import org.wass.models.sale.ClienteModel;
 import org.wass.models.purchase.ProveedorModel;
 import org.wass.views.component.Control;
 
@@ -20,7 +17,7 @@ import org.wass.views.component.Control;
  *
  * @author marco
  */
-public class ViewProveedores extends javax.swing.JPanel {
+public class ViewProveedores extends javax.swing.JPanel implements Control {
 
     private ClienteController clienteController;
     private ProveedorController proveedorController;
@@ -432,7 +429,10 @@ public class ViewProveedores extends javax.swing.JPanel {
         add(accionesExtra, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
-   
+    @Override
+    public String getComponenteTitle() {
+        return "Proveedores";
+    }
     
     private void btnAgregarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProveedorActionPerformed
         jTituloHeader.setText("Agregar nuevo proveedor");
@@ -514,9 +514,7 @@ public class ViewProveedores extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGuardarCompraActionPerformed
  
     
-    public String getComponenteTitle() {
-       return "PROVEEDORES";
-    }
+    
     private void limpiarDatos(){
         txtNombre.setText("");
         txtDireccion.setText("");
