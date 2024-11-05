@@ -3,6 +3,7 @@
  * autor, para más información: https://github.com/AlexBollen/POS_Clothes
  */
 package org.wass.views;
+
 import com.formdev.flatlaf.FlatIntelliJLaf;
 
 import java.awt.EventQueue;
@@ -10,10 +11,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
 import org.wass.views.utilities.CustomFont;
 import org.wass.controllers.db.DBConfig;
 import org.wass.controllers.LoginController;
-import org.wass.models.person.UsuarioDao;
+import org.wass.models.dao.UsuarioDAO;
 import static org.wass.controllers.db.DBConfig.*;
 
 /**
@@ -53,12 +55,13 @@ public final class App {
             LOGGER.log(Level.WARNING, "Error al establecer el tema: {0}", e.getMessage());
         }
         
-        // Creación de instancia UsuarioDao para ser utilizado
+        // Creación de instancia UsuarioDAO para ser utilizado
         // en la validación de credenciales
-        UsuarioDao userDao = new UsuarioDao();
+        UsuarioDAO userDao = new UsuarioDAO();
         
-        // Creación de instancia del controlador de login con UsuarioDao
+        // Creación de instancia del controlador de login con UsuarioDAO
         // para que interactúe con la bd a través de este
+        @SuppressWarnings("deprecation")
         LoginController loginController = new LoginController(userDao);
 
         // Crear y mostrar el formulario de inicio de sesión

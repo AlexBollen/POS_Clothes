@@ -3,7 +3,7 @@ package org.wass.views.component.menu;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
-import org.wass.models.person.RolModel;
+import org.wass.models.RolModel;
 import org.wass.views.listeners.SettingListener;
 
 /**

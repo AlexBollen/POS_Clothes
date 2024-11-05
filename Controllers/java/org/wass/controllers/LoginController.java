@@ -1,8 +1,8 @@
 package org.wass.controllers;
 
 import javax.swing.JOptionPane;
-import org.wass.models.person.UsuarioModel;
-import org.wass.models.person.UsuarioDao;
+import org.wass.models.UsuarioModel;
+import org.wass.models.dao.UsuarioDAO;
 
 /**
  * Controlador para manejar la validación de inicio de sesión.
@@ -11,14 +11,14 @@ import org.wass.models.person.UsuarioDao;
  */
 public class LoginController {
     private UsuarioModel user;
-    private UsuarioDao userDao;
+    private UsuarioDAO userDao;
 
     // Constructor para inicializar userDao
     public LoginController() {
-        this(new UsuarioDao());
+        this(new UsuarioDAO());
     }    
     @Deprecated
-    public LoginController(UsuarioDao userDao) {
+    public LoginController(UsuarioDAO userDao) {
         this.userDao = userDao;
     }
     
