@@ -1,18 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-package org.wass.models.product;
+package org.wass.models.dao;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.wass.controllers.db.DataBase;
 
-import javax.print.attribute.standard.DateTimeAtCreation;
+import org.wass.models.StockModel;
+import org.wass.models.StockPosModel;
 
 /**
  * Clase para manejar las operaciones de acceso a datos de Stock.

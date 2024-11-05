@@ -1,21 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package org.wass.controllers.product;
+package org.wass.controllers;
 
-
-
-/**
- *
- * @author SamuelQ
- */
 import javax.swing.JOptionPane;
 import java.util.List;
-import org.wass.models.product.StockDAO;
-import org.wass.models.product.StockModel;
-import org.wass.models.product.StockPosModel;
+import org.wass.models.dao.StockDAO;
+import org.wass.models.StockModel;
+import org.wass.models.StockPosModel;
 
+/**
+ * @author SamuelQ
+ */
 public class StockController {
     private StockDAO stockDao;
 

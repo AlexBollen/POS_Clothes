@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.util.Objects;
 
 /**
- *
  * @author SamuelQ
  */
 public class FacturaController {

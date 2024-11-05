@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.wass.controllers.db.DataBase;
 import org.wass.models.ProveedorModel;
-import org.wass.models.ProveedorModel;
-
 
 /**
  *
  * @author SamuelQ
  * @author marco
  */
-
 public class ProveedorDAO {
     /**
      * Método para agregar un nuevo proveedor a la base de datos.

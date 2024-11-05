@@ -1,15 +1,14 @@
 package org.wass.controllers;
 
-/**
- *
- * @author SamuelQ
- * @author marco
- */
 import javax.swing.JOptionPane;
 import java.util.List;
 import org.wass.models.dao.ClienteDAO;
 import org.wass.models.ClienteModel;
 
+/**
+ * @author SamuelQ
+ * @author marco
+ */
 public class ClienteController {
     private ClienteDAO clienteDao;
 

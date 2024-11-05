@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * @author Alex
  */
-
 public class SerieFacturaController {
     private SerieFacturaDAO serieDao;
 

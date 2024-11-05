@@ -1,9 +1,10 @@
-package org.wass.models.purchase;
+package org.wass.models.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.wass.controllers.db.DataBase;
+import org.wass.models.DetalleCompraModel;
 
 public class DetalleCompraDAO {
 

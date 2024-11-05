@@ -1,14 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.wass.controllers;
+
 import org.wass.models.TipoProductoModel;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.wass.models.dao.TipoProductoDAO;
-
-
 
 /**
  *

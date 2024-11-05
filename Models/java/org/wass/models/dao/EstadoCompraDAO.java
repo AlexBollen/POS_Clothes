@@ -13,7 +13,6 @@ import org.wass.models.EstadoCompraModel;
  *
  * @author SamuelQ
  */
-
 public class EstadoCompraDAO {
     /**
      * Método para obtener todos los estados de compra de la base de datos.

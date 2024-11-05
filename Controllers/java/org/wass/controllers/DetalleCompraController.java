@@ -1,13 +1,13 @@
-package org.wass.controllers.purchase;
-/**
- *
- * @author SamuelQ
- */
+package org.wass.controllers;
+
 import java.util.List;
 
-import org.wass.models.purchase.DetalleCompraModel;
-import org.wass.models.purchase.DetalleCompraDAO;
+import org.wass.models.DetalleCompraModel;
+import org.wass.models.dao.DetalleCompraDAO;
 
+/**
+ * @author SamuelQ
+ */
 public class DetalleCompraController {
     private DetalleCompraDAO detalleCompraDao;
 

@@ -1,4 +1,4 @@
-package org.wass.views;
+package org.wass.views.component;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -9,29 +9,29 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import org.wass.controllers.product.ProductoController;
-import org.wass.controllers.product.StockController;
-import org.wass.controllers.purchase.CompraController;
-import org.wass.controllers.purchase.DetalleCompraController;
-import org.wass.controllers.purchase.EstadoCompraController;
-import org.wass.controllers.purchase.ProveedorController;
-import org.wass.controllers.purchase.TipoPagoController;
-import org.wass.models.product.ProductoModel;
-import org.wass.models.purchase.CompraModel;
-import org.wass.models.purchase.DetalleCompraModel;
-import org.wass.models.purchase.EstadoCompraModel;
-import org.wass.models.purchase.ProveedorModel;
-import org.wass.models.purchase.TipoPagoModel;
-import org.wass.views.component.Control;
+import org.wass.controllers.ProductoController;
+import org.wass.controllers.CompraController;
+import org.wass.controllers.DetalleCompraController;
+import org.wass.controllers.EstadoCompraController;
+import org.wass.controllers.ProveedorController;
+import org.wass.controllers.StockController;
+import org.wass.controllers.TipoPagoController;
+
+import org.wass.models.ProductoModel;
+import org.wass.models.CompraModel;
+import org.wass.models.DetalleCompraModel;
+import org.wass.models.EstadoCompraModel;
+import org.wass.models.ProveedorModel;
+import org.wass.models.TipoPagoModel;
 
 /**
- *
  * @author SamuelQ
  */
-public class VistaCompras extends JPanel implements Control {
+public class ViewCompras extends JPanel implements Control {
 
     private ProductoController productoController;
     private ProveedorController proveedorController;
@@ -50,7 +50,7 @@ public class VistaCompras extends JPanel implements Control {
     /**
      * Creates new form DiseñoCompras
      */
-    public VistaCompras() {
+    public ViewCompras() {
         this.productoController     = new ProductoController();
         this.proveedorController    = new ProveedorController();
         this.tipoPagoController     = new TipoPagoController();
@@ -695,17 +695,12 @@ public class VistaCompras extends JPanel implements Control {
     private String convertToJSON() {
         JSONArray jsonArray = new JSONArray();
         List<DetalleCompraModel> listaDetalle = detalleController.obtenerDetallesPorCompra(idCompra);
-        StringBuilder mensaje = new StringBuilder("Detalle de Compra:\n");
         for (DetalleCompraModel detalle : listaDetalle) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("idProducto", detalle.getIdProducto());
             jsonObject.put("cantidadProducto", detalle.getCantidadProducto());
             jsonArray.put(jsonObject);
-            /*mensaje.append("Producto ID: ").append(detalle.getIdProducto())
-                   .append(", Cantidad: ").append(detalle.getCantidadProducto())
-                   .append("\n");*/
         }
-        //JOptionPane.showMessageDialog(this, mensaje.toString(), "Detalle de la Compra", JOptionPane.INFORMATION_MESSAGE);
         return jsonArray.toString(); 
     }
     
@@ -872,7 +867,7 @@ public class VistaCompras extends JPanel implements Control {
         // Asignar el modelo a la tabla
         tablaCompras.setModel(comprasTableModel);
     }
-// <editor-fold defaultstate="collapsed" desc="Variables declaration"> 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel accionesExtra;
     private javax.swing.JPanel agregar;
@@ -917,5 +912,4 @@ public class VistaCompras extends JPanel implements Control {
     private javax.swing.JTextField txtTotalCompra;
     private javax.swing.JTextArea txtareaDescripcion;
     // End of variables declaration//GEN-END:variables
-// </editor-fold> 
 }

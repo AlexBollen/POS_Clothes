@@ -1,16 +1,15 @@
 package org.wass.controllers;
 
-/**
- *
- * @author SamuelQ
- * @author marco
- */
 import javax.swing.JOptionPane;
 import java.util.List;
 
 import org.wass.models.dao.ProveedorDAO;
 import org.wass.models.ProveedorModel;
 
+/**
+ * @author SamuelQ
+ * @author marco
+ */
 public class ProveedorController {
     private ProveedorDAO proveedorDao;
 

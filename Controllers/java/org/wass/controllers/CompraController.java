@@ -1,22 +1,23 @@
-package org.wass.controllers.purchase;
+package org.wass.controllers;
 
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import org.wass.models.purchase.CompraModel;
-import org.wass.models.purchase.CompraDAO;
-import org.wass.models.purchase.DetalleCompraModel;
-import org.wass.models.purchase.DetalleCompraDAO;
+import org.wass.models.CompraModel;
+import org.wass.models.dao.CompraDAO;
+import org.wass.models.DetalleCompraModel;
+import org.wass.models.dao.DetalleCompraDAO;
 
 /**
- *
  * @author SamuelQ
  */
 public class CompraController {
     private CompraDAO compraDao;
+    @SuppressWarnings("unused")
     private DetalleCompraDAO detalleCompraDao;
 
     // Constructor para inicializar compraDao

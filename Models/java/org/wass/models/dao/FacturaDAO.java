@@ -12,7 +12,6 @@ import org.wass.models.FacturaModel;
 /**
  * @author Alex
  */
-
 public class FacturaDAO {
 
     /**

@@ -6,10 +6,8 @@ import java.util.List;
 import org.wass.models.dao.EstadoCompraDAO;
 
 /**
- *
  * @author SamuelQ
  */
-
 public class EstadoCompraController {
     private EstadoCompraDAO estadoCompraDao;
 
