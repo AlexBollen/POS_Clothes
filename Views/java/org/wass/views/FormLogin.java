@@ -7,7 +7,7 @@ package org.wass.views;
 import java.awt.Color;
 import java.awt.Cursor;
 import org.wass.controllers.LoginController;
-import org.wass.models.person.UsuarioModel;
+import org.wass.models.UsuarioModel;
 
 /**
  *

@@ -6,13 +6,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.TableModel;
 import org.wass.controllers.UserController;
-import org.wass.controllers.person.PersonaController;
-import org.wass.controllers.person.RolController;
+import org.wass.controllers.PersonaController;
+import org.wass.controllers.RolController;
 import org.wass.models.ListDataModel;
 import org.wass.models.TableDataModel;
-import org.wass.models.person.PersonaModel;
-import org.wass.models.person.RolModel;
-import org.wass.models.person.UsuarioModel;
+import org.wass.models.PersonaModel;
+import org.wass.models.RolModel;
+import org.wass.models.UsuarioModel;
 import org.wass.views.component.renderer.MapComboboxModel;
 import org.wass.views.listeners.SearchListener;
 
