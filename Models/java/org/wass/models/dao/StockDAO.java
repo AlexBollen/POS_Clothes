@@ -1,5 +1,6 @@
 package org.wass.models.dao;
 
+import java.beans.ExceptionListener;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -113,12 +114,18 @@ public class StockDAO {
         return stocks;
     }
 
+    public List<StockPosModel> obtenerStocksPos() {
+        return obtenerStocksPos((excptn) -> {
+            System.err.println("[ Error ] : No se puede listar los productos: " + excptn.getMessage());
+        });
+    }
+
     /**
      * Método para obtener listado de stocks con información de productos para POS
      *
      * @return Lista de objetos StockPosModel
      */
-    public List<StockPosModel> obtenerStocksPos() {
+    public List<StockPosModel> obtenerStocksPos(ExceptionListener exevn) {
         String sql = "SELECT " +
                 "S.IdStock, " +
                 "P.NombreProducto, " +
@@ -150,9 +157,8 @@ public class StockDAO {
                 stocks.add(stock);
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener stocks: " + e.getMessage());
+            exevn.exceptionThrown(e);
         }
-
         return stocks;
     }
 

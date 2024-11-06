@@ -22,10 +22,6 @@ public class ViewVentas extends AbstractView implements Control {
 
     private FacturaController controller;
 
-
-    /**
-     * Creates new form ViewVentas
-     */
     public ViewVentas() {
         initComponents();
         componentesAdd();

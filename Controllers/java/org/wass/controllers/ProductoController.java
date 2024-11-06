@@ -1,7 +1,11 @@
 package org.wass.controllers;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.beans.ExceptionListener;
 import java.util.List;
+
+import org.wass.models.TableDataModel;
 import org.wass.models.dao.ProductoDAO;
 import org.wass.models.ProductoModel;
 
@@ -10,6 +14,7 @@ import org.wass.models.ProductoModel;
  */
 public class ProductoController {
     private ProductoDAO productoDao;
+    private ExceptionListener exceptionListener;
 
     // Constructor para inicializar productoDao    
     public ProductoController() {
@@ -18,6 +23,10 @@ public class ProductoController {
     @Deprecated
     public ProductoController(ProductoDAO productoDao) {
         this.productoDao = productoDao;
+    }
+
+    public void setExceptionListener(ExceptionListener exceptionListener) {
+        this.exceptionListener = exceptionListener;
     }
 
     // Método para agregar un nuevo producto
@@ -41,13 +50,7 @@ public class ProductoController {
         }else if (producto.getDescuentoPorcentual() == 0){
             producto.setDescuentoPorcentual(0);
         }
-        boolean resultado = productoDao.agregarProducto(producto);
-        if (resultado) {
-            JOptionPane.showMessageDialog(null, "Producto agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al agregar el producto", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        return resultado;
+        return productoDao.agregarProducto(producto);
     }
 
     // Método para obtener todos los productos
@@ -58,11 +61,6 @@ public class ProductoController {
     // Método para obtener un producto
     public ProductoModel obtenerProductoPorNombre(int idProducto) {
         return productoDao.obtenerProductoPorId(idProducto);
-    }
-
-    // Método para obtener un producto
-    public ProductoModel obtenerProductoPorNombre(String nombreProducto) {
-        return productoDao.obtenerDatosDeProductosPorNombre(nombreProducto);
     }
 
     // Método para eliminar un producto
@@ -96,12 +94,28 @@ public class ProductoController {
         }else if (producto.getDescuentoPorcentual() == 0){
             producto.setDescuentoPorcentual(0);
         }
-        boolean resultado = productoDao.actualizarProducto(producto,IdProducto);
-        if (resultado) {
-            JOptionPane.showMessageDialog(null, "Producto actualizado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al actualizar el producto", "Error", JOptionPane.ERROR_MESSAGE);
+        return  productoDao.actualizarProducto(producto,IdProducto);
+    }
+
+    public DefaultTableModel getProductsTable() {
+        List<ProductoModel> models = exceptionListener == null
+                                    ? productoDao.obtenerTodosLosProductos()
+                                    : productoDao.obtenerTodosLosProductos(exceptionListener);
+        TableDataModel<ProductoModel> dataModel = new TableDataModel<>(new String[] {
+                "ID", "Producto", "Costo", "Venta", "Descuento", "Tipo Producto"
+        });
+        for (final ProductoModel m : models) {
+            dataModel.addRow(m, (ProductoModel model) -> {
+                return new Object[] {
+                        model.getIdProducto(),
+                        model.getNombreProducto(),
+                        model.getPrecioCosto(),
+                        model.getPrecioVenta(),
+                        model.getDescuentoPorcentual(),
+                        model.getTipoProducto().getNombreTipoProducto()
+                };
+            });
         }
-        return resultado;
+        return dataModel;
     }
 }

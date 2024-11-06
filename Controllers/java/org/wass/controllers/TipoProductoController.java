@@ -1,5 +1,6 @@
 package org.wass.controllers;
 
+import org.wass.models.ListDataModel;
 import org.wass.models.TipoProductoModel;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -12,6 +13,7 @@ import org.wass.models.dao.TipoProductoDAO;
 public class TipoProductoController {
     private TipoProductoDAO tipoProductoDao;
 
+    public TipoProductoController() { this(new TipoProductoDAO()); }
     public TipoProductoController(TipoProductoDAO tipoProductoDao) {
         this.tipoProductoDao = tipoProductoDao;
     }
@@ -31,9 +33,13 @@ public class TipoProductoController {
         return resultado;
     }
     // Obtener una lista de los tipos de producto
-    public List<TipoProductoModel> obtenerTiposProducto() {
-        return tipoProductoDao.obtenerTiposProducto();
+    public ListDataModel<TipoProductoModel> getTiposProducto() {
+        return new ListDataModel<TipoProductoModel>().addAll(obtenerTiposProducto(), (model) -> {
+            return model.getNombreTipoProducto();
+        });
     }
+
+    public List<TipoProductoModel> obtenerTiposProducto() { return tipoProductoDao.obtenerTiposProducto(); }
 
     // Obtener el un tipo de producto por su ID
     public TipoProductoModel obtenerTipoProducto(int idTipoProducto) {
