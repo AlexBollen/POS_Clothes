@@ -40,10 +40,30 @@ public final class App {
         CustomFont.cargarFuentes("/fonts/roboto/", "roboto-fonts.properties");
         CustomFont.cargarFuentes("/fonts/Cantarell/", "Cantarell.properties");
         
+        // Cargar los datos del usuario desde cache.
+        Sistema.check();
+        Cache.Conf dbconf = Sistema.getCache()
+                                   .getConfiguracion(Cache.CACHE_BASE_DATOS);        
         DBConfig config = nDataBaseConfig();
-        config.set(DataConfig.MySQLDataBase, "clothesbd");
-        config.set(DataConfig.MySQLUserName, "");
-        config.set(DataConfig.MySQLUserPassword, "");
+        config.set(
+                DataConfig.MySQLDataBase,
+                dbconf.getString(
+                        DataConfig.MySQLDataBase.getName(),
+                        "clothesbd"
+                )
+        );
+        config.set(
+                DataConfig.MySQLUserName,
+                dbconf.getString(
+                        DataConfig.MySQLUserName.getName(),
+                        "")
+        );
+        config.set(
+                DataConfig.MySQLUserPassword,
+                dbconf.getString(
+                        DataConfig.MySQLUserPassword.getName(),
+                        "")
+        );
 
         /*
          * Establecer un 'LookAndFeel' del tipo 'flat' si es posibles, de lo
@@ -58,7 +78,7 @@ public final class App {
         // Creación de instancia UsuarioDAO para ser utilizado
         // en la validación de credenciales
         UsuarioDAO userDao = new UsuarioDAO();
-        
+                
         // Creación de instancia del controlador de login con UsuarioDAO
         // para que interactúe con la bd a través de este
         @SuppressWarnings("deprecation")
@@ -69,5 +89,4 @@ public final class App {
             new FormLogin(loginController).setVisible(true);
         });
     }
-
 }

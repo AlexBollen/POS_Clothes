@@ -12,7 +12,7 @@ import java.util.List;
 
 import org.wass.controllers.ControllerException;
 import static org.wass.controllers.db.DataBase.*;
-import static org.wass.models.utilities.Cipher.*;
+import static org.wass.models.utilities.CipherUtilities.*;
 
 /**
  * @author Alex

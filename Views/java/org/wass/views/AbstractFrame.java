@@ -17,11 +17,13 @@ import javax.swing.JFrame;
  */
 public abstract class AbstractFrame extends JFrame {
 
+    protected Cache cache;
     public AbstractFrame() {
         simpleInitFrame();
     }
     
     private void simpleInitFrame() {
+        cache = Sistema.getCache();
         try {
             setIconImages(new ArrayList<>() {
                 {
@@ -31,5 +33,13 @@ public abstract class AbstractFrame extends JFrame {
         } catch (IOException e) {
             e.printStackTrace(System.err);
         }
+    }
+    
+    protected Cache.Conf getCacheWin() {
+        return cache.getConfiguracion(Cache.CACHE_APLICACION);
+    }
+    
+    protected Cache.Conf getCacheDB() {
+        return cache.getConfiguracion(Cache.CACHE_BASE_DATOS);
     }
 }

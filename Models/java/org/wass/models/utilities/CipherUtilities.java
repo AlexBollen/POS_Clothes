@@ -8,6 +8,11 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import at.favre.lib.crypto.bcrypt.LongPasswordStrategies;
 
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  * Clase utilidades <code>CipherUtilities</code> encargado de proprocionar 
@@ -36,7 +41,7 @@ import java.nio.charset.StandardCharsets;
  * @version 1.0.0
  * @since 1.0.0
  */
-public final class Cipher {
+public final class CipherUtilities {
     
     /**
      * Tamaño máximo que soporta el algoritmo de cifrado Blowfish, dicho tamaño 
@@ -111,5 +116,36 @@ public final class Cipher {
             result = BCrypt.verifyer(BCrypt.Version.VERSION_2Y).verify(simpleBits, bitsEncrypted);            
         }
         return result.verified;
+    }
+    
+    //== ------------------------------------------------------------------- ===
+    //==                            CIFRADO - AES
+    //== ------------------------------------------------------------------- ===
+    public static SecureRandom sr = new SecureRandom();
+    public static String encriptar(String clave, byte[] iv, String value) {
+        try {
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            SecretKeySpec sks = new SecretKeySpec(clave.getBytes("UTF-8"), "AES");
+            cipher.init(Cipher.ENCRYPT_MODE, sks, new IvParameterSpec(iv));
+
+            byte[] encriptado = cipher.doFinal(value.getBytes());
+            return DatatypeConverter.printBase64Binary(encriptado);
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+        return null;
+    }
+    public static String decriptar(String clave, byte[] iv, String encriptado) {
+        try {
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            SecretKeySpec sks = new SecretKeySpec(clave.getBytes("UTF-8"), "AES");
+            cipher.init(Cipher.DECRYPT_MODE, sks, new IvParameterSpec(iv));
+
+            byte[] dec = cipher.doFinal(DatatypeConverter.parseBase64Binary(encriptado));
+            return new String(dec);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.err);
+        }
+        return null;
     }
 }
