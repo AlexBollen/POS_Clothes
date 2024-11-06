@@ -129,7 +129,7 @@
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="rows" type="int" value="5"/>
-        <Property name="text" type="java.lang.String" value="* Gestiona tu negocio de manera profecional&#xa;* Controla tus trasacciones de la mejor forma&#xa;* Se m&#xe1;s &#xe1;gil&#xa;* Automatiza tu negocio"/>
+        <Property name="text" type="java.lang.String" value="* Gestiona tu negocio de manera profesional&#xa;* Controla tus transacciones de la mejor forma&#xa;* Se m&#xe1;s &#xe1;gil&#xa;* Automatiza tu negocio"/>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
     </Component>
