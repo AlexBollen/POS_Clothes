@@ -73,7 +73,13 @@ public class ViewProveedores extends javax.swing.JPanel implements Control {
     }
     
     
-    
+    public ViewProveedores ocultarTodo() {
+        btnAgregarProveedor.setVisible(false);
+        btnListarProveedor.setVisible(false);
+        accionesExtra.setVisible(false);
+        return this;
+    }
+
     
     
 
