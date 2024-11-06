@@ -1,10 +1,8 @@
 package org.wass.views.component;
 
-import org.wass.controllers.product.StockController;
-import org.wass.controllers.sale.FacturaController;
+import org.wass.controllers.FacturaController;
 import org.wass.models.FacturaListModel;
 import org.wass.models.TableDataModel;
-import org.wass.models.sale.FacturaDao;
 import org.wass.views.component.renderer.MapComboboxModel;
 import org.wass.views.listeners.SearchListener;
 
@@ -36,8 +34,7 @@ public class ViewVentas extends AbstractView implements Control {
     private void componentesAdd() {
         filterMap = new MapComboboxModel<>();
         viewPanel = new JPanel();
-        FacturaDao facturaDao = new FacturaDao();
-        controller = new FacturaController(facturaDao);
+        controller = new FacturaController();
         controller.setExceptionListener((excptn) -> {
             JOptionPane.showConfirmDialog(this, excptn.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         });
