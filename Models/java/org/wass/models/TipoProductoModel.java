@@ -3,15 +3,19 @@ package org.wass.models;
 /**
  * @author SamuelQ
  */
-public class TipoProductoModel {
+public class TipoProductoModel implements Model{
     private int idTipoProducto;
     private String nombreTipoProducto;
     private boolean estado;
 
+    public TipoProductoModel() { }
     public TipoProductoModel(String nombreTipoProducto, boolean estado) {
         this.nombreTipoProducto = nombreTipoProducto;
         this.estado = estado;
     }
+
+    @Override
+    public int getId() { return getIdTipoProducto(); }
 
     // Getters y Setters
     public int getIdTipoProducto() {

@@ -1,7 +1,11 @@
 package org.wass.controllers;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.beans.ExceptionListener;
 import java.util.List;
+
+import org.wass.models.TableDataModel;
 import org.wass.models.dao.StockDAO;
 import org.wass.models.StockModel;
 import org.wass.models.StockPosModel;
@@ -11,10 +15,15 @@ import org.wass.models.StockPosModel;
  */
 public class StockController {
     private StockDAO stockDao;
+    private ExceptionListener exceptionListener;
 
-    // Constructor para inicializar stockDao
+
     public StockController() {
         this.stockDao = new StockDAO();
+    }
+
+    public void setExceptionListener(ExceptionListener exceptionListener) {
+        this.exceptionListener = exceptionListener;
     }
 
     // Método para agregar un nuevo stock

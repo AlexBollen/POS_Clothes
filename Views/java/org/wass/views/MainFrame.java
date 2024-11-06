@@ -16,13 +16,7 @@ import org.wass.models.UsuarioModel;
 import org.wass.controllers.LoginController;
 import org.wass.controllers.db.DBConfig;
 
-import org.wass.views.component.ViewPOS;
-import org.wass.views.component.ViewCompras;
-import org.wass.views.component.Control;
-import org.wass.views.component.ViewDashboard;
-import org.wass.views.component.ViewCaja;
-import org.wass.views.component.ViewUsuario;
-import org.wass.views.component.ViewVentas;
+import org.wass.views.component.*;
 import org.wass.views.component.menu.MenuConfiguraciones;
 import org.wass.views.component.ViewClientes;
 import org.wass.views.component.ViewProveedores;
@@ -90,10 +84,11 @@ public class MainFrame extends AbstractFrame {
                 }
                 case 2 -> {
                     //Inventario
+                    changeView(new ViewInventario());
                 }
                 case 3 -> {
-                    changeView(new ViewCompras());
                     //Compras
+                    changeView(new ViewCompras());
                 }
                 case 4 -> {
                     switch (subIndex) {

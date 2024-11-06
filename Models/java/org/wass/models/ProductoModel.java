@@ -3,22 +3,26 @@ package org.wass.models;
 /**
  * @author SamuelQ
  */
-public class ProductoModel {
+public class ProductoModel implements Model {
     private int idProducto;
     private String nombreProducto;
     private float precioCosto;
     private float precioVenta;
     private float descuentoPorcentual;
-    private int idTipoProducto;
+    private TipoProductoModel tipoProducto;
     private boolean estado;
 
-    public ProductoModel(String nombreProducto, float precioCosto, float precioVenta, float descuentoPorcentual, int idTipoProducto) {
+    public ProductoModel() { }
+    public ProductoModel(String nombreProducto, float precioCosto, float precioVenta, float descuentoPorcentual, TipoProductoModel tipoProducto) {
         this.nombreProducto = nombreProducto;
         this.precioCosto = precioCosto;
         this.precioVenta = precioVenta;
         this.descuentoPorcentual = descuentoPorcentual;
-        this.idTipoProducto = idTipoProducto;
+        this.tipoProducto = tipoProducto;
     }
+
+    @Override
+    public int getId() { return idProducto; }
 
     public int getIdProducto() {
         return idProducto;
@@ -60,12 +64,8 @@ public class ProductoModel {
         this.descuentoPorcentual = descuentoPorcentual;
     }
 
-    public int getIdTipoProducto() {
-        return idTipoProducto;
-    }
-
-    public void setIdTipoProducto(int idTipoProducto) {
-        this.idTipoProducto = idTipoProducto;
+    public TipoProductoModel getTipoProducto() {
+        return tipoProducto;
     }
 
     public boolean isEstado() {
@@ -75,6 +75,8 @@ public class ProductoModel {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    public void setTipoProducto(TipoProductoModel tipoProductoModel) { this.tipoProducto = tipoProductoModel; }
 
     @Override
     public String toString() {
