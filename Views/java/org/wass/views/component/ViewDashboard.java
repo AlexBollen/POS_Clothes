@@ -33,7 +33,7 @@ public class ViewDashboard extends JPanel implements Control {
 
         jLabel1.setFont(new java.awt.Font("Cantarell", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("WAS - POS Clothes");
+        jLabel1.setText("WASS - POS Clothes");
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("v1.0.0");
