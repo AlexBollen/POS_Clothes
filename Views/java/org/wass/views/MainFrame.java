@@ -18,6 +18,9 @@ import org.wass.controllers.db.DBConfig;
 
 import org.wass.views.component.*;
 import org.wass.views.component.menu.MenuConfiguraciones;
+import org.wass.views.component.ViewClientes;
+import org.wass.views.component.ViewProveedores;
+import org.wass.views.component.ViewReportes;
 
 /**
  *
@@ -107,6 +110,7 @@ public class MainFrame extends AbstractFrame {
                 }
                 case 6 -> {
                     //Reportes
+                    changeView(new ViewReportes());
                 }
                 default -> {
                 }

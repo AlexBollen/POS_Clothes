@@ -105,6 +105,13 @@ public class ViewCompras extends JPanel implements Control {
         
         loadCompras();
     }
+    
+    public ViewCompras ocultarTodo() {
+        btnAgregarCompra.setVisible(false);
+        btnListarCompras.setVisible(false);
+        accionesExtra.setVisible(false);
+        return this;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

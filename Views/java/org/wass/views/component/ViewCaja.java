@@ -123,6 +123,12 @@ public class ViewCaja extends AbstractView implements Control{
         
         showViewComponent(VC_LISTAR);
     }
+
+    public ViewCaja ocultarTodo() {
+        header.hideButtons();
+        jPanel4.setVisible(false);
+        return this;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
