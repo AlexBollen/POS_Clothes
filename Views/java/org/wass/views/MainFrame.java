@@ -4,6 +4,8 @@ import java.awt.Component;
 import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JViewport;
 
@@ -12,6 +14,7 @@ import org.wass.models.CajaModel;
 import org.wass.models.UsuarioModel;
 
 import org.wass.controllers.LoginController;
+import org.wass.controllers.db.DBConfig;
 
 import org.wass.views.component.ViewPOS;
 import org.wass.views.component.ViewCompras;
@@ -117,6 +120,18 @@ public class MainFrame extends AbstractFrame {
 
         // Centrar form en la pantalla
         setLocationRelativeTo(null);
+        setExtendedState(getCacheWin().getInt(Cache.WIN_MAXIMIZED_BOTH, JFrame.NORMAL));
+        
+        // eventos
+        addWindowStateListener((we) -> {
+            getCacheWin().setDato(Cache.WIN_MAXIMIZED_BOTH, getExtendedState());
+        });
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                cache.guardarCache();
+            }            
+        });
     }
 
     private void changeView(Component component) {
@@ -258,7 +273,7 @@ public class MainFrame extends AbstractFrame {
         header2.setClonseListener((target) -> {
             setVisible(false);
             dispose();
-
+            cache.guardarCache();
             new FormLogin(new LoginController()).setVisible(true);
         });
         jPanelHeaderView.add(header2, java.awt.BorderLayout.CENTER);
@@ -320,7 +335,17 @@ public class MainFrame extends AbstractFrame {
                     configuraciones.doClose(FloatingWindow.RET_OK);
                 }
                 case Aplicacion -> {
-                    /* nada */
+                    configuraciones.doClose(FloatingWindow.RET_OK);
+                    FormConfig config = new FormConfig(this, true);
+                    config.setVisible(true);
+                    if (config.getReturnStatus() == FormConfig.RET_OK) {
+                        getCacheDB().setDato(DBConfig.DataConfig.MySQLDataBase.getName(),  config.getAlmacen());
+                        getCacheDB().setDato(DBConfig.DataConfig.MySQLServer.getName(),  config.getServidor());
+                        getCacheDB().setDato(DBConfig.DataConfig.MySQLServerPort.getName(),  config.getPuerto());
+                        getCacheDB().setDato(DBConfig.DataConfig.MySQLUserName.getName(),  config.getUsuario());
+                        getCacheDB().setDato(DBConfig.DataConfig.MySQLUserPassword.getName(),  config.getClave());
+                        cache.guardarCache();
+                    }
                 }
                 default -> throw new AssertionError();
             }

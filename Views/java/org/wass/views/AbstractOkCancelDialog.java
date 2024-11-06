@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.KeyStroke;
@@ -80,6 +81,9 @@ public abstract class AbstractOkCancelDialog extends JDialog {
         } catch (IOException e) {
             e.printStackTrace(System.err);
         }        
+    }
+    protected void setDefaultButton(JButton button) {
+        getRootPane().setDefaultButton(button);
     }
     
     /**

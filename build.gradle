@@ -49,6 +49,7 @@ dependencies {
     implementation name: 'miglayout-4.0'
 
     implementation 'org.json:json:20240303'
+    implementation 'javax.xml.bind:jaxb-api:2.3.0'
 }
 
 application {

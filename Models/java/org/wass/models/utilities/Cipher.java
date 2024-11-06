@@ -8,13 +8,17 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import at.favre.lib.crypto.bcrypt.LongPasswordStrategies;
 
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 
 /**
- * Clase utilidades <code>CipherUtilities</code> encargado de proprocionar 
+ * Clase utilidades <code>Cipher</code> encargado de proprocionar 
  * métodos de cifrado seguro.
  * <p>
  * Para el cifrado de contraseñas, se utiliza la biblioteta BCrypt (https://github.com/patrickfav/bcrypt) 
- * donde <code>CipherUtilities</code> ofrece método que facilita el uso de ello, se 
+ * donde <code>Cipher</code> ofrece método que facilita el uso de ello, se 
  * puede implementarlo de la siguiente manera:<pre><code>
  * String shortPass = "myPassword",
  *        longPass = "LongPassword......";
@@ -111,5 +115,36 @@ public final class Cipher {
             result = BCrypt.verifyer(BCrypt.Version.VERSION_2Y).verify(simpleBits, bitsEncrypted);            
         }
         return result.verified;
+    }
+    
+    //== ------------------------------------------------------------------- ===
+    //==                            CIFRADO - AES
+    //== ------------------------------------------------------------------- ===
+    public static SecureRandom sr = new SecureRandom();
+    public static String encriptar(String clave, byte[] iv, String value) {
+        try {
+            javax.crypto.Cipher cipher = javax.crypto.Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            SecretKeySpec sks = new SecretKeySpec(clave.getBytes("UTF-8"), "AES");
+            cipher.init(javax.crypto.Cipher.ENCRYPT_MODE, sks, new IvParameterSpec(iv));
+
+            byte[] encriptado = cipher.doFinal(value.getBytes());
+            return DatatypeConverter.printBase64Binary(encriptado);
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+        return null;
+    }
+    public static String decriptar(String clave, byte[] iv, String encriptado) {
+        try {
+            javax.crypto.Cipher cipher = javax.crypto.Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            SecretKeySpec sks = new SecretKeySpec(clave.getBytes("UTF-8"), "AES");
+            cipher.init(javax.crypto.Cipher.DECRYPT_MODE, sks, new IvParameterSpec(iv));
+
+            byte[] dec = cipher.doFinal(DatatypeConverter.parseBase64Binary(encriptado));
+            return new String(dec);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.err);
+        }
+        return null;
     }
 }
