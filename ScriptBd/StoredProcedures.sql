@@ -49,6 +49,9 @@ VentaSP:BEGIN
 		
 		SET idVenta = LAST_INSERT_ID();
 		
+		UPDATE Caja SET Monto = Monto + totalFactura
+		WHERE IdCaja = idCaja;
+		
 		-- CREAR REGISTROS DE DETALLES DE VENTA Y DESCONTAR STOCKS
 		WHILE i < n DO
 			SET idStock = JSON_UNQUOTE(JSON_EXTRACT(detalleVenta, CONCAT('$[',i,'].idStock')));
