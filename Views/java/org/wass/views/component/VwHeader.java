@@ -56,6 +56,11 @@ public class VwHeader extends JPanel {
     public void addVwActionListener(VwActionListener val) {
         actionListeners.add(val);
     }
+
+    public void hideButtons() {
+        jButton1.setVisible(false);
+        jButton2.setVisible(false);
+    }
     
     /**
      * Dispara todo los oyentes diponibles para ejecutar una acción

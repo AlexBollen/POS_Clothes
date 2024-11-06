@@ -19,10 +19,7 @@ import org.wass.models.product.StockDAO;
 import org.wass.models.purchase.ProveedorDAO;
 import org.wass.models.sale.*;
 
-import org.wass.views.component.Control;
-import org.wass.views.component.Dashboard;
-import org.wass.views.component.ViewCaja;
-import org.wass.views.component.ViewUsuario;
+import org.wass.views.component.*;
 import org.wass.views.component.menu.MenuConfiguraciones;
 import org.wass.views.sale.ViewClientes2;
 import org.wass.views.purchase.ViewProveedores;
@@ -101,7 +98,8 @@ public class MainFrame extends AbstractFrame {
 
                         }
                         case 2 -> {
-                            //Historial
+                            //Historial de ventas
+                            changeView(new ViewVentas());
                         }
                         default ->
                             throw new AssertionError();

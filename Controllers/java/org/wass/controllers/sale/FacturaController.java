@@ -4,10 +4,15 @@
  */
 package org.wass.controllers.sale;
 
+import org.wass.models.FacturaListModel;
+import org.wass.models.TableDataModel;
 import org.wass.models.sale.FacturaDao;
 import org.wass.models.sale.FacturaModel;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.beans.ExceptionListener;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,8 +21,13 @@ import java.util.Objects;
  */
 public class FacturaController {
     private FacturaDao facturaDao;
+    private ExceptionListener exceptionListener;
 
     public FacturaController(FacturaDao facturaDao) { this.facturaDao = facturaDao; }
+
+    public void setExceptionListener(ExceptionListener exceptionListener) {
+        this.exceptionListener = exceptionListener;
+    }
 
     /**
      * Método para registrar una nueva venta
@@ -62,5 +72,30 @@ public class FacturaController {
             JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
         }
         return estado;
+    }
+
+    // Método para obtener todas las ventas para listar
+    public List<FacturaListModel> getSales() { return facturaDao.getSales(exceptionListener); }
+
+    public DefaultTableModel getSalesTable() {
+        List<FacturaListModel> models = exceptionListener == null
+                                        ? facturaDao.getSales()
+                                        : facturaDao.getSales(exceptionListener);
+        TableDataModel<FacturaListModel> dataModel = new TableDataModel<>(new String[] {
+                "ID Venta", "No. Factura", "Total", "Cliente", "Fecha", "Serie factura"
+        });
+        for (final FacturaListModel m : models) {
+            dataModel.addRow(m, (FacturaListModel model) -> {
+                return new Object[] {
+                        model.getId(),
+                        model.getNoFactura(),
+                        model.getTotalFactura(),
+                        model.getNombreCliente(),
+                        model.getFechaFactura(),
+                        model.getIdSerie()
+                };
+            });
+        }
+        return dataModel;
     }
 }
