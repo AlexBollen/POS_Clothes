@@ -131,6 +131,11 @@ public class ViewUsuario extends AbstractView implements Control {
         showViewComponent(VC_LISTAR);
     }
     
+    public ViewUsuario ocultarTodo() {
+        header.hideButtons();
+        jPanel4.setVisible(false);
+        return this;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
