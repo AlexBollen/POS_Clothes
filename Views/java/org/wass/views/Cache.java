@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import org.wass.models.utilities.CipherUtilities;
+import org.wass.models.utilities.Cipher;
 
 /**
  * @author wil
@@ -63,7 +63,7 @@ public final class Cache {
                     throw new IllegalArgumentException("El argumento tiene que ser de tipo String.");
                 }       
                 byte[] iv = new byte[Sistema.LLAVE.length()];
-                datos.put(name, CipherUtilities.encriptar(Sistema.LLAVE, iv, (String) dato));
+                datos.put(name, Cipher.encriptar(Sistema.LLAVE, iv, (String) dato));
             } else {
                 datos.put(name, dato);
             }
@@ -77,7 +77,7 @@ public final class Cache {
                 byte[] iv = new byte[Sistema.LLAVE.length()];
                 String crudo = datos.getString(name);
                 
-                return CipherUtilities.decriptar(Sistema.LLAVE, iv, crudo);
+                return Cipher.decriptar(Sistema.LLAVE, iv, crudo);
             } else {
                 return datos.optString(name, defVal);
             }
