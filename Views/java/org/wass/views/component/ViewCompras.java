@@ -123,7 +123,7 @@ public class ViewCompras extends JPanel implements Control {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tablaCompras = new javax.swing.JTable();
-        comboBoxFiltroEstados = new JComboBox<>(new String[]{"Todos", "Pendiente", "Completada", "Revisada","Cancelada"});
+        comboBoxFiltroEstados = new JComboBox<>(new String[]{"Todos", "Pendiente", "Completada", "En proceso","Cancelada"});
         comboBoxFiltroEstados.addActionListener(e -> filtrarPorEstado((String) comboBoxFiltroEstados.getSelectedItem()));
         jLabel1 = new javax.swing.JLabel();
         agregar = new javax.swing.JPanel();
