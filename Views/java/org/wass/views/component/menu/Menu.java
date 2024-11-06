@@ -58,7 +58,7 @@ public class Menu  extends JComponent{
         switch (tipo) {
             case Administrador -> {
                 menuItems = new String [][]{
-                    {"Dashboard"},
+                    {"Inicio"},
                     {"Ventas", "Nueva Venta", "Historial"},
                     {"Inventario"},
                     {"Compras"},
@@ -69,7 +69,7 @@ public class Menu  extends JComponent{
             }
             case Vendedor -> {
                 menuItems = new String [][]{
-                    {"Dashboard"},
+                    {"Inicio"},
                     {"Ventas", "Nueva Venta", "Historial"}
                 };
             }
