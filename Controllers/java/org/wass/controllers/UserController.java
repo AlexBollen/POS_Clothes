@@ -5,19 +5,19 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import org.wass.models.ListDataModel;
 import org.wass.models.TableDataModel;
-import org.wass.models.person.UsuarioDao;
-import org.wass.models.person.UsuarioModel;
+import org.wass.models.dao.UsuarioDAO;
+import org.wass.models.UsuarioModel;
 
 /**
  * @author wil
  */
 public class UserController {
     
-    private final UsuarioDao dao;
+    private final UsuarioDAO dao;
     private ExceptionListener exceptionListener;
     
     public UserController() {
-        this.dao = new UsuarioDao();
+        this.dao = new UsuarioDAO();
     }
 
     public void setExceptionListener(ExceptionListener exceptionListener) {

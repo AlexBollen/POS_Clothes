@@ -18,7 +18,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
-import org.wass.models.person.RolModel;
+import org.wass.models.RolModel;
 import org.wass.views.component.renderer.BorderRenderer;
 
 /**

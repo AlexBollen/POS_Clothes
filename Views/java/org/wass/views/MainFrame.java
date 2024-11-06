@@ -7,22 +7,22 @@ import java.awt.Point;
 import javax.swing.ImageIcon;
 import javax.swing.JViewport;
 
+import org.wass.models.dao.CajaDAO;
+import org.wass.models.CajaModel;
+import org.wass.models.UsuarioModel;
+
 import org.wass.controllers.LoginController;
-import org.wass.controllers.product.StockController;
-import org.wass.controllers.sale.ClienteController;
-import org.wass.controllers.purchase.ProveedorController;
-import org.wass.controllers.sale.FacturaController;
-import org.wass.controllers.sale.SerieFacturaController;
 
-import org.wass.models.person.UsuarioModel;
-import org.wass.models.product.StockDAO;
-import org.wass.models.purchase.ProveedorDAO;
-import org.wass.models.sale.*;
-
-import org.wass.views.component.*;
+import org.wass.views.component.ViewPOS;
+import org.wass.views.component.ViewCompras;
+import org.wass.views.component.Control;
+import org.wass.views.component.ViewDashboard;
+import org.wass.views.component.ViewCaja;
+import org.wass.views.component.ViewUsuario;
+import org.wass.views.component.ViewVentas;
 import org.wass.views.component.menu.MenuConfiguraciones;
-import org.wass.views.sale.ViewClientes2;
-import org.wass.views.purchase.ViewProveedores;
+import org.wass.views.component.ViewClientes;
+import org.wass.views.component.ViewProveedores;
 
 /**
  *
@@ -32,7 +32,7 @@ import org.wass.views.purchase.ViewProveedores;
 public class MainFrame extends AbstractFrame {
 
     private UsuarioModel logedUser;
-    private Dashboard dashboard;
+    private ViewDashboard dashboard;
 
     private FloatingWindow configuraciones;
     
@@ -44,31 +44,8 @@ public class MainFrame extends AbstractFrame {
 
     @SuppressWarnings("deprecation")
     private void componentesAdd() {
-        dashboard = new Dashboard();
+        dashboard = new ViewDashboard();
         configuraciones = new FloatingWindow(this, false);
-                
-        //Instancia para FacturaDAO y FacturaController
-        FacturaDao facturaDao = new FacturaDao();
-        FacturaController facturaController = new FacturaController(facturaDao);
-
-        //Instancia para SerieFacturaDAO y SerieFacturaController
-        SerieFacturaDao serieFacturaDao = new SerieFacturaDao();
-        SerieFacturaController serieFacturaController = new SerieFacturaController(serieFacturaDao);
-        
-        //Instancia para StockDAO y StockController
-        StockDAO stockDao = new StockDAO();
-        StockController stockController = new StockController();
-
-        //Instancia para CajaDAO y CajaController
-        CajaDAO cajaDAO = new CajaDAO();
-
-        //Instancia para ClienteDAO y ClienteController
-        ClienteDAO clienteDAO = new ClienteDAO();
-        ClienteController clienteController = new ClienteController(clienteDAO);
-        
-        //Instancia para ClienteDAO y ClienteController
-        ProveedorDAO proveedorDAO = new ProveedorDAO();
-        ProveedorController proveedorController = new ProveedorController(proveedorDAO);
 
         jButtonSettings.setFocusPainted(false);
         changeView(dashboard);
@@ -87,11 +64,13 @@ public class MainFrame extends AbstractFrame {
                 case 1 -> {
                     switch (subIndex) {
                         case 1 -> {
+                            //Instancia para CajaDAO y CajaController
+                            final CajaDAO cajaDAO = new CajaDAO();
                             //Validación para verificar que el usuario logeado tenga una caja activa
                             CajaModel cajaUsuario = cajaDAO.obtenerCajaUsuario(logedUser.getIdUsuario());
                             if (cajaUsuario != null) {
                                 //Nueva venta
-                                changeView(new POS(facturaController, serieFacturaController, stockController, clienteController, cajaUsuario));
+                                changeView(new ViewPOS(cajaUsuario));
                             } else {
                                 JOptionPane.showMessageDialog(this, "El usuario no tiene una caja activa");
                             }
@@ -109,18 +88,18 @@ public class MainFrame extends AbstractFrame {
                     //Inventario
                 }
                 case 3 -> {
-                    changeView(new VistaCompras());
+                    changeView(new ViewCompras());
                     //Compras
                 }
                 case 4 -> {
                     switch (subIndex) {
                         case 1 -> {
                             //Clientes
-                            changeView(new ViewClientes2(clienteController));
+                            changeView(new ViewClientes());
                         }
                         case 2 -> {
                             //Proveedores
-                             changeView(new ViewProveedores(proveedorController));
+                             changeView(new ViewProveedores());
                         }
                         default ->
                             throw new AssertionError();

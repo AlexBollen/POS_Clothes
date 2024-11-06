@@ -9,11 +9,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.wass.controllers.UserController;
-import org.wass.controllers.sale.CajaController;
+import org.wass.controllers.CajaController;
+
 import org.wass.models.ListDataModel;
 import org.wass.models.TableDataModel;
-import org.wass.models.person.UsuarioModel;
-import org.wass.models.sale.CajaModel;
+import org.wass.models.UsuarioModel;
+import org.wass.models.CajaModel;
+
 import org.wass.views.component.renderer.MapComboboxModel;
 import org.wass.views.listeners.SearchListener;
 
