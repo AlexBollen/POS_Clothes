@@ -42,7 +42,7 @@ public class ViewDashboard extends JPanel implements Control {
         jTextArea1.setColumns(20);
         jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
         jTextArea1.setRows(5);
-        jTextArea1.setText("* Gestiona tu negocio de manera profecional\n* Controla tus trasacciones de la mejor forma\n* Se más ágil\n* Automatiza tu negocio");
+        jTextArea1.setText("* Gestiona tu negocio de manera profesional\n* Controla tus transacciones de la mejor forma\n* Se más ágil\n* Automatiza tu negocio");
         jTextArea1.setOpaque(false);
 
         jLabel4.setFont(new java.awt.Font("Cantarell", 1, 24)); // NOI18N
