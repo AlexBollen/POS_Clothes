@@ -44,7 +44,7 @@ public class ViewVentas extends AbstractView implements Control {
 
         header = new VwHeader();
         header.hideButtons();
-        header.setTitle("Gestión - Inventario");
+        header.setTitle("Gestión - Ventas");
         jTableList.getTableHeader().setReorderingAllowed(false);
         jTableList.addMouseListener(new MouseAdapter() {
             @Override
@@ -114,7 +114,7 @@ public class ViewVentas extends AbstractView implements Control {
     }// </editor-fold>//GEN-END:initComponents
 
     @Override
-    public String getComponenteTitle() { return "Gestión - Inventario"; }
+    public String getComponenteTitle() { return "Gestión - Ventas"; }
 
     private JPanel viewPanel;
 
