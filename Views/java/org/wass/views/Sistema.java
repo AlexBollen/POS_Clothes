@@ -41,6 +41,7 @@ public final class Sistema {
     
     public static void check() {
         if (RUTA_CACHE.exists()) {
+            CACHE.cargarCache();
             return;
         }
         

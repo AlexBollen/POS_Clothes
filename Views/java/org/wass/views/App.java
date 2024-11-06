@@ -43,7 +43,7 @@ public final class App {
         // Cargar los datos del usuario desde cache.
         Sistema.check();
         Cache.Conf dbconf = Sistema.getCache()
-                                   .getConfiguracion(Cache.CACHE_BASE_DATOS);        
+                                   .getConfiguracion(Cache.CACHE_BASE_DATOS);     
         DBConfig config = nDataBaseConfig();
         config.set(
                 DataConfig.MySQLDataBase,

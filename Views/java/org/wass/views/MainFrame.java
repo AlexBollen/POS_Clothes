@@ -132,9 +132,6 @@ public class MainFrame extends AbstractFrame {
                 cache.guardarCache();
             }            
         });
-        header2.setClonseListener((target) -> {
-            cache.guardarCache();
-        });
     }
 
     private void changeView(Component component) {
@@ -276,7 +273,7 @@ public class MainFrame extends AbstractFrame {
         header2.setClonseListener((target) -> {
             setVisible(false);
             dispose();
-
+            cache.guardarCache();
             new FormLogin(new LoginController()).setVisible(true);
         });
         jPanelHeaderView.add(header2, java.awt.BorderLayout.CENTER);
