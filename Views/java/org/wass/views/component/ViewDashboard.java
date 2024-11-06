@@ -55,7 +55,7 @@ public class ViewDashboard extends JPanel implements Control {
         jTextArea2.setColumns(20);
         jTextArea2.setForeground(new java.awt.Color(0, 0, 0));
         jTextArea2.setRows(5);
-        jTextArea2.setText("* Windows\n* Linux\n* FreeBSD\n* MaxOS");
+        jTextArea2.setText("* Windows\n* Linux\n* FreeBSD\n* MacOS");
         jTextArea2.setOpaque(false);
 
         jLabel6.setFont(new java.awt.Font("Cantarell", 1, 24)); // NOI18N
